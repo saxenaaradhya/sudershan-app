@@ -1,0 +1,103 @@
+import { create } from 'zustand'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+} from 'firebase/auth'
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore'
+import { auth, db } from '../firebase.js'
+
+function phoneToEmail(phone) {
+  return `${phone}@tokenapp.com`
+}
+
+export const useAuthStore = create((set, get) => ({
+  user: null,
+  isAuthenticated: false,
+  loading: true,
+
+  init: () => {
+    onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const docRef = doc(db, 'users', firebaseUser.uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          set({ user: { id: firebaseUser.uid, ...docSnap.data() }, isAuthenticated: true, loading: false })
+        }
+      } else {
+        set({ user: null, isAuthenticated: false, loading: false })
+      }
+    })
+  },
+
+  signUp: async (fullName, phone, password) => {
+    try {
+      const email = phoneToEmail(phone)
+      const cred = await createUserWithEmailAndPassword(auth, email, password)
+      const newUser = {
+        fullName,
+        phone,
+        avatar: fullName.charAt(0).toUpperCase(),
+        joinedAt: new Date().toISOString(),
+        balance: 0,
+        unlockedContent: [],
+      }
+      await setDoc(doc(db, 'users', cred.user.uid), newUser)
+      set({ user: { id: cred.user.uid, ...newUser }, isAuthenticated: true })
+      return { success: true }
+    } catch (err) {
+      if (err.code === 'auth/email-already-in-use') {
+        return { success: false, error: 'An account with this phone number already exists.' }
+      }
+      return { success: false, error: err.message }
+    }
+  },
+
+  signIn: async (phone, password) => {
+    try {
+      const email = phoneToEmail(phone)
+      const cred = await signInWithEmailAndPassword(auth, email, password)
+      const docSnap = await getDoc(doc(db, 'users', cred.user.uid))
+      if (docSnap.exists()) {
+        set({ user: { id: cred.user.uid, ...docSnap.data() }, isAuthenticated: true })
+      }
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: 'Invalid phone number or password.' }
+    }
+  },
+
+  loginByPhone: async (phone) => {
+    try {
+      const users = []
+      const { getDocs, collection, query, where } = await import('firebase/firestore')
+      const q = query(collection(db, 'users'), where('phone', '==', phone))
+      const snap = await getDocs(q)
+      if (snap.empty) return { success: false, error: 'No account found with this phone number.' }
+      const userData = snap.docs[0].data()
+      const uid = snap.docs[0].id
+      set({ user: { id: uid, ...userData }, isAuthenticated: true })
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  },
+
+  updateProfile: async (updates) => {
+    const uid = get().user?.id
+    if (!uid) return
+    await updateDoc(doc(db, 'users', uid), updates)
+    set({ user: { ...get().user, ...updates } })
+  },
+
+  signOut: async () => {
+    await firebaseSignOut(auth)
+    set({ user: null, isAuthenticated: false })
+  },
+}))
