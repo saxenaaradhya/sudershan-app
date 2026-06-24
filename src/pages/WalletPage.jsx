@@ -22,10 +22,63 @@ export default function WalletPage() {
     setConfirmModal({ amount, price })
   }
 
-  function confirmPurchase() {
-    addTokens(confirmModal.amount, `Purchased ${confirmModal.amount} token pack`)
-    setConfirmModal(null)
-    setToast({ message: `🪙 ${confirmModal.amount} tokens added to your wallet!`, type: 'success' })
+ async function confirmPurchase() {
+    const { amount, price } = confirmModal
+
+    try {
+      // 1. Create order on the backend
+      const orderRes = await fetch('/api/createOrder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: price }),
+      })
+      const order = await orderRes.json()
+
+      if (!order.id) {
+        setToast({ message: 'Failed to start payment. Try again.', type: 'error' })
+        return
+      }
+
+      // 2. Open Razorpay checkout
+      const options = {
+        key: 'rzp_test_T5abuJqGx94vMv', // your Test Key ID (safe to expose, NOT the secret)
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Sudershan',
+        description: `${amount} Tokens`,
+        order_id: order.id,
+        handler: async function (response) {
+          // 3. Verify payment on the backend
+          const verifyRes = await fetch('/api/verifyPayment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(response),
+          })
+          const result = await verifyRes.json()
+
+          if (result.success) {
+            addTokens(amount, `Purchased ${amount} token pack`)
+            setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
+          } else {
+            setToast({ message: 'Payment verification failed.', type: 'error' })
+          }
+          setConfirmModal(null)
+        },
+        modal: {
+          ondismiss: function () {
+            setConfirmModal(null)
+          },
+        },
+        theme: { color: '#7C3AED' },
+      }
+
+      const rzp = new window.Razorpay(options)
+      rzp.open()
+    } catch (err) {
+      console.error(err)
+      setToast({ message: 'Something went wrong. Try again.', type: 'error' })
+      setConfirmModal(null)
+    }
   }
 
   function formatDate(iso) {
