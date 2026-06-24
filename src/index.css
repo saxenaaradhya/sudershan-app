@@ -32,9 +32,7 @@
 }
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   html, body, #root {
     height: 100%;
@@ -50,22 +48,10 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #111118;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #3A3A48;
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #7C3AED;
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #111118; }
+  ::-webkit-scrollbar-thumb { background: #3A3A48; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #7C3AED; }
 }
 
 @layer utilities {
@@ -74,11 +60,7 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-
-  .gradient-border {
-    border: 1px solid rgba(124, 58, 237, 0.3);
-  }
-
+  .gradient-border { border: 1px solid rgba(124, 58, 237, 0.3); }
   .text-gradient {
     background: linear-gradient(135deg, #A78BFA, #7C3AED);
     -webkit-background-clip: text;

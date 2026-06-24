@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft } from 'lucide-react'
+import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Button from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
@@ -8,6 +8,7 @@ import Modal from '../components/ui/Modal.jsx'
 import Toast from '../components/ui/Toast.jsx'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
+import { useThemeStore } from '../store/themeStore.js'
 import { validateFullName, validatePassword, validateConfirmPassword } from '../utils/validators.js'
 
 export default function ProfilePage() {
@@ -30,6 +31,7 @@ export default function ProfilePage() {
 
   const [logoutModal, setLogoutModal] = useState(false)
   const [toast, setToast] = useState(null)
+  const { theme, toggleTheme } = useThemeStore()
 
   const totalSpent = transactions
     .filter(t => t.type === 'debit')
@@ -155,6 +157,11 @@ export default function ProfilePage() {
             icon={<Coins className="w-4 h-4 text-brand-accent" />}
             label="View Transaction History"
             onClick={() => navigate('/wallet')}
+          />
+          <ActionRow
+            icon={theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-400" /> : <Moon className="w-4 h-4 text-blue-400" />}
+            label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            onClick={toggleTheme}
           />
           <ActionRow
             icon={<LogOut className="w-4 h-4 text-red-400" />}

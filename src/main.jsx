@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { useAuthStore } from './store/authStore.js'
 import { useThemeStore } from './store/themeStore.js'
 
+useAuthStore.getState().init()
 useThemeStore.getState().initTheme()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
