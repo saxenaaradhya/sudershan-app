@@ -4,21 +4,26 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx}",
   ],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
         brand: {
-          primary: '#7C3AED',
-          secondary: '#5B21B6',
-          accent: '#A78BFA',
+          primary: 'var(--brand-primary)',
+          secondary: 'var(--brand-secondary)',
+          accent: 'var(--brand-accent)',
         },
         dark: {
-          900: '#0A0A0F',
-          800: '#ebebf5',
-          700: '#1A1A24',
-          600: '#24242F',
-          500: '#2E2E3A',
-          400: '#3A3A48',
+          900: 'var(--bg-900)',
+          800: 'var(--bg-800)',
+          700: 'var(--bg-700)',
+          600: 'var(--bg-600)',
+          500: 'var(--bg-500)',
+          400: 'var(--bg-400)',
+        },
+        text: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
         }
       },
       fontFamily: {

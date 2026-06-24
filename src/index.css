@@ -1,3 +1,35 @@
+:root,
+[data-theme="dark"] {
+  --bg-900: #1A1D1A;
+  --bg-800: #2D4238;
+  --bg-700: #243027;
+  --bg-600: #333A35;
+  --bg-500: #3D4A41;
+  --bg-400: #4A5750;
+  --text-primary: #EBE6CD;
+  --text-secondary: #F6F3E6;
+  --brand-primary: #F4C469;
+  --brand-secondary: #087F49;
+  --brand-accent: #D76A43;
+}
+
+[data-theme="light"] {
+  --bg-900: #FFF8E1;
+  --bg-800: #FFE0B2;
+  --bg-700: #F2D9A8;
+  --bg-600: #E0E0D8;
+  --bg-500: #D6D6C8;
+  --bg-400: #CFCFC0;
+  --text-primary: #1A1D1A;
+  --text-secondary: #333A35;
+  --brand-primary: #E6C7C2;
+  --brand-secondary: #D9A06F;
+  --brand-accent: #D76A43;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
