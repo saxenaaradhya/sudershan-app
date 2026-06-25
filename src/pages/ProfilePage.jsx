@@ -170,7 +170,7 @@ export default function ProfilePage() {
             onClick={() => setLogoutModal(true)}
             noBorder
           />
-        </div>
+        </div>gi
 
         {/* Stats */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl p-5">
