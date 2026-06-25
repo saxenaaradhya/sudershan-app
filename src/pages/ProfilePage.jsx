@@ -115,14 +115,14 @@ export default function ProfilePage() {
               ) : (
                 <>
                   <h2 className="text-lg font-bold text-white truncate">{user?.fullName}</h2>
-                  <p className="text-sm text-gray-400 truncate">{user?.email}</p>
+                  <p className="text-sm text-gray-400 truncate">{user?.phone}</p>
                 </>
               )}
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-5">
-            <InfoItem icon={<Mail className="w-4 h-4" />} label="Email" value={user?.phone || user?.email} />
+            <InfoItem icon={<Phone className="w-4 h-4" />} label="Phone" value={user?.phone} />
             <InfoItem icon={<Calendar className="w-4 h-4" />} label="Joined" value={joinedDate} />
             <InfoItem icon={<Coins className="w-4 h-4" />} label="Balance" value={`🪙 ${balance}`} />
             <InfoItem icon={<User className="w-4 h-4" />} label="Tokens Spent" value={`🪙 ${totalSpent}`} />
@@ -170,7 +170,7 @@ export default function ProfilePage() {
             onClick={() => setLogoutModal(true)}
             noBorder
           />
-        </div>gi
+        </div>
 
         {/* Stats */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl p-5">
