@@ -7,6 +7,7 @@ import Modal from '../components/ui/Modal.jsx'
 import Button from '../components/ui/Button.jsx'
 import Toast from '../components/ui/Toast.jsx'
 import { useWalletStore } from '../store/walletStore.js'
+import { useAuthStore } from '../store/authStore.js'
 import Footer from '../components/layout/Footer.jsx'
 
 export default function WalletPage() {
@@ -14,7 +15,7 @@ export default function WalletPage() {
   const balance = useWalletStore(s => s.balance)  
   const addTokens = useWalletStore(s => s.addTokens)
   const transactions = useWalletStore(s => s.transactions)
-
+   const user = useAuthStore(s => s.user)
   const [confirmModal, setConfirmModal] = useState(null) // { amount, price }
   const [toast, setToast] = useState(null)
 
@@ -41,12 +42,40 @@ export default function WalletPage() {
 
       // 2. Open Razorpay checkout
       const options = {
-        key: 'rzp_test_T5abuJqGx94vMv', // your Test Key ID (safe to expose, NOT the secret)
+        key: 'rzp_test_T5abuJqGx94vMv',
         amount: order.amount,
         currency: order.currency,
         name: 'Sudershan',
         description: `${amount} Tokens`,
         order_id: order.id,
+        prefill: {
+          name: user?.fullName || '',
+          contact: user?.phone || '',
+        },
+        method: {
+          upi: true,
+          qr: true,
+          card: true,
+          netbanking: true,
+          wallet: true,
+          paylater: true,
+        },
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: 'Pay via UPI',
+                instruments: [
+                  { method: 'upi' },
+                ],
+              },
+            },
+            sequence: ['block.upi', 'netbanking', 'card', 'wallet', 'paylater'],
+            preferences: {
+              show_default_blocks: true,
+            },
+          },
+        },
         handler: async function (response) {
           // 3. Verify payment on the backend
           const verifyRes = await fetch('/api/verifyPayment', {
