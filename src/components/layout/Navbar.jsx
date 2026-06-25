@@ -2,14 +2,13 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Wallet, User, Zap, Sun, Moon } from 'lucide-react'
 import { useWalletStore } from '../../store/walletStore.js'
 import { useAuthStore } from '../../store/authStore.js'
-import { useThemeStore } from '../../store/themeStore.js'
 
 export default function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
   const balance = useWalletStore(s => s.balance)
   const user = useAuthStore(s => s.user)
-  const { theme, toggleTheme } = useThemeStore()
+
   
 
   const isActive = (path) => location.pathname === path
@@ -33,15 +32,6 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
 
-        {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center w-9 h-9 rounded-xl bg-dark-700 border border-dark-500
-              text-gray-300 hover:text-white hover:bg-dark-600 transition-all duration-200"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-          
           {/* Wallet Button */}
           {/* Wallet Display (non-clickable) */}
           <div className="flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm
