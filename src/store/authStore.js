@@ -10,11 +10,51 @@ import {
   setDoc,
   getDoc,
   updateDoc,
+  getDocs,
+  collection,
+  query,
+  where,
 } from 'firebase/firestore'
 import { auth, db } from '../firebase.js'
 
 function phoneToEmail(phone) {
   return `${phone}@tokenapp.com`
+}
+function generateReferralCode(fullName, uid) {
+  const initials = fullName.trim().slice(0, 3).toUpperCase().replace(/[^A-Z]/g, 'X')
+  const suffix = uid.slice(-5).toUpperCase()
+  return `${initials}${suffix}`
+}
+
+async function findUserByReferralCode(code) {
+  const q = query(collection(db, 'users'), where('referralCode', '==', code))
+  const snap = await getDocs(q)
+  if (snap.empty) return null
+  return { id: snap.docs[0].id, ...snap.docs[0].data() }
+}
+
+async function creditReferralBonus(referrerId) {
+  try {
+    const ref = doc(db, 'users', referrerId)
+    const snap = await getDoc(ref)
+    if (!snap.exists()) return
+    const data = snap.data()
+    const newBalance = (data.balance || 0) + 50
+    const newTx = {
+      id: Date.now().toString(),
+      type: 'credit',
+      amount: 50,
+      label: 'Referral bonus',
+      date: new Date().toISOString(),
+      balanceAfter: newBalance,
+    }
+    await updateDoc(ref, {
+      balance: newBalance,
+      transactions: [newTx, ...(data.transactions || [])],
+    })
+  } catch (err) {
+    console.error('Failed to credit referral bonus:', err)
+  }
 }
 
 export const useAuthStore = create((set, get) => ({
@@ -36,10 +76,21 @@ export const useAuthStore = create((set, get) => ({
     })
   },
 
-  signUp: async (fullName, phone, password) => {
+  signUp: async (fullName, phone, password, referralCodeInput) => {
     try {
       const email = phoneToEmail(phone)
       const cred = await createUserWithEmailAndPassword(auth, email, password)
+      const referralCode = generateReferralCode(fullName, cred.user.uid)
+
+      let referredBy = null
+      if (referralCodeInput && referralCodeInput.trim()) {
+        const referrer = await findUserByReferralCode(referralCodeInput.trim().toUpperCase())
+        if (referrer) {
+          referredBy = referrer.id
+          await creditReferralBonus(referrer.id)
+        }
+      }
+
       const newUser = {
         fullName,
         phone,
@@ -47,6 +98,8 @@ export const useAuthStore = create((set, get) => ({
         joinedAt: new Date().toISOString(),
         balance: 0,
         unlockedContent: [],
+        referralCode,
+        referredBy,
       }
       await setDoc(doc(db, 'users', cred.user.uid), newUser)
       set({ user: { id: cred.user.uid, ...newUser }, isAuthenticated: true })

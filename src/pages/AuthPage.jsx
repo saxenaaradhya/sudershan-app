@@ -48,6 +48,7 @@ export default function AuthPage() {
     phone: '',
     password: '',
     confirmPassword: '',
+    referralCode: '',
   })  
 
   const [errors, setErrors] = useState({})
@@ -93,7 +94,7 @@ export default function AuthPage() {
     if (mode === 'signin') {
       result = await signIn(form.phone, form.password)
     } else {
-      result = await signUp(form.fullName, form.phone, form.password)
+      result = await signUp(form.fullName, form.phone, form.password, form.referralCode)  
     }
     setLoading(false)
 
@@ -239,15 +240,25 @@ export default function AuthPage() {
           {/* Form Fields */}
           <div className="flex flex-col gap-4">
             {mode === 'signup' && (
-              <Input
-                id="fullName"
-                label="Full Name"
-                value={form.fullName}
-                onChange={e => setField('fullName', e.target.value)}
-                placeholder="John Doe"
-                error={errors.fullName}
-                autoComplete="name"
-              />
+              <>
+                <Input
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  value={form.confirmPassword}
+                  onChange={e => setField('confirmPassword', e.target.value)}
+                  placeholder="••••••••"
+                  error={errors.confirmPassword}
+                  autoComplete="new-password"
+                />
+                <Input
+                  id="referralCode"
+                  label="Referral Code (optional)"
+                  value={form.referralCode}
+                  onChange={e => setField('referralCode', e.target.value)}
+                  placeholder="e.g. JOH12345"
+                />
+              </>
             )}
 
             <div className="flex flex-col gap-1.5">

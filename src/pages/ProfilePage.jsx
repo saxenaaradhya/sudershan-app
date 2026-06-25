@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone } from 'lucide-react'
+import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Copy, Check} from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Button from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
@@ -35,6 +35,13 @@ export default function ProfilePage() {
   const [logoutModal, setLogoutModal] = useState(false)
   const [toast, setToast] = useState(null)
   const { theme, toggleTheme } = useThemeStore()
+  const [copied, setCopied] = useState(false)
+
+  function copyReferralCode() {
+    navigator.clipboard.writeText(user?.referralCode || '')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   const totalSpent = transactions
     .filter(t => t.type === 'debit')
@@ -165,6 +172,27 @@ export default function ProfilePage() {
                 <Edit2 className="w-4 h-4 mr-1.5" /> Edit Profile
               </Button>
             )}
+          </div>
+        </div>
+        {/* Refer & Earn */}
+        <div className="bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/30 rounded-2xl p-5 mb-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Gift className="w-5 h-5 text-brand-accent" />
+            <h3 className="text-sm font-bold text-white">Refer & Earn</h3>
+          </div>
+          <p className="text-xs text-gray-400 mb-4">
+            Share your code — when a friend signs up using it, you get 🪙 50 tokens instantly.
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 px-4 py-3 bg-dark-900/50 border border-dark-600 rounded-xl text-white font-bold text-sm tracking-wider">
+              {user?.referralCode || '—'}
+            </div>
+            <button
+              onClick={copyReferralCode}
+              className="w-11 h-11 rounded-xl bg-dark-900/50 border border-dark-600 flex items-center justify-center text-gray-300 hover:text-white transition-all"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+            </button>
           </div>
         </div>
 
