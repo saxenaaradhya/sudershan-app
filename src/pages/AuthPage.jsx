@@ -179,7 +179,7 @@ export default function AuthPage() {
     setMode(newMode)
     setErrors({})
     setGlobalError('')
-    setForm({ fullName: '', phone: '', password: '', confirmPassword: '' })
+    setForm({ fullName: '', phone: '', password: '', confirmPassword: '', referralCode: '' })
     setSignupOtp('')
     setSignupOtpSent(false)
     setSignupOtpVerified(false)
@@ -240,25 +240,15 @@ export default function AuthPage() {
           {/* Form Fields */}
           <div className="flex flex-col gap-4">
             {mode === 'signup' && (
-              <>
-                <Input
-                  id="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  value={form.confirmPassword}
-                  onChange={e => setField('confirmPassword', e.target.value)}
-                  placeholder="••••••••"
-                  error={errors.confirmPassword}
-                  autoComplete="new-password"
-                />
-                <Input
-                  id="referralCode"
-                  label="Referral Code (optional)"
-                  value={form.referralCode}
-                  onChange={e => setField('referralCode', e.target.value)}
-                  placeholder="e.g. JOH12345"
-                />
-              </>
+              <Input
+                id="fullName"
+                label="Full Name"
+                value={form.fullName}
+                onChange={e => setField('fullName', e.target.value)}
+                placeholder="John Doe"
+                error={errors.fullName}
+                autoComplete="name"
+              />
             )}
 
             <div className="flex flex-col gap-1.5">
@@ -345,16 +335,25 @@ export default function AuthPage() {
             </div>
 
             {mode === 'signup' && (
-              <Input
-                id="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                value={form.confirmPassword}
-                onChange={e => setField('confirmPassword', e.target.value)}
-                placeholder="••••••••"
-                error={errors.confirmPassword}
-                autoComplete="new-password"
-              />
+              <>
+                <Input
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  value={form.confirmPassword}
+                  onChange={e => setField('confirmPassword', e.target.value)}
+                  placeholder="••••••••"
+                  error={errors.confirmPassword}
+                  autoComplete="new-password"
+                />
+                <Input
+                  id="referralCode"
+                  label="Referral Code (optional)"
+                  value={form.referralCode}
+                  onChange={e => setField('referralCode', e.target.value)}
+                  placeholder="e.g. JOH12345"
+                />
+              </>
             )}
 
             {mode === 'signin' && (
