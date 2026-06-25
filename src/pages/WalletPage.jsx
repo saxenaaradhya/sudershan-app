@@ -52,30 +52,6 @@ export default function WalletPage() {
           name: user?.fullName || '',
           contact: user?.phone || '',
         },
-        method: {
-          upi: true,
-          qr: true,
-          card: true,
-          netbanking: true,
-          wallet: true,
-          paylater: true,
-        },
-        config: {
-          display: {
-            blocks: {
-              upi: {
-                name: 'Pay via UPI',
-                instruments: [
-                  { method: 'upi' },
-                ],
-              },
-            },
-            sequence: ['block.upi', 'netbanking', 'card', 'wallet', 'paylater'],
-            preferences: {
-              show_default_blocks: true,
-            },
-          },
-        },
         handler: async function (response) {
           // 3. Verify payment on the backend
           const verifyRes = await fetch('/api/verifyPayment', {
