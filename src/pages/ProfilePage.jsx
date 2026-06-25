@@ -24,6 +24,9 @@ export default function ProfilePage() {
   const [editName, setEditName] = useState(user?.fullName || '')
   const [editNameErr, setEditNameErr] = useState('')
 
+  const [editPhone, setEditPhone] = useState(user?.phone || '')
+  const [editPhoneErr, setEditPhoneErr] = useState('')
+
   const [passwordModal, setPasswordModal] = useState(false)
   const [newPass, setNewPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
@@ -46,9 +49,20 @@ export default function ProfilePage() {
   }
 
   function saveProfile() {
-    const err = validateFullName(editName)
-    if (err) { setEditNameErr(err); return }
-    updateProfile({ fullName: editName, avatar: editName.charAt(0).toUpperCase() })
+    const nameErr = validateFullName(editName)
+    if (nameErr) { setEditNameErr(nameErr); return }
+
+    const trimmedPhone = editPhone.trim()
+    if (!trimmedPhone || trimmedPhone.length < 10) {
+      setEditPhoneErr('Enter a valid phone number.')
+      return
+    }
+
+    updateProfile({
+      fullName: editName,
+      phone: trimmedPhone,
+      avatar: editName.charAt(0).toUpperCase(),
+    })
     setEditMode(false)
     showToast('Profile updated successfully.')
   }
@@ -105,13 +119,22 @@ export default function ProfilePage() {
             </div>
             <div className="flex-1 min-w-0">
               {editMode ? (
-                <Input
-                  id="editName"
-                  value={editName}
-                  onChange={e => { setEditName(e.target.value); setEditNameErr('') }}
-                  error={editNameErr}
-                  placeholder="Your full name"
-                />
+                <div className="flex flex-col gap-2">
+                  <Input
+                    id="editName"
+                    value={editName}
+                    onChange={e => { setEditName(e.target.value); setEditNameErr('') }}
+                    error={editNameErr}
+                    placeholder="Your full name"
+                  />
+                  <Input
+                    id="editPhone"
+                    value={editPhone}
+                    onChange={e => { setEditPhone(e.target.value); setEditPhoneErr('') }}
+                    error={editPhoneErr}
+                    placeholder="Phone number"
+                  />
+                </div>
               ) : (
                 <>
                   <h2 className="text-lg font-bold text-white truncate">{user?.fullName}</h2>
@@ -134,8 +157,7 @@ export default function ProfilePage() {
                 <Button onClick={saveProfile} size="sm">
                   <Save className="w-4 h-4 mr-1.5" /> Save
                 </Button>
-                <Button onClick={() => { setEditMode(false); setEditName(user?.fullName || '') }} variant="secondary" size="sm">
-                  <X className="w-4 h-4 mr-1.5" /> Cancel
+<Button onClick={() => { setEditMode(false); setEditName(user?.fullName || ''); setEditPhone(user?.phone || ''); setEditPhoneErr('') }} variant="secondary" size="sm">                    <X className="w-4 h-4 mr-1.5" /> Cancel
                 </Button>
               </>
             ) : (
