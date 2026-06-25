@@ -75,6 +75,7 @@ export const CATEGORIES = [
     icon: BookOpen,
     image: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800',
     color: 'from-emerald-500 to-teal-400',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 42,
     items: [
       { id: 'b1', title: 'The Startup Playbook', description: 'Launch and scale your first business.', tokenCost: 4, free: false,image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
