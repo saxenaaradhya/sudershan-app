@@ -148,8 +148,6 @@ export default function ContentPage() {
             )}
           </button>
 
-          <button className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all">
-          </button>
         </div>
 
       </div>
