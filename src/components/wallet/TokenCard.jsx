@@ -32,7 +32,7 @@ const PACK_META = {
   },
 }
 
-const PRICES = { 10: 10, 50: 40, 100: 75 }
+const PRICES = { 20: 20, 80: 70, 150: 125 }
 
 export default function TokenCard({ amount, onBuy }) {
   const meta = PACK_META[amount]
