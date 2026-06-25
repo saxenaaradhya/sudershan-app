@@ -62,13 +62,21 @@ export const useAuthStore = create((set, get) => ({
   isAuthenticated: false,
   loading: true,
 
-  init: () => {
+ init: () => {
     onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         const docRef = doc(db, 'users', firebaseUser.uid)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-          set({ user: { id: firebaseUser.uid, ...docSnap.data() }, isAuthenticated: true, loading: false })
+          let userData = docSnap.data()
+
+          if (!userData.referralCode) {
+            const referralCode = generateReferralCode(userData.fullName || 'USR', firebaseUser.uid)
+            await updateDoc(docRef, { referralCode })
+            userData = { ...userData, referralCode }
+          }
+
+          set({ user: { id: firebaseUser.uid, ...userData }, isAuthenticated: true, loading: false })
         }
       } else {
         set({ user: null, isAuthenticated: false, loading: false })
