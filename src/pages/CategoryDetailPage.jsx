@@ -14,7 +14,6 @@ export default function CategoryDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const spendTokens = useWalletStore(s => s.spendTokens)
-  const balance = useWalletStore(s => s.balance)
 
   const [unlocked, setUnlocked] = useState({})
   const [activeIndex, setActiveIndex] = useState(0)
@@ -88,13 +87,6 @@ export default function CategoryDetailPage() {
           </div>
         </div>
 
-        {/* Balance Notice */}
-        <div className="flex items-center gap-2 bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 mb-4">
-          <Coins className="w-4 h-4 text-brand-accent" />
-          <p className="text-sm text-gray-400">
-            Your balance: <span className="text-white font-semibold">🪙 {balance}</span>
-          </p>
-        </div>
 
         {/* Category Video */}
         {category.video && (
@@ -273,7 +265,6 @@ export default function CategoryDetailPage() {
               <p className="text-sm text-gray-400 mt-1">
                 to unlock <span className="text-white">{insufficientModal.item.title}</span>
               </p>
-              <p className="text-sm text-gray-500 mt-1">Your balance: 🪙 {balance}</p>
             </div>
             <div className="flex gap-3">
               <Button onClick={() => { setInsufficientModal(null); navigate('/wallet') }} fullWidth>
