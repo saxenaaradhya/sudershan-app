@@ -87,8 +87,7 @@ export default function ContentPage() {
           <X className="w-4 h-4" />
         </button>
         <p className="text-xs text-white/60 uppercase tracking-widest font-medium">Now Playing</p>
-        <button className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all">
-        </button>
+
       </div>
 
       {/* Spacer to push content to bottom */}
