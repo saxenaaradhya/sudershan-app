@@ -23,8 +23,8 @@ function CountdownTimer({ onEnd }) {
       <div className="w-52 h-52 rounded-full flex items-center justify-center"
         style={{
           background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 60%, transparent 100%)',
-          boxShadow: '0 0 60px rgba(255,255,255,0.2), 0 0 120px rgba(255,255,255,0.1)',
-          border: '2px solid rgba(255,255,255,0.2)'
+          boxShadow: '0 0 60px rgba(255, 253, 119, 0.27), 0 0 120px hsla(55, 49%, 65%, 0.36)',
+          border: '2px solid rgba(201, 203, 142, 0.29)'
         }}
       >
         <div className="text-center">
