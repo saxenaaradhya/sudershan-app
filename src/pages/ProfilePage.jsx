@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon } from 'lucide-react'
+import { User, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, phone } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Button from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
