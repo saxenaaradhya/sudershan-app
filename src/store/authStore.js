@@ -39,11 +39,11 @@ async function creditReferralBonus(referrerId) {
     const snap = await getDoc(ref)
     if (!snap.exists()) return
     const data = snap.data()
-    const newBalance = (data.balance || 0) + 50
+    const newBalance = (data.balance || 0) + 20
     const newTx = {
       id: Date.now().toString(),
       type: 'credit',
-      amount: 50,
+      amount: 20,
       label: 'Referral bonus',
       date: new Date().toISOString(),
       balanceAfter: newBalance,
