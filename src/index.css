@@ -62,7 +62,7 @@
   }
   .gradient-border { border: 1px solid rgba(124, 58, 237, 0.3); }
   .text-gradient {
-    background: linear-gradient(135deg, #460bf7, #301d52);
+    background: linear-gradient(135deg, #A78BFA, #7C3AED);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
