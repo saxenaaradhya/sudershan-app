@@ -3,7 +3,7 @@ import { Coins, Star, Zap } from 'lucide-react'
 import Button from '../ui/Button.jsx'
 
 const PACK_META = {
-  10: {
+  20: {
     icon: Coins,
     label: 'Starter',
     description: 'Perfect for trying things out',
@@ -12,7 +12,7 @@ const PACK_META = {
     iconColor: 'text-blue-400',
     badge: null,
   },
-  50: {
+  80: {
     icon: Star,
     label: 'Popular',
     description: 'Best value for regular users',
@@ -21,7 +21,7 @@ const PACK_META = {
     iconColor: 'text-brand-accent',
     badge: 'Most Popular',
   },
-  100: {
+  150: {
     icon: Zap,
     label: 'Pro',
     description: 'Unlock everything without limits',
