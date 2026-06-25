@@ -89,12 +89,24 @@ export default function CategoryDetailPage() {
         </div>
 
         {/* Balance Notice */}
-        <div className="flex items-center gap-2 bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 mb-6">
+        <div className="flex items-center gap-2 bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 mb-4">
           <Coins className="w-4 h-4 text-brand-accent" />
           <p className="text-sm text-gray-400">
             Your balance: <span className="text-white font-semibold">🪙 {balance}</span>
           </p>
         </div>
+
+        {/* Category Video */}
+        {category.video && (
+          <div className="w-full rounded-2xl overflow-hidden mb-6 bg-dark-800 border border-dark-600">
+            <video
+              src={category.video}
+              controls
+              className="w-full h-48 object-cover"
+              poster={category.image}
+            />
+          </div>
+        )}
 
         {/* Stacked Cards */}
         {category.items.length === 0 ? (

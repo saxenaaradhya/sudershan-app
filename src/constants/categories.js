@@ -21,6 +21,8 @@ export const CATEGORIES = [
     icon: Cpu,
     color: 'from-blue-500 to-cyan-400',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    
     itemCount: 24,
     items: [
       { id: 't1', title: 'AI Masterclass 2025', description: 'Deep dive into modern AI tools and workflows.', tokenCost: 5, free: false, image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800' },
@@ -40,6 +42,7 @@ export const CATEGORIES = [
     icon: Music,
     color: 'from-pink-500 to-rose-400',
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 18,
     items: [
       { id: 'm1', title: 'Chill Lo-Fi Pack Vol.1', description: '20 royalty-free lo-fi beats for focus.', tokenCost: 3, free: false, image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800' },
@@ -56,6 +59,7 @@ export const CATEGORIES = [
     icon: Film,
     color: 'from-yellow-500 to-orange-400',
     image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 31,
     items: [
       { id: 'f1', title: 'Screenplay Writing Workshop', description: 'Structure your story like a pro.', tokenCost: 6, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -87,6 +91,7 @@ export const CATEGORIES = [
     icon: Gamepad2,
     color: 'from-purple-500 to-violet-400',
     image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 27,
     items: [
       { id: 'g1', title: 'Game Dev with Unity', description: 'Build your first 2D platformer game.', tokenCost: 7, free: false,image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -102,6 +107,7 @@ export const CATEGORIES = [
     icon: Camera,
     color: 'from-sky-500 to-blue-400',
     image: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 15,
     items: [
       { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 5, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -117,6 +123,7 @@ export const CATEGORIES = [
     icon: Palette,
     color: 'from-fuchsia-500 to-pink-400',
     image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 19,
     items: [
       { id: 'd1', title: 'Figma for Beginners', description: 'Design your first app UI from scratch.', tokenCost: 0, free: true, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -132,6 +139,7 @@ export const CATEGORIES = [
     icon: Globe,
     color: 'from-lime-500 to-green-400',
     image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 22,
     items: [
       { id: 'tr1', title: 'Budget Travel Europe', description: 'Explore 10 countries under ₹50,000.', tokenCost: 3, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -147,6 +155,7 @@ export const CATEGORIES = [
     icon: Heart,
     color: 'from-red-500 to-rose-400',
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 33,
     items: [
       { id: 'h1', title: '30-Day Yoga Plan', description: 'Daily yoga routines for all levels.', tokenCost: 5, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -162,6 +171,7 @@ export const CATEGORIES = [
     icon: ShoppingBag,
     color: 'from-amber-500 to-yellow-400',
     image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 11,
     items: [
       { id: 'sh1', title: 'Best Budget Laptops 2025', description: 'Top picks under ₹50,000.', tokenCost: 2, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -176,6 +186,7 @@ export const CATEGORIES = [
     icon: Dumbbell,
     color: 'from-orange-500 to-amber-400',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 28,
     items: [
       { id: 'fi1', title: '12-Week Strength Program', description: 'Progressive overload for muscle gain.', tokenCost: 8, free: false, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -191,6 +202,7 @@ export const CATEGORIES = [
     icon: Zap,
     color: 'from-violet-500 to-purple-400',
     image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 9,
     items: [
       { id: 'tn1', title: 'AI Tools Roundup 2025', description: 'The best AI tools taking over the internet.', tokenCost: 0, free: true, image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
