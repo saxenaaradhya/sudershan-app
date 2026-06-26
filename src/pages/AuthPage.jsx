@@ -23,15 +23,13 @@ export default function AuthPage() {
   const loginByPhone = useAuthStore(s => s.loginByPhone)
   const initWallet = useWalletStore(s => s.initWallet)
 
-  const [mode, setMode] = useState('signin') // 'signin' | 'signup'
+  const [mode, setMode] = useState('signin')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [forgotOpen, setForgotOpen] = useState(false)
   const [forgotPhone, setForgotPhone] = useState('')
-  const [forgotSent, setForgotSent] = useState(false)
   const [globalError, setGlobalError] = useState('')
 
-  // OTP states for Sign Up phone verification
   const [signupOtp, setSignupOtp] = useState('')
   const [signupOtpSent, setSignupOtpSent] = useState(false)
   const [signupOtpVerified, setSignupOtpVerified] = useState(false)
@@ -39,7 +37,6 @@ export default function AuthPage() {
   const confirmationResultRef = useRef(null)
   const recaptchaVerifierRef = useRef(null)
 
-  // OTP states for Forgot Password
   const [forgotOtp, setForgotOtp] = useState('')
   const [forgotOtpSent, setForgotOtpSent] = useState(false)
   const [forgotOtpVerified, setForgotOtpVerified] = useState(false)
@@ -53,7 +50,7 @@ export default function AuthPage() {
     password: '',
     confirmPassword: '',
     referralCode: '',
-  })  
+  })
 
   const [errors, setErrors] = useState({})
 
@@ -91,34 +88,22 @@ export default function AuthPage() {
       setErrors(errs)
       return
     }
-
     setLoading(true)
-
     let result
     if (mode === 'signin') {
       result = await signIn(form.phone, form.password)
     } else {
-      result = await signUp(form.fullName, form.phone, form.password, form.referralCode)  
+      result = await signUp(form.fullName, form.phone, form.password, form.referralCode)
     }
     setLoading(false)
-
     if (!result.success) {
       setGlobalError(result.error)
       return
     }
-
     const userId = useAuthStore.getState().user?.id
     if (userId) initWallet(userId)
     navigate('/home')
   }
-
-  // ── OTP helpers ─────────────────────────────────────────────
-  // 🔌 REAL SMS INTEGRATION POINT:
-  // Replace the two lines that do `alert(...)` below with an API
-  // call to your backend, e.g.:
-  //   await fetch('/api/send-otp', { method:'POST', body: JSON.stringify({ phone, otp }) })
-  // Your backend then calls MSG91 / Fast2SMS / Twilio to deliver it.
-  // Everything else in this file stays exactly the same.
 
   function handleSendSignupOtp() {
     const phoneErr = validatePhone(form.phone)
@@ -126,15 +111,12 @@ export default function AuthPage() {
       setErrors(prev => ({ ...prev, phone: phoneErr }))
       return
     }
-
     if (!recaptchaVerifierRef.current) {
       recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
       })
     }
-
     const fullPhone = `+91${form.phone.trim()}`
-
     signInWithPhoneNumber(auth, fullPhone, recaptchaVerifierRef.current)
       .then((confirmationResult) => {
         confirmationResultRef.current = confirmationResult
@@ -151,7 +133,6 @@ export default function AuthPage() {
   async function handleVerifySignupOtp() {
     const otpErr = validateOtp(signupOtp)
     if (otpErr) { setSignupOtpError(otpErr); return }
-
     try {
       await confirmationResultRef.current.confirm(signupOtp.trim())
       await firebaseSignOut(auth)
@@ -165,19 +146,12 @@ export default function AuthPage() {
   function handleForgot() {
     const phoneErr = validatePhone(forgotPhone)
     if (phoneErr) { setForgotOtpError(phoneErr); return }
-
-    const users = JSON.parse(localStorage.getItem('tokenapp_users') || '[]')
-    const exists = users.find(u => u.phone === forgotPhone.trim())
-    if (!exists) { setForgotOtpError('No account found with this phone number.'); return }
-
     if (!forgotRecaptchaVerifierRef.current) {
       forgotRecaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container-forgot', {
         size: 'invisible',
       })
     }
-
     const fullPhone = `+91${forgotPhone.trim()}`
-
     signInWithPhoneNumber(auth, fullPhone, forgotRecaptchaVerifierRef.current)
       .then((confirmationResult) => {
         forgotConfirmationResultRef.current = confirmationResult
@@ -194,15 +168,12 @@ export default function AuthPage() {
   async function handleVerifyForgotOtp() {
     const otpErr = validateOtp(forgotOtp)
     if (otpErr) { setForgotOtpError(otpErr); return }
-
     try {
       await forgotConfirmationResultRef.current.confirm(forgotOtp.trim())
       await firebaseSignOut(auth)
       setForgotOtpVerified(true)
       setForgotOtpError('')
-
-      // Auto login the user
-      const result = loginByPhone(forgotPhone)
+      const result = await loginByPhone(forgotPhone)
       if (result.success) {
         const userId = useAuthStore.getState().user?.id
         if (userId) initWallet(userId)
@@ -213,19 +184,6 @@ export default function AuthPage() {
       setForgotOtpError('Incorrect OTP. Please try again.')
     }
   }
-    }
-    setForgotOtpVerified(true)
-    setForgotOtpError('')
-    // Auto login the user
-    const result = loginByPhone(forgotPhone)
-    if (result.success) {
-      const userId = useAuthStore.getState().user?.id
-      if (userId) initWallet(userId)
-      setForgotOpen(false)
-      navigate('/home')
-    }
-  
-  
 
   function switchMode(newMode) {
     setMode(newMode)
@@ -243,14 +201,13 @@ export default function AuthPage() {
     <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4 py-8">
       <div id="recaptcha-container"></div>
       <div id="recaptcha-container-forgot"></div>
-      {/* Background glow */}
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-brand-secondary/8 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40 mb-3 sm:mb-4">
             <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
@@ -259,14 +216,8 @@ export default function AuthPage() {
           <p className="text-gray-400 mt-1.5 text-sm">Your all-in-one token platform</p>
         </div>
 
-        {/* Card */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl p-5 sm:p-8 shadow-2xl">
-        </div>
 
-        {/* Card */}
-        <div className="bg-dark-800 border border-dark-600 rounded-2xl p-8 shadow-2xl">
-
-          {/* Tab Toggle */}
           <div className="flex bg-dark-900 rounded-xl p-1 mb-6">
             <button
               onClick={() => switchMode('signin')}
@@ -284,14 +235,12 @@ export default function AuthPage() {
             </button>
           </div>
 
-          {/* Global Error */}
           {globalError && (
             <div className="mb-4 px-4 py-3 bg-red-900/50 border border-red-700 rounded-xl">
               <p className="text-sm text-red-300">{globalError}</p>
             </div>
           )}
 
-          {/* Form Fields */}
           <div className="flex flex-col gap-4">
             {mode === 'signup' && (
               <Input
@@ -447,9 +396,6 @@ export default function AuthPage() {
       </div>
 
       {/* Forgot Password Modal */}
-      
-      
-              {/* Forgot Password Modal */}
       <Modal
         isOpen={forgotOpen}
         onClose={() => {
@@ -523,3 +469,4 @@ export default function AuthPage() {
       </Modal>
     </div>
   )
+}
