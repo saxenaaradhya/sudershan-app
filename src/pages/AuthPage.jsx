@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Zap, Eye, EyeOff, ShieldCheck } from 'lucide-react'
+import { RecaptchaVerifier, signInWithPhoneNumber, signOut as firebaseSignOut } from 'firebase/auth'
+import { auth } from '../firebase.js'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import Input from '../components/ui/Input.jsx'
@@ -12,7 +14,7 @@ import {
   validateFullName,
   validateConfirmPassword,
   validateOtp,
-} from '../utils/validators.js' 
+} from '../utils/validators.js'
 
 export default function AuthPage() {
   const navigate = useNavigate()
@@ -34,14 +36,16 @@ export default function AuthPage() {
   const [signupOtpSent, setSignupOtpSent] = useState(false)
   const [signupOtpVerified, setSignupOtpVerified] = useState(false)
   const [signupOtpError, setSignupOtpError] = useState('')
-  const [generatedSignupOtp, setGeneratedSignupOtp] = useState('')
+  const confirmationResultRef = useRef(null)
+  const recaptchaVerifierRef = useRef(null)
 
   // OTP states for Forgot Password
   const [forgotOtp, setForgotOtp] = useState('')
   const [forgotOtpSent, setForgotOtpSent] = useState(false)
   const [forgotOtpVerified, setForgotOtpVerified] = useState(false)
   const [forgotOtpError, setForgotOtpError] = useState('')
-  const [generatedForgotOtp, setGeneratedForgotOtp] = useState('')
+  const forgotConfirmationResultRef = useRef(null)
+  const forgotRecaptchaVerifierRef = useRef(null)
 
   const [form, setForm] = useState({
     fullName: '',
@@ -122,45 +126,93 @@ export default function AuthPage() {
       setErrors(prev => ({ ...prev, phone: phoneErr }))
       return
     }
-    const otp = Math.floor(100000 + Math.random() * 900000).toString()
-    setGeneratedSignupOtp(otp)
-    setSignupOtpSent(true)
-    setSignupOtp('')
-    setSignupOtpError('')
-    alert(`[DEV MODE] Your OTP is: ${otp}`) // 🔌 replace this with real SMS call
+
+    if (!recaptchaVerifierRef.current) {
+      recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        size: 'invisible',
+      })
+    }
+
+    const fullPhone = `+91${form.phone.trim()}`
+
+    signInWithPhoneNumber(auth, fullPhone, recaptchaVerifierRef.current)
+      .then((confirmationResult) => {
+        confirmationResultRef.current = confirmationResult
+        setSignupOtpSent(true)
+        setSignupOtp('')
+        setSignupOtpError('')
+      })
+      .catch((err) => {
+        console.error(err)
+        setErrors(prev => ({ ...prev, phone: 'Failed to send OTP. Try again.' }))
+      })
   }
 
-  function handleVerifySignupOtp() {
+  async function handleVerifySignupOtp() {
     const otpErr = validateOtp(signupOtp)
     if (otpErr) { setSignupOtpError(otpErr); return }
-    if (signupOtp.trim() !== generatedSignupOtp) {
+
+    try {
+      await confirmationResultRef.current.confirm(signupOtp.trim())
+      await firebaseSignOut(auth)
+      setSignupOtpVerified(true)
+      setSignupOtpError('')
+    } catch (err) {
       setSignupOtpError('Incorrect OTP. Please try again.')
-      return
     }
-    setSignupOtpVerified(true)
-    setSignupOtpError('')
   }
 
   function handleForgot() {
     const phoneErr = validatePhone(forgotPhone)
     if (phoneErr) { setForgotOtpError(phoneErr); return }
+
     const users = JSON.parse(localStorage.getItem('tokenapp_users') || '[]')
     const exists = users.find(u => u.phone === forgotPhone.trim())
     if (!exists) { setForgotOtpError('No account found with this phone number.'); return }
-    const otp = Math.floor(100000 + Math.random() * 900000).toString()
-    setGeneratedForgotOtp(otp)
-    setForgotOtpSent(true)
-    setForgotOtp('')
-    setForgotOtpError('')
-    alert(`[DEV MODE] Your OTP is: ${otp}`) // 🔌 replace this with real SMS call
+
+    if (!forgotRecaptchaVerifierRef.current) {
+      forgotRecaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container-forgot', {
+        size: 'invisible',
+      })
+    }
+
+    const fullPhone = `+91${forgotPhone.trim()}`
+
+    signInWithPhoneNumber(auth, fullPhone, forgotRecaptchaVerifierRef.current)
+      .then((confirmationResult) => {
+        forgotConfirmationResultRef.current = confirmationResult
+        setForgotOtpSent(true)
+        setForgotOtp('')
+        setForgotOtpError('')
+      })
+      .catch((err) => {
+        console.error(err)
+        setForgotOtpError('Failed to send OTP. Try again.')
+      })
   }
 
-  function handleVerifyForgotOtp() {
+  async function handleVerifyForgotOtp() {
     const otpErr = validateOtp(forgotOtp)
     if (otpErr) { setForgotOtpError(otpErr); return }
-    if (forgotOtp.trim() !== generatedForgotOtp) {
+
+    try {
+      await forgotConfirmationResultRef.current.confirm(forgotOtp.trim())
+      await firebaseSignOut(auth)
+      setForgotOtpVerified(true)
+      setForgotOtpError('')
+
+      // Auto login the user
+      const result = loginByPhone(forgotPhone)
+      if (result.success) {
+        const userId = useAuthStore.getState().user?.id
+        if (userId) initWallet(userId)
+        setForgotOpen(false)
+        navigate('/home')
+      }
+    } catch (err) {
       setForgotOtpError('Incorrect OTP. Please try again.')
-      return
+    }
+  }
     }
     setForgotOtpVerified(true)
     setForgotOtpError('')
@@ -172,7 +224,7 @@ export default function AuthPage() {
       setForgotOpen(false)
       navigate('/home')
     }
-  }
+  
   
 
   function switchMode(newMode) {
@@ -184,11 +236,13 @@ export default function AuthPage() {
     setSignupOtpSent(false)
     setSignupOtpVerified(false)
     setSignupOtpError('')
-    setGeneratedSignupOtp('')
+    confirmationResultRef.current = null
   }
 
   return (
     <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4 py-8">
+      <div id="recaptcha-container"></div>
+      <div id="recaptcha-container-forgot"></div>
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl" />
@@ -405,7 +459,7 @@ export default function AuthPage() {
           setForgotOtpVerified(false)
           setForgotOtp('')
           setForgotOtpError('')
-          setGeneratedForgotOtp('')
+          forgotConfirmationResultRef.current = null
         }}
         title="Reset Password"
       >
@@ -469,4 +523,3 @@ export default function AuthPage() {
       </Modal>
     </div>
   )
-}

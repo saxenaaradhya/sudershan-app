@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Copy, Check} from 'lucide-react'
+import { User, Mail, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Copy, Check, ShieldCheck } from 'lucide-react'
+import { RecaptchaVerifier, signInWithPhoneNumber, signOut as firebaseSignOut } from 'firebase/auth'
+import { auth } from '../firebase.js'
+import { validateOtp } from '../utils/validators.js'
 import Navbar from '../components/layout/Navbar.jsx'
 import Button from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
@@ -31,6 +34,13 @@ export default function ProfilePage() {
   const [newPass, setNewPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
   const [passErr, setPassErr] = useState({})
+
+  const [pwOtp, setPwOtp] = useState('')
+  const [pwOtpSent, setPwOtpSent] = useState(false)
+  const [pwOtpVerified, setPwOtpVerified] = useState(false)
+  const [pwOtpError, setPwOtpError] = useState('')
+  const pwConfirmationResultRef = useRef(null)
+  const pwRecaptchaVerifierRef = useRef(null)
 
   const [logoutModal, setLogoutModal] = useState(false)
   const [toast, setToast] = useState(null)
@@ -73,17 +83,62 @@ export default function ProfilePage() {
     setEditMode(false)
     showToast('Profile updated successfully.')
   }
+  function sendPasswordChangeOtp() {
+    if (!pwRecaptchaVerifierRef.current) {
+      pwRecaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container-pw', {
+        size: 'invisible',
+      })
+    }
+    const fullPhone = `+91${user?.phone}`
+    signInWithPhoneNumber(auth, fullPhone, pwRecaptchaVerifierRef.current)
+      .then((confirmationResult) => {
+        pwConfirmationResultRef.current = confirmationResult
+        setPwOtpSent(true)
+        setPwOtp('')
+        setPwOtpError('')
+      })
+      .catch((err) => {
+        console.error(err)
+        setPwOtpError('Failed to send OTP. Try again.')
+      })
+  }
+
+  async function verifyPasswordChangeOtp() {
+    const otpErr = validateOtp(pwOtp)
+    if (otpErr) { setPwOtpError(otpErr); return }
+    try {
+      await pwConfirmationResultRef.current.confirm(pwOtp.trim())
+      await firebaseSignOut(auth)
+      setPwOtpVerified(true)
+      setPwOtpError('')
+    } catch (err) {
+      setPwOtpError('Incorrect OTP. Please try again.')
+    }
+  }
 
   function savePassword() {
+    if (!pwOtpVerified) {
+      setPwOtpError('Please verify OTP before changing your password.')
+      return
+    }
     const errs = {}
     const p = validatePassword(newPass)
     const c = validateConfirmPassword(newPass, confirmPass)
     if (p) errs.newPass = p
     if (c) errs.confirmPass = c
     if (Object.keys(errs).length > 0) { setPassErr(errs); return }
+
+    // 🔌 TODO: call your backend/Firebase Auth updatePassword here with `newPass`
+
+    resetPasswordModalState()
+    showToast('Password changed successfully.')
+  }
+
+  function resetPasswordModalState() {
     setPasswordModal(false)
     setNewPass(''); setConfirmPass(''); setPassErr({})
-    showToast('Password changed successfully.')
+    setPwOtp(''); setPwOtpSent(false); setPwOtpVerified(false); setPwOtpError('')
+    pwConfirmationResultRef.current = null
   }
 
   function handleLogout() {
@@ -99,6 +154,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-dark-900">
       <Navbar />
+      <div id="recaptcha-container-pw"></div>
 
       {toast && (
         <div className="fixed bottom-6 right-6 z-50">
@@ -234,27 +290,76 @@ export default function ProfilePage() {
       </main>
 
       {/* Change Password Modal */}
-      <Modal isOpen={passwordModal} onClose={() => { setPasswordModal(false); setPassErr({}); setNewPass(''); setConfirmPass('') }} title="Change Password">
+      <Modal isOpen={passwordModal} onClose={resetPasswordModalState} title="Change Password">
         <div className="flex flex-col gap-4">
-          <Input
-            id="newPass"
-            label="New Password"
-            type="password"
-            value={newPass}
-            onChange={e => { setNewPass(e.target.value); setPassErr(p => ({ ...p, newPass: null })) }}
-            error={passErr.newPass}
-            placeholder="••••••••"
-          />
-          <Input
-            id="confirmPass"
-            label="Confirm New Password"
-            type="password"
-            value={confirmPass}
-            onChange={e => { setConfirmPass(e.target.value); setPassErr(p => ({ ...p, confirmPass: null })) }}
-            error={passErr.confirmPass}
-            placeholder="••••••••"
-          />
-          <Button onClick={savePassword} fullWidth>Update Password</Button>
+          {!pwOtpVerified ? (
+            <>
+              <p className="text-sm text-gray-400">
+                For security, we need to verify your phone number <span className="text-brand-accent">{user?.phone}</span> before changing your password.
+              </p>
+
+              {!pwOtpSent ? (
+                <Button onClick={sendPasswordChangeOtp} fullWidth>Send OTP</Button>
+              ) : (
+                <>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      maxLength={6}
+                      value={pwOtp}
+                      onChange={e => { setPwOtp(e.target.value); setPwOtpError('') }}
+                      placeholder="6-digit OTP"
+                      className={`flex-1 px-4 py-3 rounded-xl text-sm bg-dark-700 border text-white placeholder-gray-500
+                        focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent
+                        transition-all duration-200
+                        ${pwOtpError ? 'border-red-500' : 'border-dark-400 hover:border-dark-300'}`}
+                    />
+                    <button
+                      type="button"
+                      onClick={verifyPasswordChangeOtp}
+                      className="px-3 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white
+                        hover:bg-brand-secondary transition-all duration-200"
+                    >
+                      Verify
+                    </button>
+                  </div>
+                  {pwOtpError && <p className="text-xs text-red-400">{pwOtpError}</p>}
+                  <button
+                    type="button"
+                    onClick={sendPasswordChangeOtp}
+                    className="text-xs text-brand-accent hover:text-white transition-colors text-center"
+                  >
+                    Resend OTP
+                  </button>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-1.5 text-emerald-400 text-sm font-semibold mb-1">
+                <ShieldCheck className="w-4 h-4" /> Phone verified
+              </div>
+              <Input
+                id="newPass"
+                label="New Password"
+                type="password"
+                value={newPass}
+                onChange={e => { setNewPass(e.target.value); setPassErr(p => ({ ...p, newPass: null })) }}
+                error={passErr.newPass}
+                placeholder="••••••••"
+              />
+              <Input
+                id="confirmPass"
+                label="Confirm New Password"
+                type="password"
+                value={confirmPass}
+                onChange={e => { setConfirmPass(e.target.value); setPassErr(p => ({ ...p, confirmPass: null })) }}
+                error={passErr.confirmPass}
+                placeholder="••••••••"
+              />
+              <Button onClick={savePassword} fullWidth>Update Password</Button>
+            </>
+          )}
         </div>
       </Modal>
 
