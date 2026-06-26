@@ -42,7 +42,7 @@ export default function WalletPage() {
 
       // 2. Open Razorpay checkout
       const options = {
-        key: 'rzp_test_T5abuJqGx94vMv',
+        key: 'rzp_live_T6AUTvIMcvsC2D',
         amount: order.amount,
         currency: order.currency,
         name: 'Sudershan',
@@ -132,7 +132,7 @@ export default function WalletPage() {
           {[
             { amount: 20, price: 20, label: 'STARTER', desc: 'Perfect for trying things out', badge: null },
             { amount: 80, price: 70, label: 'POPULAR', desc: 'Best value for regular users', badge: 'Most Popular' },
-            { amount: 150, price: 125, label: 'PRO', desc: 'Unlock everything without limits', badge: 'Best Deal' },
+            { amount: 150, price: 10, label: 'PRO', desc: 'Unlock everything without limits', badge: 'Best Deal' },
           ].map(({ amount, price, label, desc, badge }) => (
             <div key={amount} className="relative bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4">
               {badge && (
