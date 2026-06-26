@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Zap, Eye, EyeOff, ShieldCheck } from 'lucide-react'
-import { RecaptchaVerifier, signInWithPhoneNumber, signOut as firebaseSignOut } from 'firebase/auth'
-import { auth } from '../firebase.js'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import Input from '../components/ui/Input.jsx'
@@ -34,15 +32,11 @@ export default function AuthPage() {
   const [signupOtpSent, setSignupOtpSent] = useState(false)
   const [signupOtpVerified, setSignupOtpVerified] = useState(false)
   const [signupOtpError, setSignupOtpError] = useState('')
-  const confirmationResultRef = useRef(null)
-  const recaptchaVerifierRef = useRef(null)
 
   const [forgotOtp, setForgotOtp] = useState('')
   const [forgotOtpSent, setForgotOtpSent] = useState(false)
   const [forgotOtpVerified, setForgotOtpVerified] = useState(false)
   const [forgotOtpError, setForgotOtpError] = useState('')
-  const forgotConfirmationResultRef = useRef(null)
-  const forgotRecaptchaVerifierRef = useRef(null)
 
   const [form, setForm] = useState({
     fullName: '',
@@ -105,83 +99,99 @@ export default function AuthPage() {
     navigate('/home')
   }
 
-  function handleSendSignupOtp() {
+  async function handleSendSignupOtp() {
     const phoneErr = validatePhone(form.phone)
     if (phoneErr) {
       setErrors(prev => ({ ...prev, phone: phoneErr }))
       return
     }
-    if (!recaptchaVerifierRef.current) {
-      recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'invisible',
+    try {
+      const res = await fetch('/api/sendOtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: form.phone.trim() })
       })
-    }
-    const fullPhone = `+91${form.phone.trim()}`
-    signInWithPhoneNumber(auth, fullPhone, recaptchaVerifierRef.current)
-      .then((confirmationResult) => {
-        confirmationResultRef.current = confirmationResult
+      const data = await res.json()
+      if (data.success) {
         setSignupOtpSent(true)
         setSignupOtp('')
         setSignupOtpError('')
-      })
-      .catch((err) => {
-        console.error(err)
-        setErrors(prev => ({ ...prev, phone: 'Failed to send OTP. Try again.' }))
-      })
+      } else {
+        setErrors(prev => ({ ...prev, phone: data.error || 'Failed to send OTP. Try again.' }))
+      }
+    } catch (err) {
+      setErrors(prev => ({ ...prev, phone: 'Failed to send OTP. Try again.' }))
+    }
   }
 
   async function handleVerifySignupOtp() {
     const otpErr = validateOtp(signupOtp)
     if (otpErr) { setSignupOtpError(otpErr); return }
     try {
-      await confirmationResultRef.current.confirm(signupOtp.trim())
-      await firebaseSignOut(auth)
-      setSignupOtpVerified(true)
-      setSignupOtpError('')
+      const res = await fetch('/api/verifyOtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: form.phone.trim(), otp: signupOtp.trim() })
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSignupOtpVerified(true)
+        setSignupOtpError('')
+      } else {
+        setSignupOtpError(data.error || 'Incorrect OTP. Please try again.')
+      }
     } catch (err) {
-      setSignupOtpError('Incorrect OTP. Please try again.')
+      setSignupOtpError('Something went wrong. Try again.')
     }
   }
 
-  function handleForgot() {
+  async function handleForgot() {
     const phoneErr = validatePhone(forgotPhone)
     if (phoneErr) { setForgotOtpError(phoneErr); return }
-    if (!forgotRecaptchaVerifierRef.current) {
-      forgotRecaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container-forgot', {
-        size: 'invisible',
+    try {
+      const res = await fetch('/api/sendOtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: forgotPhone.trim() })
       })
-    }
-    const fullPhone = `+91${forgotPhone.trim()}`
-    signInWithPhoneNumber(auth, fullPhone, forgotRecaptchaVerifierRef.current)
-      .then((confirmationResult) => {
-        forgotConfirmationResultRef.current = confirmationResult
+      const data = await res.json()
+      if (data.success) {
         setForgotOtpSent(true)
         setForgotOtp('')
         setForgotOtpError('')
-      })
-      .catch((err) => {
-        console.error(err)
-        setForgotOtpError('Failed to send OTP. Try again.')
-      })
+      } else {
+        setForgotOtpError(data.error || 'Failed to send OTP. Try again.')
+      }
+    } catch (err) {
+      setForgotOtpError('Failed to send OTP. Try again.')
+    }
   }
 
   async function handleVerifyForgotOtp() {
     const otpErr = validateOtp(forgotOtp)
     if (otpErr) { setForgotOtpError(otpErr); return }
     try {
-      await forgotConfirmationResultRef.current.confirm(forgotOtp.trim())
-      await firebaseSignOut(auth)
-      setForgotOtpVerified(true)
-      setForgotOtpError('')
-      const result = await loginByPhone(forgotPhone)
-      if (result.success) {
-        const userId = useAuthStore.getState().user?.id
-        if (userId) initWallet(userId)
-        setForgotOpen(false)
-        navigate('/home')
+      const res = await fetch('/api/verifyOtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: forgotPhone.trim(), otp: forgotOtp.trim() })
+      })
+      const data = await res.json()
+      if (data.success) {
+        setForgotOtpVerified(true)
+        setForgotOtpError('')
+        const result = await loginByPhone(forgotPhone)
+        if (result.success) {
+          const userId = useAuthStore.getState().user?.id
+          if (userId) initWallet(userId)
+          setForgotOpen(false)
+          navigate('/home')
+        }
+      } else {
+        setForgotOtpError(data.error || 'Incorrect OTP. Please try again.')
       }
     } catch (err) {
-      setForgotOtpError('Incorrect OTP. Please try again.')
+      setForgotOtpError('Something went wrong. Try again.')
     }
   }
 
@@ -194,13 +204,10 @@ export default function AuthPage() {
     setSignupOtpSent(false)
     setSignupOtpVerified(false)
     setSignupOtpError('')
-    confirmationResultRef.current = null
-  }
+    }
 
   return (
     <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4 py-8">
-      <div id="recaptcha-container"></div>
-      <div id="recaptcha-container-forgot"></div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl" />
