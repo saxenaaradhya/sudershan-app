@@ -32,7 +32,7 @@ export default function HomePage() {
 
         {/* Banner */}
         <div className="w-full rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
-          <div className="flex flex-row items-center justify-between gap-4 p-6 sm:p-8">
+          <div className="flex flex-row items-stretch justify-between gap-4 pl-6 sm:pl-8">
 
             {/* Left — text content */}
             <div className="flex-1 min-w-0">
@@ -62,8 +62,8 @@ export default function HomePage() {
             </div>
 
             {/* Right — image placeholder */}
-            <div className="w-56 sm:w-150 flex-shrink-0 self-stretch rounded-xl overflow-hidden
-             bg-dark-700 border border-dark-500 flex items-center justify-center min-h-[180px]">
+            <div className="w-36 sm:w-56 flex-shrink-0 overflow-hidden
+                bg-dark-700 flex items-center justify-center min-h-[220px]">
               {/* Replace this div with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
               <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
             </div>
