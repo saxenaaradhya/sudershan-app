@@ -30,10 +30,45 @@ export default function HomePage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
-        {/* Image Placeholder Banner */}
-        <div className="w-full h-48 sm:h-64 rounded-2xl bg-dark-900 border border-dark-700 mb-6
-          flex items-center justify-center">
-          <span className="text-gray-600 text-sm">Image Placeholder</span>
+        {/* Banner */}
+        <div className="w-full rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
+          <div className="flex flex-row items-center justify-between gap-4 p-6 sm:p-8">
+
+            {/* Left — text content */}
+            <div className="flex-1 min-w-0">
+              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full
+                bg-white/10 text-gray-300 border border-white/10 mb-4">
+                Free Consultation
+              </span>
+
+              <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 leading-tight">
+                Seedhi Baat with<br />
+                <span className="text-brand-accent">Dr. Pradeep</span>
+              </h2>
+
+              <p className="text-gray-400 text-xs sm:text-sm mb-5 leading-relaxed">
+                Simple, personal and reassuring.<br />Move forward with clarity.
+              </p>
+
+              <button className="px-5 py-2.5 rounded-xl bg-white text-brand-primary font-bold
+                text-sm hover:bg-gray-100 transition-all shadow-lg">
+                Book a Session Now
+              </button>
+
+              <p className="mt-4 text-xs text-gray-500">
+                Live from · <span className="text-brand-accent font-medium">Call 9096221750</span>
+              </p>
+              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
+            </div>
+
+            {/* Right — image placeholder */}
+            <div className="w-32 h-40 sm:w-48 sm:h-56 flex-shrink-0 rounded-xl overflow-hidden
+              bg-dark-700 border border-dark-500 flex items-center justify-center">
+              {/* Replace this div with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
+              <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
+            </div>
+
+          </div>
         </div>
 
         {/* Hero Header */}
