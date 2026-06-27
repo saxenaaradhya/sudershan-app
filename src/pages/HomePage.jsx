@@ -31,7 +31,7 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
         {/* Banner */}
-        <div className="w-full rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
+        <div className="w-full rounded-2xl overflow-hidden mb-6">
           <div className="flex flex-row items-stretch justify-between gap-4 pl-6 sm:pl-8">
 
             {/* Left — text content */}
