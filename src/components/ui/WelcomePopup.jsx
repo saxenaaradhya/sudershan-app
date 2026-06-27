@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { X } from 'lucide-react'
+import { X, Zap } from 'lucide-react'
 
 export default function WelcomePopup({ isOpen, onClose }) {
   useEffect(() => {
@@ -21,24 +21,35 @@ export default function WelcomePopup({ isOpen, onClose }) {
         onClick={onClose}
       />
 
-      {/* Popup */}
-      <div className="relative z-10 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl">
+      {/* Popup card */}
+      <div className="relative z-10 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-dark-500">
 
         {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center
-            rounded-full bg-black/50 text-white hover:bg-black/80 transition-all"
+            rounded-full bg-black/60 text-white hover:bg-black/90 transition-all"
         >
           <X className="w-4 h-4" />
         </button>
 
-        {/* Placeholder image — replace src with your real image URL */}
-        <img
-          src="https://placehold.co/600x400/1a1a2e/a78bfa?text=Welcome+to+TokenApp&font=montserrat"
-          alt="Welcome"
-          className="w-full object-cover"
-        />
+        {/* 
+          ── PLACEHOLDER IMAGE ──────────────────────────────────────────
+          Replace this entire <div> block with your real image:
+          <img src="https://your-url.com/banner.jpg" alt="Welcome" className="w-full" />
+          ───────────────────────────────────────────────────────────────
+        */}
+        <div className="w-full h-64 bg-gradient-to-br from-violet-900 via-purple-900 to-dark-900
+          flex flex-col items-center justify-center gap-4">
+          <div className="w-16 h-16 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40
+            flex items-center justify-center">
+            <Zap className="w-8 h-8 text-white" />
+          </div>
+          <div className="text-center px-6">
+            <p className="text-white text-xl font-bold mb-1">Welcome to TokenApp!</p>
+            <p className="text-purple-300 text-sm">Your image banner goes here</p>
+          </div>
+        </div>
 
       </div>
     </div>
