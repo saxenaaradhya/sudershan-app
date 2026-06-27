@@ -18,14 +18,14 @@
 }
 
 [data-theme="light"] {
-  --bg-900: #F5F5F0;
+  --bg-900: #F0F0EB;
   --bg-800: #FFFFFF;
-  --bg-700: #EFEFEA;
-  --bg-600: #E0E0DA;
-  --bg-500: #CECEC8;
-  --bg-400: #BDBDB6;
-  --text-primary: #1A1D1A;
-  --text-secondary: #3A3D3A;
+  --bg-700: #E8E8E2;
+  --bg-600: #D8D8D0;
+  --bg-500: #5A5A5A;
+  --bg-400: #3A3A3A;
+  --text-primary: #111111;
+  --text-secondary: #222222;
   --brand-primary: #087F49;
   --brand-secondary: #065C35;
   --brand-accent: #C05A2E;
