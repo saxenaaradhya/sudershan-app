@@ -62,7 +62,7 @@ export default function HomePage() {
             </div>
 
             {/* Right — image placeholder */}
-            <div className="w-36 sm:w-56 flex-shrink-0 self-stretch rounded-xl overflow-hidden
+            <div className="w-47 sm:w-62 flex-shrink-0 self-stretch rounded-xl overflow-hidden
              bg-dark-700 border border-dark-500 flex items-center justify-center min-h-[180px]">
               {/* Replace this div with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
               <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
