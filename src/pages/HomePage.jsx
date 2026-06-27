@@ -46,7 +46,7 @@ export default function HomePage() {
                 <span className="text-brand-accent">Mr. Sandeep</span>
               </h2>
 
-              <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed hidden sm:block">
+              <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">
                 Simple, personal and reassuring.<br />Move forward with clarity.
               </p>
 
@@ -61,10 +61,10 @@ export default function HomePage() {
                  Book a Session Now
                 </a>
 
-              <p className="mt-3 text-xs text-gray-500 hidden sm:block">
+              <p className="mt-3 text-xs text-gray-500">
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
-              <p className="text-xs text-gray-600 mt-0.5 hidden sm:block">T&C apply, as available on the platform</p>
+              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
             </div>
 
             {/* Right — image placeholder */}
