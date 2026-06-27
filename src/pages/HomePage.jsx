@@ -1,14 +1,17 @@
 import React, { useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import ImageCarousel from '../components/home/ImageCarousel.jsx'
+import WelcomePopup from '../components/ui/WelcomePopup.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [query, setQuery] = useState('')
+  const [showPopup, setShowPopup] = useState(location.state?.showWelcome === true)
 
   const filtered = useMemo(() => {
     if (!query.trim()) return CATEGORIES
@@ -23,6 +26,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-dark-900">
       <Navbar />
+      <WelcomePopup isOpen={showPopup} onClose={() => setShowPopup(false)} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 

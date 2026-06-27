@@ -6,7 +6,6 @@ import { useWalletStore } from '../store/walletStore.js'
 import Input from '../components/ui/Input.jsx'
 import Button from '../components/ui/Button.jsx'
 import Modal from '../components/ui/Modal.jsx'
-import WelcomePopup from '../components/ui/WelcomePopup.jsx'
 import {
   validatePhone,
   validatePassword,
@@ -28,7 +27,6 @@ export default function AuthPage() {
   const [forgotPhone, setForgotPhone] = useState('')
   const [forgotError, setForgotError] = useState('')
   const [globalError, setGlobalError] = useState('')
-  const [showPopup, setShowPopup] = useState(false)
 
   const [form, setForm] = useState({
     fullName: '',
@@ -88,7 +86,7 @@ export default function AuthPage() {
     }
     const userId = useAuthStore.getState().user?.id
     if (userId) initWallet(userId)
-    setShowPopup(true)
+    navigate('/home', { state: { showWelcome: true } })
   }
 
   async function handleForgot() {
@@ -101,7 +99,7 @@ export default function AuthPage() {
       const userId = useAuthStore.getState().user?.id
       if (userId) initWallet(userId)
       setForgotOpen(false)
-      setShowPopup(true)
+      navigate('/home', { state: { showWelcome: true } })
     } else {
       setForgotError(result.error || 'Phone number not found.')
     }
@@ -282,7 +280,6 @@ export default function AuthPage() {
         </div>
       </Modal>
 
-      <WelcomePopup isOpen={showPopup} onClose={() => navigate('/home')} />
     </div>
   )
 }
