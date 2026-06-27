@@ -50,10 +50,15 @@ export default function HomePage() {
                 Simple, personal and reassuring.<br />Move forward with clarity.
               </p>
 
-              <button className="px-5 py-2.5 rounded-xl bg-white text-brand-primary font-bold
-                text-sm hover:bg-gray-100 transition-all shadow-lg">
-                Book a Session Now
-              </button>
+              <a
+                href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-5 py-2.5 rounded-xl bg-white text-purple-700 font-bold
+                  text-sm hover:bg-gray-100 transition-all shadow-lg"
+               >
+                 Book a Session Now
+                </a>
 
               <p className="mt-4 text-xs text-gray-500">
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
