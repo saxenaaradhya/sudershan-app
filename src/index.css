@@ -22,8 +22,8 @@
   --bg-800: #FFFFFF;
   --bg-700: #E8E8E2;
   --bg-600: #D8D8D0;
-  --bg-500: #444444;
-  --bg-400: #111111;
+  --bg-500: #111111;
+  --bg-400: #000000;
   --text-primary: #111111;
   --text-secondary: #222222;
   --brand-primary: #087F49;
@@ -38,6 +38,17 @@
     height: 100%;
     margin: 0;
     padding: 0;
+  }
+  [data-theme="light"] .text-white {
+    color: #111111 !important;
+  }
+  [data-theme="light"] .text-gray-400,
+  [data-theme="light"] .text-gray-500,
+  [data-theme="light"] .text-gray-600 {
+    color: #333333 !important;
+  }
+  [data-theme="light"] .text-gray-300 {
+    color: #222222 !important;
   }
 
   body {
