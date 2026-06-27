@@ -41,33 +41,34 @@ export default function HomePage() {
                 Free Consultation
               </span>
 
-              <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 leading-tight">
+              <h2 className="text-base sm:text-3xl font-bold text-white mb-3 leading-tight">
                 Seedhi Baat with<br />
                 <span className="text-brand-accent">Mr. Sandeep</span>
               </h2>
 
-              <p className="text-gray-400 text-xs sm:text-sm mb-5 leading-relaxed">
+              <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed hidden sm:block">
                 Simple, personal and reassuring.<br />Move forward with clarity.
               </p>
 
               <a
                 href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
                 target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-5 py-2.5 rounded-xl bg-white text-purple-700 font-bold
-                  text-sm hover:bg-gray-100 transition-all shadow-lg"
+                 rel="noopener noreferrer"
+                 className="inline-block px-3 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white text-purple-700 font-bold
+                  text-xs sm:text-sm hover:bg-gray-100 transition-all shadow-lg"
+
                >
                  Book a Session Now
                 </a>
 
-              <p className="mt-4 text-xs text-gray-500">
+              <p className="mt-3 text-xs text-gray-500 hidden sm:block">
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
-              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
+              <p className="text-xs text-gray-600 mt-0.5 hidden sm:block">T&C apply, as available on the platform</p>
             </div>
 
             {/* Right — image placeholder */}
-            <div className="w-48 sm:w-72 flex-shrink-0 overflow-hidden rounded-2xl m-3
+            <div className="w-36 sm:w-72 flex-shrink-0 overflow-hidden rounded-2xl m-3
                bg-dark-700 flex items-center justify-center min-h-[220px]">
               {/* Replace this div with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
               <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
