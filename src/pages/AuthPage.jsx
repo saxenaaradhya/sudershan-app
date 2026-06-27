@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Zap, Eye, EyeOff, ShieldCheck } from 'lucide-react'
+import { Zap, Eye, EyeOff } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import Input from '../components/ui/Input.jsx'
@@ -11,7 +11,6 @@ import {
   validatePassword,
   validateFullName,
   validateConfirmPassword,
-  validateOtp,
 } from '../utils/validators.js'
 
 export default function AuthPage() {
@@ -26,17 +25,8 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false)
   const [forgotOpen, setForgotOpen] = useState(false)
   const [forgotPhone, setForgotPhone] = useState('')
+  const [forgotError, setForgotError] = useState('')
   const [globalError, setGlobalError] = useState('')
-
-  const [signupOtp, setSignupOtp] = useState('')
-  const [signupOtpSent, setSignupOtpSent] = useState(false)
-  const [signupOtpVerified, setSignupOtpVerified] = useState(false)
-  const [signupOtpError, setSignupOtpError] = useState('')
-
-  const [forgotOtp, setForgotOtp] = useState('')
-  const [forgotOtpSent, setForgotOtpSent] = useState(false)
-  const [forgotOtpVerified, setForgotOtpVerified] = useState(false)
-  const [forgotOtpError, setForgotOtpError] = useState('')
 
   const [form, setForm] = useState({
     fullName: '',
@@ -99,99 +89,19 @@ export default function AuthPage() {
     navigate('/home')
   }
 
-  async function handleSendSignupOtp() {
-    const phoneErr = validatePhone(form.phone)
-    if (phoneErr) {
-      setErrors(prev => ({ ...prev, phone: phoneErr }))
-      return
-    }
-    try {
-      const res = await fetch('/api/sendOtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: form.phone.trim() })
-      })
-      const data = await res.json()
-      if (data.success) {
-        setSignupOtpSent(true)
-        setSignupOtp('')
-        setSignupOtpError('')
-      } else {
-        setErrors(prev => ({ ...prev, phone: data.error || 'Failed to send OTP. Try again.' }))
-      }
-    } catch (err) {
-      setErrors(prev => ({ ...prev, phone: 'Failed to send OTP. Try again.' }))
-    }
-  }
-
-  async function handleVerifySignupOtp() {
-    const otpErr = validateOtp(signupOtp)
-    if (otpErr) { setSignupOtpError(otpErr); return }
-    try {
-      const res = await fetch('/api/verifyOtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: form.phone.trim(), otp: signupOtp.trim() })
-      })
-      const data = await res.json()
-      if (data.success) {
-        setSignupOtpVerified(true)
-        setSignupOtpError('')
-      } else {
-        setSignupOtpError(data.error || 'Incorrect OTP. Please try again.')
-      }
-    } catch (err) {
-      setSignupOtpError('Something went wrong. Try again.')
-    }
-  }
-
   async function handleForgot() {
     const phoneErr = validatePhone(forgotPhone)
-    if (phoneErr) { setForgotOtpError(phoneErr); return }
-    try {
-      const res = await fetch('/api/sendOtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: forgotPhone.trim() })
-      })
-      const data = await res.json()
-      if (data.success) {
-        setForgotOtpSent(true)
-        setForgotOtp('')
-        setForgotOtpError('')
-      } else {
-        setForgotOtpError(data.error || 'Failed to send OTP. Try again.')
-      }
-    } catch (err) {
-      setForgotOtpError('Failed to send OTP. Try again.')
-    }
-  }
-
-  async function handleVerifyForgotOtp() {
-    const otpErr = validateOtp(forgotOtp)
-    if (otpErr) { setForgotOtpError(otpErr); return }
-    try {
-      const res = await fetch('/api/verifyOtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: forgotPhone.trim(), otp: forgotOtp.trim() })
-      })
-      const data = await res.json()
-      if (data.success) {
-        setForgotOtpVerified(true)
-        setForgotOtpError('')
-        const result = await loginByPhone(forgotPhone)
-        if (result.success) {
-          const userId = useAuthStore.getState().user?.id
-          if (userId) initWallet(userId)
-          setForgotOpen(false)
-          navigate('/home')
-        }
-      } else {
-        setForgotOtpError(data.error || 'Incorrect OTP. Please try again.')
-      }
-    } catch (err) {
-      setForgotOtpError('Something went wrong. Try again.')
+    if (phoneErr) { setForgotError(phoneErr); return }
+    setLoading(true)
+    const result = await loginByPhone(forgotPhone)
+    setLoading(false)
+    if (result.success) {
+      const userId = useAuthStore.getState().user?.id
+      if (userId) initWallet(userId)
+      setForgotOpen(false)
+      navigate('/home')
+    } else {
+      setForgotError(result.error || 'Phone number not found.')
     }
   }
 
@@ -200,11 +110,7 @@ export default function AuthPage() {
     setErrors({})
     setGlobalError('')
     setForm({ fullName: '', phone: '', password: '', confirmPassword: '', referralCode: '' })
-    setSignupOtp('')
-    setSignupOtpSent(false)
-    setSignupOtpVerified(false)
-    setSignupOtpError('')
-    }
+  }
 
   return (
     <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4 py-8">
@@ -261,68 +167,16 @@ export default function AuthPage() {
               />
             )}
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-300">Phone Number</label>
-              <div className="flex gap-2">
-                <input
-                  id="phone"
-                  type="tel"
-                  value={form.phone}
-                  onChange={e => { setField('phone', e.target.value); setSignupOtpSent(false); setSignupOtpVerified(false) }}
-                  placeholder="98xxxxxxxx"
-                  autoComplete="tel"
-                  disabled={signupOtpVerified}
-                  className={`flex-1 px-4 py-3 rounded-xl text-sm bg-dark-700 border text-white placeholder-gray-500
-                    focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent
-                    disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200
-                    ${errors.phone ? 'border-red-500' : 'border-dark-400 hover:border-dark-300'}`}
-                />
-                {mode === 'signup' && !signupOtpVerified && (
-                  <button
-                    type="button"
-                    onClick={handleSendSignupOtp}
-                    className="px-3 py-2 rounded-xl text-sm font-semibold bg-dark-600 border border-dark-400
-                      text-gray-300 hover:text-white hover:bg-dark-500 transition-all duration-200 whitespace-nowrap"
-                  >
-                    {signupOtpSent ? 'Resend' : 'Send OTP'}
-                  </button>
-                )}
-                {mode === 'signup' && signupOtpVerified && (
-                  <div className="flex items-center gap-1 px-3 text-emerald-400 text-sm font-semibold">
-                    <ShieldCheck className="w-4 h-4" /> Verified
-                  </div>
-                )}
-              </div>
-              {errors.phone && <p className="text-xs text-red-400">{errors.phone}</p>}
-            </div>
-
-            {mode === 'signup' && signupOtpSent && !signupOtpVerified && (
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-gray-300">Enter OTP</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    maxLength={6}
-                    value={signupOtp}
-                    onChange={e => { setSignupOtp(e.target.value); setSignupOtpError('') }}
-                    placeholder="6-digit OTP"
-                    className={`flex-1 px-4 py-3 rounded-xl text-sm bg-dark-700 border text-white placeholder-gray-500
-                      focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent
-                      transition-all duration-200
-                      ${signupOtpError ? 'border-red-500' : 'border-dark-400 hover:border-dark-300'}`}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleVerifySignupOtp}
-                    className="px-3 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white
-                      hover:bg-brand-secondary transition-all duration-200"
-                  >
-                    Verify
-                  </button>
-                </div>
-                {signupOtpError && <p className="text-xs text-red-400">{signupOtpError}</p>}
-              </div>
-            )}
+            <Input
+              id="phone"
+              label="Phone Number"
+              type="tel"
+              value={form.phone}
+              onChange={e => setField('phone', e.target.value)}
+              placeholder="98xxxxxxxx"
+              error={errors.phone}
+              autoComplete="tel"
+            />
 
             <div className="relative">
               <Input
@@ -378,16 +232,13 @@ export default function AuthPage() {
 
             <Button
               onClick={handleSubmit}
-              disabled={loading || (mode === 'signup' && !signupOtpVerified)}
+              disabled={loading}
               fullWidth
               size="lg"
               className="mt-2"
             >
               {loading ? 'Please wait…' : mode === 'signin' ? 'Sign In' : 'Create Account'}
             </Button>
-            {mode === 'signup' && !signupOtpVerified && (
-              <p className="text-center text-xs text-gray-500 -mt-2">Verify your phone number to continue</p>
-            )}
           </div>
 
           <p className="text-center text-sm text-gray-500 mt-5">
@@ -408,71 +259,25 @@ export default function AuthPage() {
         onClose={() => {
           setForgotOpen(false)
           setForgotPhone('')
-          setForgotOtpSent(false)
-          setForgotOtpVerified(false)
-          setForgotOtp('')
-          setForgotOtpError('')
-          forgotConfirmationResultRef.current = null
+          setForgotError('')
         }}
         title="Reset Password"
       >
-        {forgotOtpVerified ? (
-          <div className="text-center py-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-900/50 border border-emerald-700 flex items-center justify-center mx-auto mb-3">
-              <ShieldCheck className="w-6 h-6 text-emerald-400" />
-            </div>
-            <p className="text-white font-semibold mb-1">Verified! Logging you in…</p>
-          </div>
-        ) : !forgotOtpSent ? (
-          <div className="flex flex-col gap-4">
-            <p className="text-sm text-gray-400">Enter your registered phone number to receive an OTP.</p>
-            <Input
-              id="forgotPhone"
-              label="Phone Number"
-              type="tel"
-              value={forgotPhone}
-              onChange={e => { setForgotPhone(e.target.value); setForgotOtpError('') }}
-              placeholder="98xxxxxxxx"
-            />
-            {forgotOtpError && <p className="text-xs text-red-400 -mt-2">{forgotOtpError}</p>}
-            <Button onClick={handleForgot} fullWidth>Get OTP</Button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            <p className="text-sm text-gray-400">
-              Enter the 6-digit OTP sent to <span className="text-brand-accent">{forgotPhone}</span>
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                maxLength={6}
-                value={forgotOtp}
-                onChange={e => { setForgotOtp(e.target.value); setForgotOtpError('') }}
-                placeholder="6-digit OTP"
-                className={`flex-1 px-4 py-3 rounded-xl text-sm bg-dark-700 border text-white placeholder-gray-500
-                  focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent
-                  transition-all duration-200
-                  ${forgotOtpError ? 'border-red-500' : 'border-dark-400 hover:border-dark-300'}`}
-              />
-              <button
-                type="button"
-                onClick={handleVerifyForgotOtp}
-                className="px-3 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white
-                  hover:bg-brand-secondary transition-all duration-200"
-              >
-                Verify
-              </button>
-            </div>
-            {forgotOtpError && <p className="text-xs text-red-400">{forgotOtpError}</p>}
-            <button
-              type="button"
-              onClick={handleForgot}
-              className="text-xs text-brand-accent hover:text-white transition-colors text-center"
-            >
-              Resend OTP
-            </button>
-          </div>
-        )}
+        <div className="flex flex-col gap-4">
+          <p className="text-sm text-gray-400">Enter your registered phone number to log in directly.</p>
+          <Input
+            id="forgotPhone"
+            label="Phone Number"
+            type="tel"
+            value={forgotPhone}
+            onChange={e => { setForgotPhone(e.target.value); setForgotError('') }}
+            placeholder="98xxxxxxxx"
+          />
+          {forgotError && <p className="text-xs text-red-400 -mt-2">{forgotError}</p>}
+          <Button onClick={handleForgot} disabled={loading} fullWidth>
+            {loading ? 'Please wait…' : 'Login'}
+          </Button>
+        </div>
       </Modal>
     </div>
   )
