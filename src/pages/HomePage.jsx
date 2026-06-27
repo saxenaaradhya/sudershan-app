@@ -43,7 +43,7 @@ export default function HomePage() {
 
               <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 leading-tight">
                 Seedhi Baat with<br />
-                <span className="text-brand-accent">Dr. Pradeep</span>
+                <span className="text-brand-accent">Mr. Sandeep</span>
               </h2>
 
               <p className="text-gray-400 text-xs sm:text-sm mb-5 leading-relaxed">
@@ -56,7 +56,7 @@ export default function HomePage() {
               </button>
 
               <p className="mt-4 text-xs text-gray-500">
-                Live from · <span className="text-brand-accent font-medium">Call 9096221750</span>
+                Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
               <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
             </div>
