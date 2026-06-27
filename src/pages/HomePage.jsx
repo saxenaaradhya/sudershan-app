@@ -31,46 +31,42 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
         {/* Banner */}
-        <div className="w-full rounded-2xl overflow-hidden mb-6">
-          <div className="flex flex-row items-stretch justify-between gap-4 pl-6 sm:pl-8">
+        <div className="w-full rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
+          <div className="flex flex-row items-stretch justify-between">
 
             {/* Left — text content */}
-            <div className="flex-1 min-w-0">
-              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full
-                bg-white/10 text-gray-300 border border-white/10 mb-4">
+            <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
+              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-gray-300 border border-white/10 mb-3 w-fit">
                 Free Consultation
               </span>
 
-              <h2 className="text-base sm:text-3xl font-bold text-white mb-3 leading-tight">
-                Seedhi Baat with<br />
+              <h2 className="text-lg sm:text-3xl font-bold text-white mb-2 leading-snug">
+                Seedhi Baat with{' '}
                 <span className="text-brand-accent">Mr. Sandeep</span>
               </h2>
 
-              <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">
-                Simple, personal and reassuring.<br />Move forward with clarity.
+              <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed">
+                Simple, personal and reassuring. Move forward with clarity.
               </p>
 
               <a
                 href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="inline-block px-3 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white text-purple-700 font-bold
-                  text-xs sm:text-sm hover:bg-gray-100 transition-all shadow-lg"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 rounded-xl bg-white text-purple-700 font-bold text-xs sm:text-sm hover:bg-gray-100 transition-all shadow-lg w-fit mb-3"
+              >
+                Book a Session Now
+              </a>
 
-               >
-                 Book a Session Now
-                </a>
-
-              <p className="mt-3 text-xs text-gray-500">
+              <p className="text-xs text-gray-500">
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
               <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
             </div>
 
             {/* Right — image placeholder */}
-            <div className="w-36 sm:w-72 flex-shrink-0 overflow-hidden rounded-2xl m-3
-               bg-dark-700 flex items-center justify-center min-h-[220px]">
-              {/* Replace this div with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
+            <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center">
+              {/* Replace with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
               <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
             </div>
 
@@ -88,9 +84,9 @@ export default function HomePage() {
         </div>
 
         {/* Two big sliding clickable image cards */}
-            <div className="mb-8">
-              <ImageCarousel items={filtered} />
-            </div>
+        <div className="mb-8">
+          <ImageCarousel items={filtered} />
+        </div>
 
         {/* Hero Header */}
         <div className="mb-6">
@@ -123,30 +119,25 @@ export default function HomePage() {
             <p className="text-gray-500 text-sm mt-1">Try a different search term</p>
           </div>
         ) : (
-          <>
-            
-
-            {/* Vertical grid of small clickable image tiles, 2 per row */}
-            <div className="grid grid-cols-2 gap-3">
-              {filtered.map(cat => (
-                <button
-                  key={cat.id}
-                  onClick={() => navigate(`/category/${cat.id}`)}
-                  className="relative w-full h-64 rounded-xl overflow-hidden group"
-                  style={{
-                    backgroundImage: `url(${cat.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                >
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/55 transition-all" />
-                  <span className="absolute bottom-1.5 left-2 text-white text-xs font-medium">
-                    {cat.name}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </>
+          <div className="grid grid-cols-2 gap-3">
+            {filtered.map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => navigate(`/category/${cat.id}`)}
+                className="relative w-full h-64 rounded-xl overflow-hidden group"
+                style={{
+                  backgroundImage: `url(${cat.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/55 transition-all" />
+                <span className="absolute bottom-1.5 left-2 text-white text-xs font-medium">
+                  {cat.name}
+                </span>
+              </button>
+            ))}
+          </div>
         )}
       </main>
       <Footer />
