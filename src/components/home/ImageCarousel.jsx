@@ -1,7 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const CAROUSEL_IMAGES = [
+  { id: '1', image: '/images/carousel/chronic.jpg', title: 'chronic' },
+  { id: '2', image: '/images/carousel/confidence.jpg', title: 'confidence' },
+  { id: '3', image: '/images/carousel/emotional.jpg', title: 'emotional' },
+  { id: '4', image: '/images/carousel/habit.jpg', title: 'habit' },
+  { id: '5', image: '/images/carousel/insomnia.jpg', title: 'insomnia' },
+  { id: '6', image: '/images/carousel/phobia.jpg', title: 'phobia' },
+  { id: '7', image: '/images/carousel/procastination.jpg', title: 'procrastination' },
+  { id: '8', image: '/images/carousel/stress.jpg', title: 'stress' },
+  { id: '9', image: '/images/carousel/weight.jpg', title: 'weight' },
+  { id: '10', image: '/images/carousel/performance.jpg', title: 'performance' },
+]
+
 export default function ImageCarousel({ items, intervalMs = 3000 }) {
+    const items = CAROUSEL_IMAGES
   const navigate = useNavigate()
   const [index, setIndex] = useState(0)
 
@@ -33,11 +47,14 @@ export default function ImageCarousel({ items, intervalMs = 3000 }) {
               {[left, right].map((cat, i) =>
                 cat ? (
                   <div
-                  key={cat.id}
-                 className="relative flex-1 h-80 rounded-2xl overflow-hidden bg-dark-700 border border-dark-500 flex items-center justify-center"
-                 >
-                  <span className="text-gray-500 text-sm">Image Placeholder</span>
-                 </div>
+                    key={cat.id}
+                   className="relative flex-1 h-80 rounded-2xl overflow-hidden bg-dark-700 border border-dark-500"
+                  >
+                   <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                    <p className="text-white font-semibold text-sm">{cat.title}</p>
+                  </div>
+                </div>
                 ) : (
                   <div key={`empty-${i}`} className="flex-1" />
                 )
