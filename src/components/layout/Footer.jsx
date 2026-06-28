@@ -24,7 +24,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
         <button
-          onClick={() => navigate('/home')}onClick={() => {
+          onClick={() => {
             navigate('/home')
             setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)
           }}
@@ -64,4 +64,4 @@ export default function Footer() {
       </div>
     </nav>
   )
-} 
+}
