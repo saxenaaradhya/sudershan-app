@@ -34,7 +34,7 @@ export default function WelcomePopup({ isOpen, onClose }) {
         </button>
 
         {
-         <img src="/pop-up.png" alt="Welcome" className="w-full rounded-t-2xl" />
+         <img src="/images/categories/pop.png" alt="Welcome" className="w-full rounded-t-2xl" />
         }
         <div className="w-full h-64 bg-gradient-to-br from-violet-900 via-purple-900 to-dark-900
           flex flex-col items-center justify-center gap-4">
