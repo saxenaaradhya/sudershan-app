@@ -11,7 +11,10 @@ export default function HomePage() {
   const navigate = useNavigate()
   const location = useLocation()
   const [query, setQuery] = useState('')
-  const [showPopup, setShowPopup] = useState(true)
+  const [showPopup, setShowPopup] = useState(() => {
+  const seen = sessionStorage.getItem('popupSeen')
+  return !seen
+})
 
   const filtered = useMemo(() => {
     if (!query.trim()) return CATEGORIES
@@ -26,7 +29,10 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-dark-900">
       <Navbar />
-      <WelcomePopup isOpen={showPopup} onClose={() => setShowPopup(false)} />
+      <WelcomePopup isOpen={showPopup} onClose={() => {
+       sessionStorage.setItem('popupSeen', 'true')
+       setShowPopup(false)
+    }} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
