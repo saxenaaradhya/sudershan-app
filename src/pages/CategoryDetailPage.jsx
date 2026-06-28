@@ -20,7 +20,7 @@ export default function CategoryDetailPage() {
   const [insufficientModal, setInsufficientModal] = useState(null)
   const [toast, setToast] = useState(null)
 
-  const category = CATEGORIES.find(c => c.id === id)
+  const category = CATEGORIES.find(c => c.id === decodeURIComponent(id))
 
   if (!category) {
     return (

@@ -123,7 +123,7 @@ export default function HomePage() {
             {filtered.map(cat => (
               <button
                 key={cat.id}
-                onClick={() => navigate(`/category/${cat.id}`)}
+                onClick={() => navigate(`/category/${encodeURIComponent(cat.id)}`)}
                 className="relative w-full h-64 rounded-xl overflow-hidden group"
                 style={{
                   backgroundImage: `url(${cat.image})`,
