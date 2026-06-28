@@ -38,8 +38,7 @@ export default function Footer() {
         <button
           onClick={handleCategory}
                   >
-          <LayoutGrid className="w-5 h-5" />className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
-  ${location.pathname.startsWith('/category') ? 'text-brand-accent' : 'text-white'}`}
+          className="flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors text-white hover:text-white"
           <span className="text-[11px] font-medium">Category</span>
         </button>
 
