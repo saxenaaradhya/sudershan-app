@@ -11,7 +11,7 @@ export default function HomePage() {
   const navigate = useNavigate()
   const location = useLocation()
   const [query, setQuery] = useState('')
-  const [showPopup, setShowPopup] = useState(location.state?.showWelcome === true)
+  const [showPopup, setShowPopup] = useState(true)
 
   const filtered = useMemo(() => {
     if (!query.trim()) return CATEGORIES
