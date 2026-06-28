@@ -1,14 +1,14 @@
 import {
-  Anxiety,
-  Self,
-  Pain,
-  Sleep,
-  Emotional,
-  Fear,
-  Overthinking,
-  Smoking,
-  Stress,
-  Weight,
+  Brain as Anxiety,
+  Sparkles as Self,
+  HeartPulse as Pain,
+  Moon as Sleep,
+  Heart as Emotional,
+  ShieldAlert as Fear,
+  BrainCircuit as Overthinking,
+  Cigarette as Smoking,
+  Activity as Stress,
+  Scale as Weight,
 } from 'lucide-react'
 
 export const CATEGORIES = [
