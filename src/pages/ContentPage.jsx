@@ -161,7 +161,6 @@ export default function ContentPage() {
         <h1 className="text-3xl font-black text-white leading-tight mb-3"
           style={{ fontStyle: 'italic' }}>
           {item.title}
-          style={{ color: '#FFFFFF' }}
         </h1>
 
         <p className="text-sm text-white/60 leading-relaxed mb-6">
