@@ -132,7 +132,7 @@ export default function HomePage() {
                 }}
               >
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/55 transition-all" />
-                <span className="absolute bottom-1.5 left-2 text-white text-xs font-medium">
+                <span className="absolute bottom-2 left-3 text-white text-base font-semibold">
                   {cat.name}
                 </span>
               </button>
