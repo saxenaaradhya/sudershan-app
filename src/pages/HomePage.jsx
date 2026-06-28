@@ -58,10 +58,10 @@ export default function HomePage() {
                 Book a Session Now
               </a>
 
-              <p className="text-xs text-gray-500"> style={{ color: '#FFFFFF'}}
+              <p className="text-xs text-gray-500" style={{ color: '#FFFFFF'}}>
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
-              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p> style={{ color: '#FFFFFF'}}
+              <p className="text-xs text-gray-600 mt-0.5" style={{ color: '#FFFFFF'}}>T&C apply, as available on the platform</p>
             </div>
 
             {/* Right — image placeholder */}
