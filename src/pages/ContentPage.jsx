@@ -115,7 +115,7 @@ export default function ContentPage() {
           onClick={() => navigate(-1)}
           className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
         >
-          <X className="w-4 h-4" />
+          <X className="w-4 h-4" style={{ color: '#ffffff' }} />
         </button>
         <p className="text-xs text-white/60 uppercase tracking-widest font-medium">Now Playing</p>
 
@@ -124,7 +124,7 @@ export default function ContentPage() {
             onClick={() => setShowLangMenu(s => !s)}
             className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-4 h-4" style={{ color: '#FFFFFF' }} />
           </button>
 
           {showLangMenu && (
@@ -161,6 +161,7 @@ export default function ContentPage() {
         <h1 className="text-3xl font-black text-white leading-tight mb-3"
           style={{ fontStyle: 'italic' }}>
           {item.title}
+          style={{ color: '#FFFFFF' }}
         </h1>
 
         <p className="text-sm text-white/60 leading-relaxed mb-6">
@@ -178,7 +179,7 @@ export default function ContentPage() {
             onClick={() => navigate(-1)}
             className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5" style={{ color: '#FFFFFF' }} />
           </button>
 
           <button
@@ -193,7 +194,7 @@ export default function ContentPage() {
               </>
             ) : (
               <>
-                <Play className="w-5 h-5" /> Play Now
+                <Play className="w-5 h-5" style={{ color: '#FFFFFF' }} /> Play Now
               </>
             )}
           </button>

@@ -173,7 +173,7 @@ export default function CategoryDetailPage() {
                       </div>
                       <div className="ml-3 shrink-0">
                         {item.free ? (
-                          <span className="text-xs font-bold text-white bg-white/20 px-2 py-1 rounded-full">
+                          <span className="text-xs font-bold text-white bg-white/20 px-2 py-1 rounded-full"  style={{ color: '#FFFFFF' }}>
                             FREE
                           </span>
                         ) : (
@@ -205,7 +205,7 @@ export default function CategoryDetailPage() {
                         {isUnlocked ? (
                           <>
                             <span className="w-5 h-5 rounded-full bg-dark-900/20 flex items-center justify-center text-xs">▶</span>
-                            View Content
+                            <span style={{ color: '#FFFFFF' }}>View Content</span>
                           </>
                         ) : (
                           <>
