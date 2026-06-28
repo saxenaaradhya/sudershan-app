@@ -20,7 +20,7 @@ export const CATEGORIES = [
     description: ' ',
     icon: Cpu,
     color: 'from-blue-500 to-cyan-400',
-    image: 'D:\app info\image\Anxiety Relief.JPG',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     
     itemCount: 24,
