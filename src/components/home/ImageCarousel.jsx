@@ -14,7 +14,7 @@ const CAROUSEL_IMAGES = [
   { id: '10', image: '/images/carousel/performance.jpg', title: 'performance' },
 ]
 
-export default function ImageCarousel({ items, intervalMs = 3000 }) {
+export default function ImageCarousel({ intervalMs = 3000 }) {
     const items = CAROUSEL_IMAGES
   const navigate = useNavigate()
   const [index, setIndex] = useState(0)
