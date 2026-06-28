@@ -191,7 +191,7 @@ export default function CategoryDetailPage() {
                           e.stopPropagation()
                           e.preventDefault()
                           if (isUnlocked) {
-                            navigate(`/content/${id}/${item.id}`)
+                            navigate(`/content/${encodeURIComponent(id)}/${item.id}`)
                           } else {
                             handleCardClick(item, activeIndex)
                           }

@@ -45,7 +45,7 @@ export default function ContentPage() {
   const [showLangMenu, setShowLangMenu] = useState(false)
   const audioRef = useRef(null)
 
-  const category = CATEGORIES.find(c => c.id === categoryId)
+  const category = CATEGORIES.find(c => c.id === decodeURIComponent(categoryId))
   const item = category?.items.find(i => i.id === itemId)
 
   function selectLanguage(lang) {
