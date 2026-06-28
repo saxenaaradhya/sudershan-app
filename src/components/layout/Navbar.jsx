@@ -25,9 +25,12 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center shadow-lg shadow-brand-primary/40">
             <Zap className="w-4 h-4 text-white" />
           </div>
-          <span className="text-lg font-bold text-white group-hover:text-brand-accent transition-colors">
-            SUDERSHAN
-          </span>
+          <span 
+            className="text-lg font-bold transition-colors"
+           style={{ color: '#FFFFFF' }}
+         >
+           SUDERSHAN
+            </span>
         </button>
 
         <div className="flex items-center gap-2">

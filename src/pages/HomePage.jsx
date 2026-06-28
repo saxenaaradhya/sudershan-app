@@ -36,16 +36,16 @@ export default function HomePage() {
 
             {/* Left — text content */}
             <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
-              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-gray-300 border border-white/10 mb-3 w-fit">
+              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-gray-300 border border-white/10 mb-3 w-fit" style={{ color: '#FFFFFF'}}>
                 Free Consultation
               </span>
 
-              <h2 className="text-lg sm:text-3xl font-bold text-white mb-2 leading-snug">
-                Seedhi Baat with{' '}
-                <span className="text-brand-accent">Mr. Sandeep</span>
+              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#FFFFFF' }}>
+               Seedhi Baat with{' '}
+               <span style={{ color: '#FF8C42' }}>Mr. Sandeep</span>
               </h2>
 
-              <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed">
+              <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed"> style={{ color: '#FFFFFF'}}
                 Simple, personal and reassuring. Move forward with clarity.
               </p>
 
@@ -58,10 +58,10 @@ export default function HomePage() {
                 Book a Session Now
               </a>
 
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500"> style={{ color: '#FFFFFF'}}
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
-              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p>
+              <p className="text-xs text-gray-600 mt-0.5">T&C apply, as available on the platform</p> style={{ color: '#FFFFFF'}}
             </div>
 
             {/* Right — image placeholder */}

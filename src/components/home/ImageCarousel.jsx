@@ -33,20 +33,11 @@ export default function ImageCarousel({ items, intervalMs = 3000 }) {
               {[left, right].map((cat, i) =>
                 cat ? (
                   <div
-                    key={cat.id}
-                    className="relative flex-1 h-80 rounded-2xl overflow-hidden"
-                    style={{
-                      backgroundImage: `url(${cat.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    <div className="absolute bottom-0 left-0 p-4 text-left">
-                      <p className="text-white font-semibold text-base">{cat.name}</p>
-                      <p className="text-gray-300 text-xs">{cat.itemCount} items</p>
-                    </div>
-                  </div>
+                  key={cat.id}
+                 className="relative flex-1 h-80 rounded-2xl overflow-hidden bg-dark-700 border border-dark-500 flex items-center justify-center"
+                 >
+                  <span className="text-gray-500 text-sm">Image Placeholder</span>
+                 </div>
                 ) : (
                   <div key={`empty-${i}`} className="flex-1" />
                 )
