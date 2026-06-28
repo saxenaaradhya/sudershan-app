@@ -198,14 +198,14 @@ export default function CategoryDetailPage() {
                         }}
                         className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all
                           ${isUnlocked
-                            ? 'bg-white text-dark-900 hover:bg-gray-100'
+                            ? 'bg-green-500 text-white hover:bg-green-600'
                             : 'bg-brand-primary text-white hover:bg-brand-secondary'
                           }`}
                       >
                         {isUnlocked ? (
                           <>
                             <span className="w-5 h-5 rounded-full bg-dark-900/20 flex items-center justify-center text-xs">▶</span>
-                            <span style={{ color: '#FFFFFF' }}>View Content</span>
+                            <span>View Content</span>
                           </>
                         ) : (
                           <>
