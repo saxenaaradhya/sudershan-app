@@ -33,21 +33,19 @@ export default function WelcomePopup({ isOpen, onClose }) {
           <X className="w-4 h-4" />
         </button>
 
-        {
-         <img src="/images/categories/pop.png" alt="Welcome" className="w-full rounded-t-2xl" />
-        }
-        <div className="w-full h-64 bg-gradient-to-br from-violet-900 via-purple-900 to-dark-900
-          flex flex-col items-center justify-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40
-            flex items-center justify-center">
-            <Zap className="w-8 h-8 text-white" />
-          </div>
-          <div className="text-center px-6">
-            <p className="text-white text-xl font-bold mb-1">Welcome to TokenApp!</p>
-            <p className="text-purple-300 text-sm">Your image banner goes here</p>
+        <div className="relative w-full h-64">
+          <img src="/images/categories/pop.png" alt="Welcome" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40
+              flex items-center justify-center">
+              <Zap className="w-8 h-8 text-white" />
+            </div>
+            <div className="text-center px-6">
+              <p className="text-white text-xl font-bold mb-1">Welcome to TokenApp!</p>
+              <p className="text-purple-300 text-sm">Your image banner goes here</p>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   )
