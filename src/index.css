@@ -39,9 +39,7 @@
     margin: 0;
     padding: 0;
   }
-  [data-theme="light"] .text-white {
-    color: #111111 !important;
-  }
+  
   [data-theme="light"] .text-gray-400,
   [data-theme="light"] .text-gray-500,
   [data-theme="light"] .text-gray-600 {
