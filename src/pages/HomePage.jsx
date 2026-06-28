@@ -131,7 +131,6 @@ export default function HomePage() {
                   backgroundPosition: 'center',
                 }}
               >
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/55 transition-all" />
                 <span 
                   className="absolute bottom-2 left-3 text-base font-semibold"
                    style={{ color: '#FFFFFF' }}

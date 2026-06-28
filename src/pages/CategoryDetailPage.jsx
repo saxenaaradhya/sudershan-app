@@ -168,7 +168,7 @@ export default function CategoryDetailPage() {
                         <p className="text-xs text-white/60 mb-1 uppercase tracking-widest">
                           {isUnlocked ? 'Unlocked' : 'Locked'}
                         </p>
-                        <h3 className="text-lg font-bold leading-snug" style={{ color: '#YOUR_COLOR' }}>{item.title}</h3>
+                        <h3 className="text-lg font-bold leading-snug" style={{ color: '#FFFFFF' }}>{item.title}</h3>
                         <p className="text-sm text-white/70 mt-1">{item.description}</p>
                       </div>
                       <div className="ml-3 shrink-0">
@@ -177,7 +177,7 @@ export default function CategoryDetailPage() {
                             FREE
                           </span>
                         ) : (
-                          <span className="text-sm font-bold bg-white/20 px-3 py-1 rounded-full" style={{ color: '#YOUR_COLOR' }}>
+                          <span className="text-sm font-bold bg-white/20 px-3 py-1 rounded-full" style={{ color: '#FFFFFF' }}>
                            🪙 {item.tokenCost}
                            </span>
                         )}
