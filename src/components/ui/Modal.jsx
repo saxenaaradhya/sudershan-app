@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { X } from 'lucide-react'
 
-export default function Modal({ isOpen, onClose, title, children }) {
+export default function Modal({ isOpen, onClose, title, children, image }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -31,6 +31,9 @@ export default function Modal({ isOpen, onClose, title, children }) {
             <X className="w-5 h-5" />
           </button>
         </div>
+        {image && (
+          <img src={image} alt="modal banner" className="w-full h-48 object-cover" />
+        )}
         <div className="p-6">{children}</div>
       </div>
     </div>

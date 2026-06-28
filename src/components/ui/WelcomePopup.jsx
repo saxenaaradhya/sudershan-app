@@ -33,12 +33,9 @@ export default function WelcomePopup({ isOpen, onClose }) {
           <X className="w-4 h-4" />
         </button>
 
-        {/* 
-          ── PLACEHOLDER IMAGE ──────────────────────────────────────────
-          Replace this entire <div> block with your real image:
-          <img src="https://your-url.com/banner.jpg" alt="Welcome" className="w-full" />
-          ───────────────────────────────────────────────────────────────
-        */}
+        {
+         <img src="/pop-up.png" alt="Welcome" className="w-full rounded-t-2xl" />
+        }
         <div className="w-full h-64 bg-gradient-to-br from-violet-900 via-purple-900 to-dark-900
           flex flex-col items-center justify-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40
