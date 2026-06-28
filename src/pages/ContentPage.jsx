@@ -4,8 +4,8 @@ import { ArrowLeft, Play, Pause, X, Settings, Check } from 'lucide-react'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 
-function CountdownTimer({ onEnd }) {
-  const [seconds, setSeconds] = React.useState(5 * 60)
+function CountdownTimer({ onEnd, duration }) {
+  const [seconds, setSeconds] = React.useState(duration)
 
   useEffect(() => {
     if (seconds <= 0) { onEnd(); return }
@@ -43,6 +43,7 @@ export default function ContentPage() {
   const [playing, setPlaying] = useState(false)
   const [language, setLanguage] = useState(() => localStorage.getItem('audioLang') || 'en')
   const [showLangMenu, setShowLangMenu] = useState(false)
+  const [audioDuration, setAudioDuration] = useState(300)
   const audioRef = useRef(null)
 
   const category = CATEGORIES.find(c => c.id === decodeURIComponent(categoryId))
@@ -107,6 +108,7 @@ export default function ContentPage() {
         ref={audioRef}
         src={audioSrc}
         onEnded={() => setPlaying(false)}
+        onLoadedMetadata={() => setAudioDuration(Math.floor(audioRef.current?.duration || 300))}
       />
 
       {/* Top bar */}
@@ -169,7 +171,10 @@ export default function ContentPage() {
 
         {playing && (
           <div className="fixed inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <CountdownTimer onEnd={() => { setPlaying(false); audioRef.current?.pause() }} />
+            <CountdownTimer
+              duration={audioDuration}
+              onEnd={() => { setPlaying(false); audioRef.current?.pause() }}
+            />
           </div>
         )}
 
@@ -184,7 +189,7 @@ export default function ContentPage() {
           <button
             onClick={togglePlay}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full
-              bg-white text-dark-900 font-bold text-sm hover:bg-gray-100 transition-all
+              bg-green-500 text-white font-bold text-sm hover:bg-green-600 transition-all
               shadow-2xl"
           >
             {playing ? (
@@ -193,7 +198,7 @@ export default function ContentPage() {
               </>
             ) : (
               <>
-                <Play className="w-5 h-5" style={{ color: '#FFFFFF' }} /> Play Now
+                <Play className="w-5 h-5" /> Play Now
               </>
             )}
           </button>
