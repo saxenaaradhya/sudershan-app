@@ -189,7 +189,7 @@ export default function ProfilePage() {
             <h3 className="text-sm font-bold text-white">Refer & Earn</h3>
           </div>
           <p className="text-xs text-gray-400 mb-4">
-            Share your code — when a friend signs up using it, you get 🪙 50 tokens instantly.
+            Share your code — when a friend signs up using it, you get 🪙 20 tokens instantly.
           </p>
           <div className="flex items-center gap-2">
             <div className="flex-1 px-4 py-3 bg-dark-900/50 border border-dark-600 rounded-xl text-white font-bold text-sm tracking-wider">
