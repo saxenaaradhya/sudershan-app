@@ -6,15 +6,24 @@ import ImageCarousel from '../components/home/ImageCarousel.jsx'
 import WelcomePopup from '../components/ui/WelcomePopup.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
+import { useWalletStore } from '../store/walletStore.js'
 
 export default function HomePage() {
   const navigate = useNavigate()
   const location = useLocation()
+  const addTokens = useWalletStore(s => s.addTokens)
   const [query, setQuery] = useState('')
+
   const [showPopup, setShowPopup] = useState(() => {
-  const seen = sessionStorage.getItem('popupSeen')
-  return !seen
-})
+    const seen = sessionStorage.getItem('popupSeen')
+    return !seen
+  })
+
+  const [showDailyReward, setShowDailyReward] = useState(() => {
+    const last = localStorage.getItem('lastDailyClaim')
+    if (!last) return true
+    return Date.now() - new Date(last).getTime() >= 24 * 60 * 60 * 1000
+  })
 
   const filtered = useMemo(() => {
     if (!query.trim()) return CATEGORIES
@@ -26,13 +35,44 @@ export default function HomePage() {
     )
   }, [query])
 
+  async function claimDailyReward() {
+    await addTokens(2, '🎁 Daily reward')
+    localStorage.setItem('lastDailyClaim', new Date().toISOString())
+    setShowDailyReward(false)
+  }
+
   return (
     <div className="min-h-screen bg-dark-900">
       <Navbar />
+
       <WelcomePopup isOpen={showPopup} onClose={() => {
-       sessionStorage.setItem('popupSeen', 'true')
-       setShowPopup(false)
-    }} />
+        sessionStorage.setItem('popupSeen', 'true')
+        setShowPopup(false)
+      }} />
+
+      {showDailyReward && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowDailyReward(false)} />
+          <div className="relative z-10 w-full max-w-sm bg-dark-800 border border-emerald-700/50 rounded-2xl p-6 text-center shadow-2xl">
+            <button
+              onClick={() => setShowDailyReward(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20"
+            >
+              ✕
+            </button>
+            <div className="text-6xl mb-4">🎁</div>
+            <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Daily Reward</p>
+            <p className="text-2xl font-bold text-white mb-1">+2 Tokens</p>
+            <p className="text-sm text-gray-400 mb-6">Your daily bonus is ready to claim!</p>
+            <button
+              onClick={claimDailyReward}
+              className="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition-all"
+            >
+              Claim Reward
+            </button>
+          </div>
+        </div>
+      )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
@@ -42,13 +82,13 @@ export default function HomePage() {
 
             {/* Left — text content */}
             <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
-              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-3 w-fit" style={{ color: '#FFFFFF'}}>
+              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-3 w-fit" style={{ color: '#FFFFFF' }}>
                 Free Consultation
               </span>
 
               <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#FFFFFF' }}>
-               Seedhi Baat with{' '}
-               <span style={{ color: '#FF8C42' }}>Mr. Sandeep</span>
+                Seedhi Baat with{' '}
+                <span style={{ color: '#FF8C42' }}>Mr. Sandeep</span>
               </h2>
 
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#FFFFFF' }}>
@@ -64,15 +104,14 @@ export default function HomePage() {
                 Book a Session Now
               </a>
 
-              <p className="text-xs" style={{ color: '#FFFFFF'}}>
+              <p className="text-xs" style={{ color: '#FFFFFF' }}>
                 Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
               </p>
-              <p className="text-xs mt-0.5" style={{ color: '#FFFFFF'}} style={{ color: '#FFFFFF'}}>T&C apply, as available on the platform</p>
+              <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
             </div>
 
             {/* Right — image placeholder */}
             <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center">
-              {/* Replace with: <img src="YOUR_IMAGE_URL" className="w-full h-full object-cover" /> */}
               <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
             </div>
 
@@ -89,9 +128,9 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Two big sliding clickable image cards */}
+        {/* Carousel */}
         <div className="mb-8">
-          <ImageCarousel items={filtered} />
+          <ImageCarousel />
         </div>
 
         {/* Hero Header */}
@@ -137,10 +176,10 @@ export default function HomePage() {
                   backgroundPosition: 'center',
                 }}
               >
-                <span 
+                <span
                   className="absolute bottom-2 left-3 text-base font-semibold"
-                   style={{ color: '#FFFFFF' }}
-                   >
+                  style={{ color: '#FFFFFF' }}
+                >
                   {cat.name}
                 </span>
               </button>
