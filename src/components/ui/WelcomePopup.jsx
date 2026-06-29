@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
-import { X, Zap } from 'lucide-react'
+import { X } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 export default function WelcomePopup({ isOpen, onClose }) {
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -13,18 +16,18 @@ export default function WelcomePopup({ isOpen, onClose }) {
 
   if (!isOpen) return null
 
+  function handleInvite() {
+    onClose()
+    navigate('/profile')
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
-
-      {/* Popup card */}
       <div className="relative z-10 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-dark-500">
-
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center
@@ -33,7 +36,9 @@ export default function WelcomePopup({ isOpen, onClose }) {
           <X className="w-4 h-4" />
         </button>
 
-        <img src="/images/categories/pop.png" alt="Welcome" className="w-full object-contain" />
+        <div className="relative cursor-pointer" onClick={handleInvite}>
+          <img src="/images/categories/pop.png" alt="Welcome" className="w-full object-contain" />
+        </div>
       </div>
     </div>
   )
