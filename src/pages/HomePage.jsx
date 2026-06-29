@@ -112,7 +112,7 @@ export default function HomePage() {
 
             {/* Right — image placeholder */}
             <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center">
-              <span className="text-gray-600 text-xs text-center px-2">Photo<br />Here</span>
+              <img src="/images/banner/me.png" alt="Mr. Sandeep" className="w-full h-full object-cover rounded-r-2xl" />
             </div>
 
           </div>
