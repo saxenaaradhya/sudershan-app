@@ -7,6 +7,10 @@ import Footer from '../components/layout/Footer.jsx'
 function CountdownTimer({ onEnd, duration, playing }) {
   const [seconds, setSeconds] = React.useState(duration)
 
+useEffect(() => {
+  setSeconds(duration)
+}, [duration])
+
   useEffect(() => {
     if (!playing) return
     if (seconds <= 0) { onEnd(); return }

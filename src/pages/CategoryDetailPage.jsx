@@ -15,7 +15,10 @@ export default function CategoryDetailPage() {
   const navigate = useNavigate()
   const spendTokens = useWalletStore(s => s.spendTokens)
 
-  const [unlocked, setUnlocked] = useState({})
+  const [unlocked, setUnlocked] = useState(() => {
+  const saved = sessionStorage.getItem(`unlocked_${id}`)
+  return saved ? JSON.parse(saved) : {}
+})
   const [activeIndex, setActiveIndex] = useState(0)
   const [insufficientModal, setInsufficientModal] = useState(null)
   const [toast, setToast] = useState(null)
@@ -53,7 +56,11 @@ export default function CategoryDetailPage() {
       setInsufficientModal({ item })
       return
     }
-    setUnlocked(prev => ({ ...prev, [item.id]: true }))
+    setUnlocked(prev => {
+  const updated = { ...prev, [item.id]: true }
+  sessionStorage.setItem(`unlocked_${id}`, JSON.stringify(updated))
+  return updated
+})
     setToast({ message: `🪙 ${item.tokenCost} tokens spent. ${item.title} unlocked!`, type: 'success' })
   }
 
