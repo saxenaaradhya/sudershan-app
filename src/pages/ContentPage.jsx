@@ -4,14 +4,15 @@ import { ArrowLeft, Play, Pause, X, Settings, Check } from 'lucide-react'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 
-function CountdownTimer({ onEnd, duration }) {
+function CountdownTimer({ onEnd, duration, playing }) {
   const [seconds, setSeconds] = React.useState(duration)
 
   useEffect(() => {
+    if (!playing) return
     if (seconds <= 0) { onEnd(); return }
     const interval = setInterval(() => setSeconds(s => s - 1), 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [seconds, playing])
 
   const mins = String(Math.floor(seconds / 60)).padStart(2, '0')
   const secs = String(seconds % 60).padStart(2, '0')
@@ -62,14 +63,14 @@ export default function ContentPage() {
   }
 
   function togglePlay() {
-    if (!audioRef.current) return
-    if (playing) {
-      audioRef.current.pause()
-    } else {
-      audioRef.current.play()
-    }
-    setPlaying(p => !p)
+  if (!audioRef.current) return
+  if (playing) {
+    audioRef.current.pause()
+  } else {
+    audioRef.current.play()
   }
+  setPlaying(p => !p)
+}
 
   if (!category || !item) {
     return (
@@ -107,7 +108,10 @@ export default function ContentPage() {
       <audio
         ref={audioRef}
         src={audioSrc}
-        onEnded={() => setPlaying(false)}
+        onEnded={() => {
+        setPlaying(false)
+        setTimeout(() => navigate(-1), 1500)
+        }}
         onLoadedMetadata={() => setAudioDuration(Math.floor(audioRef.current?.duration || 300))}
       />
 
@@ -169,14 +173,13 @@ export default function ContentPage() {
           {item.description}
         </p>
 
-        {playing && (
-          <div className="fixed inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <CountdownTimer
-              duration={audioDuration}
-              onEnd={() => { setPlaying(false); audioRef.current?.pause() }}
-            />
-          </div>
-        )}
+        <div className={`fixed inset-0 flex items-center justify-center z-20 pointer-events-none transition-opacity ${playing ? 'opacity-100' : 'opacity-0'}`}>
+          <CountdownTimer
+          duration={audioDuration}
+          onEnd={() => { setPlaying(false); audioRef.current?.pause() }}
+           playing={playing}
+         />
+         </div>
 
         <div className="flex items-center gap-3">
           <button
