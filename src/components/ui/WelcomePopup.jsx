@@ -19,6 +19,9 @@ export default function WelcomePopup({ isOpen, onClose }) {
   function handleInvite() {
     onClose()
     navigate('/profile')
+    setTimeout(() => {
+      document.getElementById('refer-section')?.scrollIntoView({ behavior: 'smooth' })
+    }, 300)
   }
 
   return (

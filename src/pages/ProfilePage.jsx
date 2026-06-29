@@ -182,7 +182,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Refer & Earn */}
-        <div className="bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/30 rounded-2xl p-5 mb-4">
+        <div id="refer-section" className="bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/30 rounded-2xl p-5 mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Gift className="w-5 h-5 text-brand-accent" />
             <h3 className="text-sm font-bold text-white">Refer & Earn</h3>
