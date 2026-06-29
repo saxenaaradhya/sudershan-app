@@ -39,7 +39,7 @@
     margin: 0;
     padding: 0;
   }
-  [data-theme="light"] .text-white {
+  [data-theme="light"] .text-white:not(.footer-icon) {
   color: #5c015c !important;
 }
   [data-theme="light"] .text-gray-400,

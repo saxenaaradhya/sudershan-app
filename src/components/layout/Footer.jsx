@@ -28,7 +28,7 @@ export default function Footer() {
             navigate('/home')
             setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)
           }}
-          className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
+          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
             ${isActive('/home') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
         >
           <Home className="w-5 h-5" />
@@ -37,7 +37,7 @@ export default function Footer() {
 
         <button
            onClick={handleCategory}
-            className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
+            className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
               ${location.pathname.startsWith('/category') ? 'text-brand-accent' :'!text-white hover:!text-white'}`}
         >
             <LayoutGrid className="w-5 h-5" />
@@ -46,7 +46,7 @@ export default function Footer() {
 
         <button
           onClick={() => navigate('/wallet')}
-          className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
+          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
             ${isActive('/wallet') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
         >
           <Wallet className="w-5 h-5" />
@@ -55,7 +55,7 @@ export default function Footer() {
 
         <button
           onClick={() => navigate('/contact')}
-          className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
+          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
             ${isActive('/contact') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
         >
           <Mail className="w-5 h-5" />
