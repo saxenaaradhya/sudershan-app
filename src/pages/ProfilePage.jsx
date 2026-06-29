@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Copy, Check } from 'lucide-react'
+import { User, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Share2 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useThemeStore } from '../store/themeStore.js'
@@ -34,13 +34,12 @@ export default function ProfilePage() {
   const [logoutModal, setLogoutModal] = useState(false)
   const [toast, setToast] = useState(null)
   const { theme, toggleTheme } = useThemeStore()
-  const [copied, setCopied] = useState(false)
 
-  function copyReferralCode() {
-    navigator.clipboard.writeText(user?.referralCode || '')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+  function shareReferralCode() {
+  const message = `Join me on Sudershan App! Use my referral code *${user?.referralCode}* to get bonus tokens. Sign up here: https://sudershan-app-5czh.vercel.app`
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
+  window.open(whatsappUrl, '_blank')
+}
 
   const totalSpent = transactions
     .filter(t => t.type === 'debit')
@@ -196,11 +195,11 @@ export default function ProfilePage() {
               {user?.referralCode || '—'}
             </div>
             <button
-              onClick={copyReferralCode}
+              onClick={shareReferralCode}
               className="w-11 h-11 rounded-xl bg-dark-900/50 border border-dark-600 flex items-center justify-center text-gray-300 hover:text-white transition-all"
             >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-            </button>
+            <Share2 className="w-4 h-4" />
+           </button>
           </div>
         </div>
 
