@@ -176,7 +176,7 @@ export default function CategoryDetailPage() {
                         <p className="text-xs text-white/60 mb-1 uppercase tracking-widest">
                           {isUnlocked ? 'Unlocked' : 'Locked'}
                         </p>
-                        <h3 className="text-lg font-bold leading-snug" style={{ color: '#FFFFFF' }}>{item.title}</h3>
+                        <h2 className="text-lg font-bold leading-snug" style={{ color: '#FFFFFF' }}>{item.title}</h2>
                         <p className="text-sm text-white/70 mt-1">{item.description}</p>
                       </div>
                       <div className="ml-3 shrink-0">
