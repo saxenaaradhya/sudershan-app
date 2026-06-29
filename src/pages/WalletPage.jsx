@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Gift } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, TrendingUp, TrendingDown, Clock } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
@@ -18,10 +19,21 @@ export default function WalletPage() {
    const user = useAuthStore(s => s.user)
   const [confirmModal, setConfirmModal] = useState(null) // { amount, price }
   const [toast, setToast] = useState(null)
+  const [dailyClaimed, setDailyClaimed] = useState(() => {
+  const last = localStorage.getItem('lastDailyClaim')
+  if (!last) return false
+  return Date.now() - new Date(last).getTime() < 24 * 60 * 60 * 1000
+})
 
   function handleBuy(amount, price) {
     setConfirmModal({ amount, price })
   }
+  async function claimDailyReward() {
+  await addTokens(2, '🎁 Daily reward')
+  localStorage.setItem('lastDailyClaim', new Date().toISOString())
+  setDailyClaimed(true)
+  setToast({ message: '🎁 You claimed your 2 daily tokens!', type: 'success' })
+}
 
  async function confirmPurchase() {
     const { amount, price } = confirmModal
@@ -125,6 +137,27 @@ export default function WalletPage() {
           <p className="text-4xl sm:text-5xl font-bold text-white mb-1">🪙 {balance}</p>
           <p className="text-sm text-gray-500">tokens available to spend</p>
         </div>
+
+        {/* Daily Reward */}
+        {!dailyClaimed && (
+          <div className="bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-5 mb-6 sm:mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-dark-700 flex items-center justify-center text-2xl shrink-0">
+                <Gift />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-white">Claim Your Daily Reward</p>
+                <p className="text-sm text-gray-500">Get 2 free tokens every day!</p>
+              </div>
+            </div>
+            <button
+              onClick={claimDailyReward}
+              className="mt-4 px-4 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-all duration-200"
+            >
+              Claim Reward
+            </button>
+          </div>
+        )}
 
         {/* Token Packs */}
         <h2 className="text-lg font-semibold text-white mb-4">Add Tokens</h2>

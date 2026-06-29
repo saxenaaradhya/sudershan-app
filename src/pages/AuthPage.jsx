@@ -85,7 +85,12 @@ export default function AuthPage() {
       return
     }
     const userId = useAuthStore.getState().user?.id
-    if (userId) initWallet(userId)
+    if (userId) {
+      await initWallet(userId)
+      if (mode === 'signup') {
+        await useWalletStore.getState().addTokens(20, '🎁 Welcome bonus')
+      }
+    }
     navigate('/home', { state: { showWelcome: true } })
   }
 
