@@ -1,3 +1,4 @@
+import Footer from '../components/layout/Footer.jsx'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Lock, Unlock, Coins } from 'lucide-react'
@@ -284,6 +285,7 @@ export default function CategoryDetailPage() {
           </div>
         )}
       </Modal>
+      <Footer />
     </div>
   )
 }

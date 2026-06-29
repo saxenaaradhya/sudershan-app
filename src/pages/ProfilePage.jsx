@@ -1,3 +1,4 @@
+import Footer from '../components/layout/Footer.jsx'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { User, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Share2 } from 'lucide-react'
@@ -310,6 +311,7 @@ function StatBox({ value, label }) {
     <div className="bg-dark-700 rounded-xl p-2 sm:p-3">
       <p className="text-sm sm:text-base font-bold text-white mb-0.5">{value}</p>
       <p className="text-xs text-gray-500">{label}</p>
+      <Footer />
     </div>
   )
 }
