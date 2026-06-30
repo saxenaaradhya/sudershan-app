@@ -26,7 +26,6 @@ useEffect(() => {
       <div className="w-52 h-52 rounded-full flex items-center justify-center"
         style={{
           background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 60%, transparent 100%)',
-          boxShadow: '0 0 60px rgba(255,255,255,0.2), 0 0 120px rgba(255,255,255,0.1)',
           border: '2px solid rgba(255,255,255,0.2)'
         }}
       >
