@@ -23,14 +23,9 @@ export const CATEGORIES = [
      
     itemCount: 24,
     items: [
-      { id: 't1', title: 'Hypnotherapy session for deep relaxation and a sense of spacious ease.', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660420/relax_s1_qnelwu.mp3', image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800' },
-      { id: 't2', title: 'Web Dev Fundamentals', description: 'HTML, CSS, and JavaScript from scratch.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800' },
-      { id: 't3', title: 'Cloud Architecture Guide', description: 'Build scalable systems on AWS and GCP.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800' },
-      { id: 't4', title: 'React Advanced Patterns', description: 'Hooks, context, and performance tuning.', tokenCost: 6, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800' },
-      { id: 't5', title: 'Database Design Essentials', description: 'SQL and NoSQL database fundamentals.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800' },
-      { id: 't6', title: 'Linux for Beginners', description: 'Command line and shell scripting basics.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800' },
-      { id: 'tech6', title: 'TypeScript Deep Dive', description: 'Master types, interfaces and generics.', tokenCost: 12, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800' },
-      { id: 'tech7', title: 'Docker & Kubernetes', description: 'Container orchestration from scratch.', tokenCost: 15, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800' },
+      { id: 't1', title: 'Hypnotherapy session for deep relaxation and a sense of spacious ease.', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660420/relax_s1_qnelwu.mp3', image: '/images/content/anxiety/anxiety 1' },
+      { id: 't2', title: 'Web Dev Fundamentals', description: 'HTML, CSS, and JavaScript from scratch.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety2' },
+      { id: 't3', title: 'Cloud Architecture Guide', description: 'Build scalable systems on AWS and GCP.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety3' },
     ],
   },
   {
@@ -41,7 +36,6 @@ export const CATEGORIES = [
     color: 'from-indigo-500 to-purple-400',
     image: '/images/categories/overthinking-control.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    comingSoon: true,
     itemCount: 19,
     items: [
       { id: 'd1', title: 'Figma for Beginners', description: 'Design your first app UI from scratch.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -124,6 +118,7 @@ export const CATEGORIES = [
     color: 'from-pink-500 to-rose-400',
     image: '/images/categories/self-confidence-boost.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 18,
     items: [
       { id: 'm1', title: 'Chill Lo-Fi Pack Vol.1', description: '20 royalty-free lo-fi beats for focus.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800' },
