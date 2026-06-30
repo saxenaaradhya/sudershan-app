@@ -166,24 +166,34 @@ export default function HomePage() {
         ) : (
           <div className="grid grid-cols-2 gap-3">
             {filtered.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => navigate(`/category/${encodeURIComponent(cat.id)}`)}
-                className="relative w-full h-64 rounded-xl overflow-hidden group"
-                style={{
-                  backgroundImage: `url(${cat.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              >
-                <span
-                  className="absolute bottom-2 left-3 text-base font-semibold"
-                  style={{ color: '#FFFFFF' }}
-                >
-                  {cat.name}
-                </span>
-              </button>
-            ))}
+  <button
+    key={cat.id}
+    onClick={() => {
+      if (cat.comingSoon) return
+      navigate(`/category/${encodeURIComponent(cat.id)}`)
+    }}
+    className={`relative w-full h-64 rounded-xl overflow-hidden group ${cat.comingSoon ? 'cursor-not-allowed' : ''}`}
+    style={{
+      backgroundImage: `url(${cat.image})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+  >
+    {cat.comingSoon && (
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center">
+        <span className="text-white font-bold text-sm px-4 py-2 bg-white/10 border border-white/30 rounded-full">
+          Coming Soon
+        </span>
+      </div>
+    )}
+    <span
+      className="absolute bottom-2 left-3 text-base font-semibold"
+      style={{ color: '#FFFFFF' }}
+    >
+      {cat.name}
+    </span>
+  </button>
+))}
           </div>
         )}
       </main>

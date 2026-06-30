@@ -20,7 +20,7 @@ export const CATEGORIES = [
     color: 'from-blue-500 to-cyan-400',
     image: '/images/categories/anxiety-relief.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    
+     
     itemCount: 24,
     items: [
       { id: 't1', title: 'Hypnotherapy session for deep relaxation and a sense of spacious ease.', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660420/relax_s1_qnelwu.mp3', image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800' },
@@ -107,6 +107,7 @@ export const CATEGORIES = [
     color: 'from-red-500 to-pink-400',
     image: '/images/categories/fear-phobia-release.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 15,
     items: [
       { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -123,6 +124,7 @@ export const CATEGORIES = [
     color: 'from-indigo-500 to-purple-400',
     image: '/images/categories/overthinking-control.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 19,
     items: [
       { id: 'd1', title: 'Figma for Beginners', description: 'Design your first app UI from scratch.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -139,6 +141,7 @@ export const CATEGORIES = [
     color: 'from-amber-500 to-yellow-400',
     image: '/images/categories/smoking-tobacco-deaddiction.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 22,
     items: [
       { id: 'tr1', title: 'Budget Travel Europe', description: 'Explore 10 countries under ₹50,000.', tokenCost: 3, free: false, imagfree: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -155,6 +158,7 @@ export const CATEGORIES = [
     color: 'from-red-500 to-rose-400',
     image: '/images/categories/stress-management.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 33,
     items: [
       { id: 'h1', title: '30-Day Yoga Plan', description: 'Daily yoga routines for all levels.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
@@ -171,6 +175,7 @@ export const CATEGORIES = [
     color: 'from-amber-500 to-yellow-400',
     image: '/images/categories/weight-loss-mind-programming.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: true,
     itemCount: 11,
     items: [
       { id: 'sh1', title: 'Best Budget Laptops 2025', description: 'Top picks under ₹50,000.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
