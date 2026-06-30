@@ -23,9 +23,9 @@ export const CATEGORIES = [
      
     itemCount: 24,
     items: [
-      { id: 't1', title: 'Hypnotherapy session for deep relaxation and a sense of spacious ease.', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660420/relax_s1_qnelwu.mp3', image: '/images/content/anxiety/anxiety 1' },
-      { id: 't2', title: 'Web Dev Fundamentals', description: 'HTML, CSS, and JavaScript from scratch.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety2' },
-      { id: 't3', title: 'Cloud Architecture Guide', description: 'Build scalable systems on AWS and GCP.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety3' },
+      { id: 't1', title: 'Hypnotherapy session for deep relaxation and a sense of spacious ease.', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660420/relax_s1_qnelwu.mp3', image: '/images/content/anxiety/anxiety 1.jpg' },
+      { id: 't2', title: 'Web Dev Fundamentals', description: 'HTML, CSS, and JavaScript from scratch.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety2.jpg' },
+      { id: 't3', title: 'Cloud Architecture Guide', description: 'Build scalable systems on AWS and GCP.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety3.jpg' },
     ],
   },
   {
@@ -38,10 +38,9 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 19,
     items: [
-      { id: 'd1', title: 'Figma for Beginners', description: 'Design your first app UI from scratch.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'd2', title: 'Brand Identity Toolkit', description: 'Logos, typography and color systems.', tokenCost: 7, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'd3', title: 'Motion Design Basics', description: 'Intro to animation in After Effects.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'd4', title: 'Icon Design Masterclass', description: 'Create cohesive icon sets from scratch.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
+      { id: 'd1', title: 'Figma for Beginners', description: 'Design your first app UI from scratch.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/overthinking/overthinking 1.jpg' },
+      { id: 'd2', title: 'Brand Identity Toolkit', description: 'Logos, typography and color systems.', tokenCost: 7, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/overthinking/overthinking 2.jpg' },
+      { id: 'd3', title: 'Motion Design Basics', description: 'Intro to animation in After Effects.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/overthinking/overthinking 3.jpg' },
     ],
   },
   {
@@ -54,10 +53,9 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 31,
     items: [
-      { id: 'f1', title: 'Screenplay Writing Workshop', description: 'Structure your story like a pro.', tokenCost: 6, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660196/pain_s1_zxkdqq.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'f2', title: 'Cinematography Basics', description: 'Framing, lighting and camera movement.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800' },
-      { id: 'f3', title: 'Film History: 1920s–1980s', description: 'Classic cinema overview and analysis.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?w=800' },
-      { id: 'f4', title: 'Color Grading in DaVinci', description: 'Professional color correction workflows.', tokenCost: 8, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1536240478700-b869ad10e128?w=800' },
+      { id: 'f1', title: 'Screenplay Writing Workshop', description: 'Structure your story like a pro.', tokenCost: 6, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782660196/pain_s1_zxkdqq.mp3', image: '/images/content/pain/pain 1.jpg' },
+      { id: 'f2', title: 'Cinematography Basics', description: 'Framing, lighting and camera movement.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/pain/pain 2.jpg' },
+      { id: 'f3', title: 'Film History: 1920s–1980s', description: 'Classic cinema overview and analysis.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/pain/pain 3.jpg' },
     ],
   },
   {
@@ -70,11 +68,9 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 42,
     items: [
-      { id: 'b1', title: 'The Startup Playbook', description: 'Launch and scale your first business.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'b2', title: 'Mindfulness & Productivity', description: 'Evidence-based focus and calm practices.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'b3', title: 'Fiction Starter Pack', description: '5 short stories from emerging authors.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'b4', title: 'Financial Literacy 101', description: 'Budgeting, saving and investing basics.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'b5', title: 'World History in 60 Pages', description: 'Condensed narrative of human civilization.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
+      { id: 'b1', title: 'The Startup Playbook', description: 'Launch and scale your first business.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 1.jpg' },
+      { id: 'b2', title: 'Mindfulness & Productivity', description: 'Evidence-based focus and calm practices.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 2.jpg' },
+      { id: 'b3', title: 'Fiction Starter Pack', description: '5 short stories from emerging authors.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 3.jpg' },
     ],
   },
   {
@@ -87,10 +83,9 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 27,
     items: [
-      { id: 'g1', title: 'Game Dev with Unity', description: 'Build your first 2D platformer game.', tokenCost: 7, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'g2', title: 'Top 10 Indie Games 2025', description: 'Curated picks from the indie scene.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'g3', title: 'FPS Pro Strategies', description: 'Improve aim, positioning and game sense.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'g4', title: 'RPG Lore Library', description: 'Deep dives into your favourite universes.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
+      { id: 'g1', title: 'Game Dev with Unity', description: 'Build your first 2D platformer game.', tokenCost: 7, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
+      { id: 'g2', title: 'Top 10 Indie Games 2025', description: 'Curated picks from the indie scene.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
+      { id: 'g3', title: 'FPS Pro Strategies', description: 'Improve aim, positioning and game sense.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 3.jpg' },
     ],
   },
   {
