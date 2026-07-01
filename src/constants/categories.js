@@ -53,7 +53,7 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 31,
     items: [
-      { id: 'f1', title: 'Session-1', description: 'Structure your story like a pro.', tokenCost: 6, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
+      { id: 'f1', title: 'Session-1 ', description: 'Structure your story like a pro.', tokenCost: 6, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
       { id: 'f2', title: 'Session-2', description: 'Framing, lighting and camera movement.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
       { id: 'f3', title: 'Session-3', description: 'Classic cinema overview and analysis.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/pain/pain 3.jpg' },
     ],
