@@ -118,6 +118,15 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Clickable Full Width Image */}
+        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/wallet')}>
+         <img 
+          src="/images/free/meditation.jpg" 
+          alt="Banner" 
+          className="w-full rounded-2xl object-cover"
+          />
+        </div>
+
         {/* Hero Header */}
         <div className="mb-6">
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
@@ -126,15 +135,6 @@ export default function HomePage() {
           <p className="text-gray-400 text-sm sm:text-base">
             Discover content across all topics. Use your tokens to unlock premium items.
           </p>
-        </div>
-
-        {/* Clickable Full Width Image */}
-        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/wallet')}>
-         <img 
-          src="/images/free/meditation.jpg" 
-          alt="Banner" 
-          className="w-full rounded-2xl object-cover"
-          />
         </div>
 
         {/* Carousel */}
