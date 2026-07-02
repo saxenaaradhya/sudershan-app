@@ -112,7 +112,7 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="text-brand-accent font-medium underline hover:text-white transition-colors"
               >
-              your-website.com
+              www.sudershanhypnotherapy.site
               </a>
              {' '}· <span className="text-brand-accent font-medium">Call 9792390777</span>
             </p>
