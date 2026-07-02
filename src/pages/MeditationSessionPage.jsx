@@ -5,9 +5,8 @@ import Footer from '../components/layout/Footer.jsx'
 
 // Hardcoded content for this standalone session — edit these to match your session
 const SESSION = {
-  title: 'Overthinking Control / ज़्यादा सोचने की आदत पर नियंत्रण',
-  category: 'Session-1',
-  description: 'Design your first app UI from scratch.',
+  title: 'Meditation & Deep Relaxation / ध्यान और गहन विश्राम',
+  description: 'FREE SESSION',
   image: '/images/free/meditation.jpg',
   audioEn: '/audio/overthinking-en.mp3',
   audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3',
