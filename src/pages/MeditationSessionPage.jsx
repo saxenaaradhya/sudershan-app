@@ -10,7 +10,7 @@ const SESSION = {
   description: 'Design your first app UI from scratch.',
   image: '/images/free/meditation.jpg',
   audioEn: '/audio/overthinking-en.mp3',
-  audioHi: '/audio/overthinking-hi.mp3',
+  audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3',
 }
 
 function CountdownTimer({ onEnd, duration, playing }) {
