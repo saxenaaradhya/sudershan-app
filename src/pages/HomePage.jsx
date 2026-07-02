@@ -128,6 +128,15 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* Clickable Full Width Image */}
+        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/wallet')}>
+         <img 
+          src="/images/free/meditation.jpg" 
+          alt="Banner" 
+          className="w-full rounded-2xl object-cover"
+          />
+        </div>
+
         {/* Carousel */}
         <div className="mb-8">
           <ImageCarousel />
