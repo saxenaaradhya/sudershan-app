@@ -45,7 +45,7 @@ export default function ContentPage() {
   const { categoryId, itemId } = useParams()
   const navigate = useNavigate()
   const [playing, setPlaying] = useState(false)
-  const [language, setLanguage] = useState(() => localStorage.getItem('audioLang') || 'en')
+  const [language, setLanguage] = useState(() => localStorage.getItem('audioLang') || 'hi')
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [audioDuration, setAudioDuration] = useState(300)
   const audioRef = useRef(null)
