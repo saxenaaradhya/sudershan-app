@@ -153,8 +153,8 @@ export default function MeditationSessionPage() {
           </span>
         </div>
 
-        <h1 className="text-3xl font-black text-white leading-tight mb-3"
-          style={{ fontStyle: 'italic' }}>
+        <h1 className="text-3xl font-black leading-tight mb-3"
+        style={{ fontStyle: 'italic', color: '#ffffff' }}>
           {SESSION.title}
         </h1>
 
