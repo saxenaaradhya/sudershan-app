@@ -105,8 +105,17 @@ export default function HomePage() {
               </a>
 
               <p className="text-xs" style={{ color: '#FFFFFF' }}>
-                Live from · <span className="text-brand-accent font-medium">Call 9792390777</span>
-              </p>
+             Live from{' '}
+             <a
+             href="https://www.sudershanhypnotherapy.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-accent font-medium underline hover:text-white transition-colors"
+              >
+              your-website.com
+              </a>
+             {' '}· <span className="text-brand-accent font-medium">Call 9792390777</span>
+            </p>
               <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
             </div>
 
