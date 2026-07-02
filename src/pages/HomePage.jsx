@@ -119,7 +119,7 @@ export default function HomePage() {
         </div>
 
         {/* Clickable Full Width Image */}
-        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/wallet')}>
+        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/session/overthinking-control')}>
          <img 
           src="/images/free/meditation.jpg" 
           alt="Banner" 
