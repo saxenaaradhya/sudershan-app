@@ -69,7 +69,7 @@ export const CATEGORIES = [
     itemCount: 42,
     items: [
       { id: 'b1', title: 'Session-1', description: 'Launch and scale your first business.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919452/sleep_s1_lc4yje.mp3', image: '/images/content/sleep/sleep 1.jpg' },
-      { id: 'b2', title: 'Session-2', description: 'Evidence-based focus and calm practices.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 2.jpg' },
+      { id: 'b2', title: 'Session-2', description: 'Evidence-based focus and calm practices.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783080627/sleep_s2_ilwgg9.mp3', image: '/images/content/sleep/sleep 2.jpg' },
       { id: 'b3', title: 'Session-3', description: '5 short stories from emerging authors.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 3.jpg' },
     ],
   },
