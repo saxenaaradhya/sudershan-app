@@ -83,7 +83,7 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 27,
     items: [
-      { id: 'g1', title: 'Session-1', description: 'Build your first 2D platformer game.', tokenCost: 7, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
+      { id: 'g1', title: 'Session-1', description: 'Build your first 2D platformer game.', tokenCost: 1, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
       { id: 'g2', title: 'Session-2', description: 'Curated picks from the indie scene.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
       { id: 'g3', title: 'Session-3', description: 'Improve aim, positioning and game sense.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 3.jpg' },
     ],
