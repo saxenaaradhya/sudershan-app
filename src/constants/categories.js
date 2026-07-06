@@ -24,7 +24,7 @@ export const CATEGORIES = [
     itemCount: 24,
     items: [
       { id: 't1', title: 'Session-1', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919318/relax_s1_ziryk9.mp3', image: '/images/content/anxiety/anxiety 1.jpg' },
-      { id: 't2', title: 'Session-2', description: 'HTML, CSS, and JavaScript from scratch.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety2.jpg' },
+      { id: 't2', title: 'Session-2', description: 'तूफ़ान के बाद का आकाश" और "पहाड़ों की नदी', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783363259/relax_s2_wclenw.mp3', image: '/images/content/anxiety/anxiety2.jpg' },
       { id: 't3', title: 'Session-3', description: 'Build scalable systems on AWS and GCP.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety3.jpg' },
     ],
   },
@@ -55,7 +55,7 @@ export const CATEGORIES = [
     items: [
       { id: 'f1', title: 'Session-1 ', description: 'दर्द प्रबंधन और आराम वृद्धि', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
       { id: 'f2', title: 'Session-2', description: 'लंबे समय से चले आ रहे दर्द के लिए मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
-      { id: 'f3', title: 'Session-3', description: 'Classic cinema overview and analysis.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/pain/pain 3.jpg' },
+      { id: 'f3', title: 'Session-3', description: 'लंबे समय से चले आ रहे दर्द से राहत और गाइडेड सोमैटिक हीलिंग', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783362809/pain_s3_ggecj4.mp3', image: '/images/content/pain/pain 3.jpg' },
     ],
   },
   {
