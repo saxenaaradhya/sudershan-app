@@ -38,7 +38,7 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 19,
     items: [
-      { id: 'd1', title: 'Session-1', description: 'Design your first app UI from scratch.', tokenCost: 2, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782918954/overthinking_1_qw6nhl.mp3', image: '/images/content/overthinking/overthinking 1.jpg' },
+      { id: 'd1', title: 'Session-1', description: 'आंतरिक शांति और चिंता रहित रहने के लिए', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782918954/overthinking_1_qw6nhl.mp3', image: '/images/content/overthinking/overthinking 1.jpg' },
       { id: 'd2', title: 'Session-2', description: 'शून्य से शून्य की ओर', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783328382/overthinking_2_gzqt2c.mp3', image: '/images/content/overthinking/overthinking 2.jpg' },
       { id: 'd3', title: 'Session-3', description: 'Intro to animation in After Effects.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/overthinking/overthinking 3.jpg' },
     ],
@@ -53,8 +53,8 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 31,
     items: [
-      { id: 'f1', title: 'Session-1 ', description: 'Structure your story like a pro.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
-      { id: 'f2', title: 'Session-2', description: 'Framing, lighting and camera movement.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
+      { id: 'f1', title: 'Session-1 ', description: 'दर्द प्रबंधन और आराम वृद्धि', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
+      { id: 'f2', title: 'Session-2', description: 'लंबे समय से चले आ रहे दर्द के लिए मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
       { id: 'f3', title: 'Session-3', description: 'Classic cinema overview and analysis.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/pain/pain 3.jpg' },
     ],
   },
@@ -68,8 +68,8 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 42,
     items: [
-      { id: 'b1', title: 'Session-1', description: 'Launch and scale your first business.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919452/sleep_s1_lc4yje.mp3', image: '/images/content/sleep/sleep 1.jpg' },
-      { id: 'b2', title: 'Session-2', description: 'Evidence-based focus and calm practices.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783080627/sleep_s2_ilwgg9.mp3', image: '/images/content/sleep/sleep 2.jpg' },
+      { id: 'b1', title: 'Session-1', description: 'गहन निद्रा', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919452/sleep_s1_lc4yje.mp3', image: '/images/content/sleep/sleep 1.jpg' },
+      { id: 'b2', title: 'Session-2', description: 'क्या आपको रात भर नींद नहीं आती?', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783080627/sleep_s2_ilwgg9.mp3', image: '/images/content/sleep/sleep 2.jpg' },
       { id: 'b3', title: 'Session-3', description: '5 short stories from emerging authors.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 3.jpg' },
     ],
   },
@@ -83,7 +83,7 @@ export const CATEGORIES = [
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     itemCount: 27,
     items: [
-      { id: 'g1', title: 'Session-1', description: 'Build your first 2D platformer game.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
+      { id: 'g1', title: 'Session-1', description: 'शिव और शक्ति हमारे जीवन में', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
       { id: 'g2', title: 'Session-2', description: 'Curated picks from the indie scene.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
       { id: 'g3', title: 'Session-3', description: 'Improve aim, positioning and game sense.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 3.jpg' },
     ],
