@@ -65,22 +65,26 @@ export default function WalletPage() {
           contact: user?.phone || '',
         },
         handler: async function (response) {
-          // 3. Verify payment on the backend
-          const verifyRes = await fetch('/api/verifyPayment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(response),
-          })
-          const result = await verifyRes.json()
+  // 3. Verify payment on the backend
+  const verifyRes = await fetch('/api/verifyPayment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(response),
+  })
+  const result = await verifyRes.json()
 
-          if (result.success) {
-            addTokens(amount, `Purchased ${amount} token pack`)
-            setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
-          } else {
-            setToast({ message: 'Payment verification failed.', type: 'error' })
-          }
-          setConfirmModal(null)
-        },
+  // TEMPORARY DEBUG ALERTS
+  alert('Razorpay sent: ' + JSON.stringify(response))
+  alert('Server replied: ' + JSON.stringify(result))
+
+  if (result.success) {
+    addTokens(amount, `Purchased ${amount} token pack`)
+    setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
+  } else {
+    setToast({ message: 'Payment verification failed.', type: 'error' })
+  }
+  setConfirmModal(null)
+},
         modal: {
           ondismiss: function () {
             setConfirmModal(null)
