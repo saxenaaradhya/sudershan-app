@@ -16,6 +16,7 @@ export default function WalletPage() {
   const balance = useWalletStore(s => s.balance)  
   const addTokens = useWalletStore(s => s.addTokens)
   const transactions = useWalletStore(s => s.transactions)
+  const initWallet = useWalletStore(s => s.initWallet)
    const user = useAuthStore(s => s.user)
   const [confirmModal, setConfirmModal] = useState(null) // { amount, price }
   const [toast, setToast] = useState(null)
@@ -65,20 +66,20 @@ export default function WalletPage() {
           contact: user?.phone || '',
         },
         handler: async function (response) {
-  // 3. Verify payment on the backend
   const verifyRes = await fetch('/api/verifyPayment', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(response),
+    body: JSON.stringify({
+      ...response,
+      userId: user?.id,  // pass user ID
+      amount,            // pass token amount
+    }),
   })
   const result = await verifyRes.json()
 
-  // TEMPORARY DEBUG ALERTS
-  alert('Razorpay sent: ' + JSON.stringify(response))
-  alert('Server replied: ' + JSON.stringify(result))
-
   if (result.success) {
-    addTokens(amount, `Purchased ${amount} token pack`)
+    // Reload wallet from Firebase instead of manually adding
+    await initWallet(user?.id)
     setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
   } else {
     setToast({ message: 'Payment verification failed.', type: 'error' })
