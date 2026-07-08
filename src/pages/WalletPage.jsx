@@ -164,8 +164,8 @@ export default function WalletPage() {
         <div className="flex flex-col gap-3 mb-8 sm:mb-10">
           {[
             { amount: 20, price: 20, label: 'STARTER', desc: 'Perfect for trying things out', badge: null },
-            { amount: 80, price: 59, label: 'POPULAR', desc: 'Best value for regular users', badge: 'Most Popular' },
-            { amount: 150, price: 389, label: 'PRO', desc: 'Unlock everything without limits', badge: 'Best Deal' },
+            { amount: 80, price: 70, label: 'POPULAR', desc: 'Best value for regular users', badge: 'Most Popular' },
+            { amount: 150, price: 1, label: 'PRO', desc: 'Unlock everything without limits', badge: 'Best Deal' },
           ].map(({ amount, price, label, desc, badge }) => (
             <div key={amount} className="relative bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4">
               {badge && (
