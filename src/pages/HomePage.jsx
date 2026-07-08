@@ -91,12 +91,11 @@ export default function HomePage() {
                 <span style={{ color: '#FF8C42' }}>Mr. Sandeep</span>
               </h2>
 
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#FFFFFF' }}>
+              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07' }}>
                 Hypnothrapist and reiki Grandmaster
               </p>
 
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07' }}>
-                Hypnothrapist and reiki Grandmaster
+              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
                 Simple, personal and reassuring. Move forward with clarity.
               </p>
 
