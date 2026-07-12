@@ -25,7 +25,6 @@ export const CATEGORIES = [
     items: [
       { id: 't1', title: 'Session-1', description: 'गहन विश्राम और अंतरिक्ष सहजता का हिप्नोथेरेपी  सेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919318/relax_s1_ziryk9.mp3', image: '/images/content/anxiety/anxiety 1.jpg' },
       { id: 't2', title: 'Session-2', description: 'तूफ़ान के बाद का आकाश" और "पहाड़ों की नदी', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783363259/relax_s2_wclenw.mp3', image: '/images/content/anxiety/anxiety2.jpg' },
-      { id: 't3', title: 'Session-3', description: 'Build scalable systems on AWS and GCP.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/anxiety/anxiety3.jpg' },
     ],
   },
   {
@@ -40,7 +39,6 @@ export const CATEGORIES = [
     items: [
       { id: 'd1', title: 'Session-1', description: 'आंतरिक शांति और चिंता रहित रहने के लिए', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782918954/overthinking_1_qw6nhl.mp3', image: '/images/content/overthinking/overthinking 1.jpg' },
       { id: 'd2', title: 'Session-2', description: 'शून्य से शून्य की ओर', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783328382/overthinking_2_gzqt2c.mp3', image: '/images/content/overthinking/overthinking 2.jpg' },
-      { id: 'd3', title: 'Session-3', description: 'Intro to animation in After Effects.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/overthinking/overthinking 3.jpg' },
     ],
   },
   {
@@ -56,6 +54,7 @@ export const CATEGORIES = [
       { id: 'f1', title: 'Session-1 ', description: 'दर्द प्रबंधन और आराम वृद्धि', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919200/pain_s1_ddklop.mp3', image: '/images/content/pain/pain 1.jpg' },
       { id: 'f2', title: 'Session-2', description: 'लंबे समय से चले आ रहे दर्द के लिए मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
       { id: 'f3', title: 'Session-3', description: 'लंबे समय से चले आ रहे दर्द से राहत और गाइडेड सोमैटिक हीलिंग', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783362809/pain_s3_ggecj4.mp3', image: '/images/content/pain/pain 3.jpg' },
+      { id: 'f4', title: 'Session-4', description: 'सूर्य की गर्माहट और पिघलते मक्खन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783861145/pain_s4_sewfdl.mp3', image: '/images/content/pain/pain 4.jpg' },
     ],
   },
   {
@@ -70,7 +69,6 @@ export const CATEGORIES = [
     items: [
       { id: 'b1', title: 'Session-1', description: 'गहन निद्रा', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919452/sleep_s1_lc4yje.mp3', image: '/images/content/sleep/sleep 1.jpg' },
       { id: 'b2', title: 'Session-2', description: 'क्या आपको रात भर नींद नहीं आती?', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783080627/sleep_s2_ilwgg9.mp3', image: '/images/content/sleep/sleep 2.jpg' },
-      { id: 'b3', title: 'Session-3', description: '5 short stories from emerging authors.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/sleep/sleep 3.jpg' },
     ],
   },
   {
@@ -84,8 +82,7 @@ export const CATEGORIES = [
     itemCount: 27,
     items: [
       { id: 'g1', title: 'Session-1', description: 'शिव और शक्ति हमारे जीवन में', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
-      { id: 'g2', title: 'Session-2', description: 'Curated picks from the indie scene.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
-      { id: 'g3', title: 'Session-3', description: 'Improve aim, positioning and game sense.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: '/images/content/emotional/Emotional 3.jpg' },
+      { id: 'g2', title: 'Session-2', description: 'दिव्य हीलिंग एवं कृतज्ञता हिप्नोथेरेपी / गाइडेड मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783861167/emotional_2_qpbn6b.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
     ],
   },
   {
