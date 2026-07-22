@@ -209,29 +209,24 @@ export default function ContentPage() {
   <button
     onClick={async () => {
   const longUrl = `${window.location.origin}/category/${encodeURIComponent(categoryId)}?item=${itemId}`
-  
+
   try {
-    // Shorten using TinyURL free API
-    const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
-    const shortUrl = await res.text()
+    const res = await fetch('/api/shorten', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: longUrl }),
+    })
+    const { shortUrl } = await res.json()
 
     if (navigator.share) {
-      navigator.share({
-        title: item.title,
-        text: item.description,
-        url: shortUrl,
-      })
+      navigator.share({ title: item.title, text: item.description, url: shortUrl })
     } else {
       navigator.clipboard.writeText(shortUrl)
       alert('Link copied: ' + shortUrl)
     }
-  } catch (err) {
-    // Fallback to long URL if shortening fails
+  } catch {
     if (navigator.share) {
       navigator.share({ title: item.title, text: item.description, url: longUrl })
-    } else {
-      navigator.clipboard.writeText(longUrl)
-      alert('Link copied!')
     }
   }
 }}
