@@ -207,17 +207,32 @@ export default function ContentPage() {
 
   {/* SHARE BUTTON — add this */}
   <button
-    onClick={() => {
-  const shareUrl = `${window.location.origin}/category/${encodeURIComponent(categoryId)}?item=${itemId}`
-  if (navigator.share) {
-    navigator.share({
-      title: item.title,
-      text: item.description,
-      url: shareUrl,
-    })
-  } else {
-    navigator.clipboard.writeText(shareUrl)
-    alert('Link copied to clipboard!')
+    onClick={async () => {
+  const longUrl = `${window.location.origin}/category/${encodeURIComponent(categoryId)}?item=${itemId}`
+  
+  try {
+    // Shorten using TinyURL free API
+    const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
+    const shortUrl = await res.text()
+
+    if (navigator.share) {
+      navigator.share({
+        title: item.title,
+        text: item.description,
+        url: shortUrl,
+      })
+    } else {
+      navigator.clipboard.writeText(shortUrl)
+      alert('Link copied: ' + shortUrl)
+    }
+  } catch (err) {
+    // Fallback to long URL if shortening fails
+    if (navigator.share) {
+      navigator.share({ title: item.title, text: item.description, url: longUrl })
+    } else {
+      navigator.clipboard.writeText(longUrl)
+      alert('Link copied!')
+    }
   }
 }}
     className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
