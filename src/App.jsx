@@ -52,8 +52,12 @@ export default function App() {
         />
         <Route
           path="/content/:categoryId/:itemId"
-          element={<ContentPage />}
-        />
+          element={
+         <ProtectedRoute>
+          <ContentPage />
+         </ProtectedRoute>
+       }
+       />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route
          path="/session/overthinking-control"

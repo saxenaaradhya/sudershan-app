@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom' 
 import { Zap, Eye, EyeOff } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
@@ -15,6 +15,8 @@ import {
 
 export default function AuthPage() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const redirectTo = location.state?.redirectTo || '/home'
   const signIn = useAuthStore(s => s.signIn)
   const signUp = useAuthStore(s => s.signUp)
   const loginByPhone = useAuthStore(s => s.loginByPhone)
@@ -91,7 +93,7 @@ export default function AuthPage() {
         await useWalletStore.getState().addTokens(20, '🎁 Welcome bonus')
       }
     }
-    navigate('/home', { state: { showWelcome: true } })
+    navigate(redirectTo, { state: { showWelcome: true } })
   }
 
   async function handleForgot() {
@@ -104,7 +106,7 @@ export default function AuthPage() {
       const userId = useAuthStore.getState().user?.id
       if (userId) initWallet(userId)
       setForgotOpen(false)
-      navigate('/home', { state: { showWelcome: true } })
+      navigate(redirectTo, { state: { showWelcome: true } })
     } else {
       setForgotError(result.error || 'Phone number not found.')
     }
