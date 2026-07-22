@@ -208,17 +208,18 @@ export default function ContentPage() {
   {/* SHARE BUTTON — add this */}
   <button
     onClick={() => {
-      if (navigator.share) {
-        navigator.share({
-          title: item.title,
-          text: item.description,
-          url: window.location.href,
-        })
-      } else {
-        navigator.clipboard.writeText(window.location.href)
-        alert('Link copied to clipboard!')
-      }
-    }}
+  const shareUrl = `${window.location.origin}/category/${encodeURIComponent(categoryId)}?item=${itemId}`
+  if (navigator.share) {
+    navigator.share({
+      title: item.title,
+      text: item.description,
+      url: shareUrl,
+    })
+  } else {
+    navigator.clipboard.writeText(shareUrl)
+    alert('Link copied to clipboard!')
+  }
+}}
     className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
   >
     <Share2 className="w-5 h-5" style={{ color: '#FFFFFF' }} />

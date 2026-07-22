@@ -1,6 +1,6 @@
 import Footer from '../components/layout/Footer.jsx'
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { ArrowLeft, Lock, Unlock, Coins } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Button from '../components/ui/Button.jsx'
@@ -25,6 +25,23 @@ export default function CategoryDetailPage() {
   const [toast, setToast] = useState(null)
 
   const category = CATEGORIES.find(c => c.id === decodeURIComponent(id))
+  const [searchParams] = useSearchParams()
+const highlightItemId = searchParams.get('item')
+const highlightRef = useRef(null)
+
+// Auto-set activeIndex to the shared item
+useEffect(() => {
+  if (highlightItemId && category) {
+    const index = category.items.findIndex(i => i.id === highlightItemId)
+    if (index !== -1) {
+      setActiveIndex(index)
+      // Scroll to card after render
+      setTimeout(() => {
+        highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 300)
+    }
+  }
+}, [highlightItemId, category])
 
   if (!category) {
     return (
@@ -143,9 +160,10 @@ export default function CategoryDetailPage() {
               const color = STRIP_COLORS[activeIndex % STRIP_COLORS.length]
               return (
                 <div
-                  key={item.id}
-                  className="relative rounded-2xl shadow-xl overflow-hidden min-h-[360px]"
-                  style={{ backgroundColor: color }}
+                key={item.id}
+                ref={activeIndex === category.items.findIndex(i => i.id === highlightItemId) ? highlightRef : null}
+               className="relative rounded-2xl shadow-xl overflow-hidden min-h-[360px]"
+               style={{ backgroundColor: color }}
                 >
                   {/* Full bleed background image */}
                   {item.image && (
