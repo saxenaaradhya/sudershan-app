@@ -212,7 +212,7 @@ export default function ContentPage() {
   
   try {
     // Shorten using TinyURL free API
-    const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
+    const res = await fetch(`https://sudershan.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
     const shortUrl = await res.text()
 
     if (navigator.share) {
