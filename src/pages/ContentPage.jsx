@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Play, Pause, X, Settings, Check } from 'lucide-react'
+import { ArrowLeft, Play, Pause, X, Settings, Check, Share2  } from 'lucide-react'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 
@@ -208,6 +208,46 @@ export default function ContentPage() {
               </>
             )}
           </button>
+          <div className="flex items-center gap-3">
+  <button
+    onClick={() => navigate(-1)}
+    className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+  >
+    <ArrowLeft className="w-5 h-5" style={{ color: '#FFFFFF' }} />
+  </button>
+
+  <button
+    onClick={togglePlay}
+    className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full
+      bg-green-500 text-white font-bold text-sm hover:bg-green-600 transition-all
+      shadow-2xl"
+  >
+    {playing ? (
+      <><Pause className="w-5 h-5" /> Pause</>
+    ) : (
+      <><Play className="w-5 h-5" /> Play Now</>
+    )}
+  </button>
+
+  {/* SHARE BUTTON — add this */}
+  <button
+    onClick={() => {
+      if (navigator.share) {
+        navigator.share({
+          title: item.title,
+          text: item.description,
+          url: window.location.href,
+        })
+      } else {
+        navigator.clipboard.writeText(window.location.href)
+        alert('Link copied to clipboard!')
+      }
+    }}
+    className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+  >
+    <Share2 className="w-5 h-5" style={{ color: '#FFFFFF' }} />
+  </button>
+</div>
 
         </div>
 
