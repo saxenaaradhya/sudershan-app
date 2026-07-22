@@ -214,7 +214,12 @@ export default function ContentPage() {
     const res = await fetch('/api/shorten', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: longUrl }),
+      body: JSON.stringify({
+        url: longUrl,
+        title: item.title,
+        description: item.description,
+        image: item.image,
+      }),
     })
     const { shortUrl } = await res.json()
 

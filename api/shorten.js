@@ -15,19 +15,27 @@ if (!getApps().length) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  const { url } = req.body
+  const { url, title, description, image } = req.body
   if (!url) return res.status(400).json({ error: 'No URL provided' })
 
   try {
     const db = getFirestore()
-    const code = crypto.randomBytes(3).toString('hex') // e.g. "a1b2c3"
-    
+    const code = crypto.randomBytes(3).toString('hex')
+
+    // Convert relative image path to full URL
+    const fullImage = image?.startsWith('http')
+      ? image
+      : `${req.headers.origin}${image}`
+
     await db.collection('shortlinks').doc(code).set({
       url,
+      title,
+      description,
+      image: fullImage,
       createdAt: new Date().toISOString(),
     })
 
-    const shortUrl = `${req.headers.origin}/s/${code}`
+    const shortUrl = `${req.headers.origin}/api/preview?code=${code}`
     return res.status(200).json({ shortUrl })
   } catch (err) {
     console.error('Shorten error:', err)
