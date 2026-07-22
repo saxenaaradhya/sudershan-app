@@ -29,11 +29,18 @@ export default async function handler(req, res) {
   <meta property="og:title" content="${title || 'Sudershan App'}" />
   <meta property="og:description" content="${description || 'Meditation and wellness'}" />
   <meta property="og:image" content="${image || ''}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
-  <meta http-equiv="refresh" content="0;url=${url}" />
+  <meta property="og:url" content="${req.headers['x-forwarded-proto']}://${req.headers.host}/api/preview?code=${code}" />
   <title>${title || 'Sudershan App'}</title>
 </head>
-<body>Redirecting...</body>
+<body>
+  <p>Redirecting...</p>
+  <script>
+    window.location.href = "${url}";
+  </script>
+</body>
 </html>`)
   } catch (err) {
     console.error('Preview error:', err)
