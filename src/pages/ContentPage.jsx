@@ -185,30 +185,6 @@ export default function ContentPage() {
          </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          >
-            <ArrowLeft className="w-5 h-5" style={{ color: '#FFFFFF' }} />
-          </button>
-
-          <button
-            onClick={togglePlay}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full
-              bg-green-500 text-white font-bold text-sm hover:bg-green-600 transition-all
-              shadow-2xl"
-          >
-            {playing ? (
-              <>
-                <Pause className="w-5 h-5" /> Pause
-              </>
-            ) : (
-              <>
-                <Play className="w-5 h-5" /> Play Now
-              </>
-            )}
-          </button>
-          <div className="flex items-center gap-3">
   <button
     onClick={() => navigate(-1)}
     className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
@@ -248,11 +224,7 @@ export default function ContentPage() {
     <Share2 className="w-5 h-5" style={{ color: '#FFFFFF' }} />
   </button>
 </div>
-
-        </div>
-
-      </div>
-
+</div>
       <Footer />
     </div>
   )
