@@ -132,8 +132,8 @@ export default function AuthPage() {
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-primary shadow-2xl shadow-brand-primary/40 mb-3 sm:mb-4">
             <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">TokenApp</h1>
-          <p className="text-gray-400 mt-1.5 text-sm">Your all-in-one token platform</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Sudershan Hypnotherapy</h1>
+          <p className="text-gray-400 mt-1.5 text-sm">Your all-in-one healing platform</p>
         </div>
 
         <div className="bg-dark-800 border border-dark-600 rounded-2xl p-5 sm:p-8 shadow-2xl">
