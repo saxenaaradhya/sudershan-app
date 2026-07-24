@@ -1,6 +1,6 @@
 {
   "rewrites": [
     { "source": "/s/:code", "destination": "/api/redirect?code=:code" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!manifest.json|sw.js).*)", "destination": "/index.html" }
   ]
 }
