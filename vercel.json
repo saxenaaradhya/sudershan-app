@@ -1,9 +1,6 @@
 {
-  "routes": [
-    { "src": "/s/(.+)", "dest": "/api/redirect?code=$1" },
-    { "src": "/manifest.json", "dest": "/manifest.json" },
-    { "src": "/sw.js", "dest": "/sw.js" },
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/s/:code", "destination": "/api/redirect?code=:code" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
