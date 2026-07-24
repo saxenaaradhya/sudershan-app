@@ -1,5 +1,5 @@
 import Footer from '../components/layout/Footer.jsx'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { User, Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Share2 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
@@ -35,6 +35,29 @@ export default function ProfilePage() {
   const [logoutModal, setLogoutModal] = useState(false)
   const [toast, setToast] = useState(null)
   const { theme, toggleTheme } = useThemeStore()
+  const [installPrompt, setInstallPrompt] = useState(null)
+const [isInstalled, setIsInstalled] = useState(false)
+
+useEffect(() => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault()
+    setInstallPrompt(e)
+  })
+  window.addEventListener('appinstalled', () => {
+    setIsInstalled(true)
+    setInstallPrompt(null)
+  })
+}, [])
+
+async function handleInstall() {
+  if (!installPrompt) return
+  installPrompt.prompt()
+  const { outcome } = await installPrompt.userChoice
+  if (outcome === 'accepted') {
+    setIsInstalled(true)
+    setInstallPrompt(null)
+  }
+}
 
   function shareReferralCode() {
   const message = `Join me on Sudershan App! Use my referral code *${user?.referralCode}* to get bonus tokens. Sign up here: https://sudershan-app-5czh.vercel.app`
@@ -206,6 +229,22 @@ export default function ProfilePage() {
 
         {/* Actions */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden mb-4">
+          {/* Add to Home Screen */}
+{installPrompt && !isInstalled && (
+  <ActionRow
+    icon={<span>📲</span>}
+    label="Add App to Home Screen"
+    onClick={handleInstall}
+  />
+)}
+        {isInstalled && (
+         <ActionRow
+           icon={<span>✅</span>}
+           label="App Installed"
+           labelClass="text-green-400"
+           onClick={() => {}}
+          />
+           )}
           <ActionRow
             icon={<Lock className="w-4 h-4" />}
             label="Change Password"
