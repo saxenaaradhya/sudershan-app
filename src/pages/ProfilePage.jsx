@@ -230,21 +230,18 @@ async function handleInstall() {
         {/* Actions */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden mb-4">
           {/* Add to Home Screen */}
-{installPrompt && !isInstalled && (
-  <ActionRow
-    icon={<span>📲</span>}
-    label="Add App to Home Screen"
-    onClick={handleInstall}
-  />
-)}
-        {isInstalled && (
-         <ActionRow
-           icon={<span>✅</span>}
-           label="App Installed"
-           labelClass="text-green-400"
-           onClick={() => {}}
-          />
-           )}
+<ActionRow
+  icon={<span>📲</span>}
+  label="Add App to Home Screen"
+  onClick={() => {
+    if (installPrompt) {
+      handleInstall()
+    } else {
+      // Show manual instructions
+      alert('To install:\n\nAndroid: Tap the 3 dots menu in Chrome → "Add to Home screen"\n\niPhone: Tap the Share button in Safari → "Add to Home Screen"')
+    }
+  }}
+/>
           <ActionRow
             icon={<Lock className="w-4 h-4" />}
             label="Change Password"
