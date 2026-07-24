@@ -39,23 +39,34 @@ export default function ProfilePage() {
 const [isInstalled, setIsInstalled] = useState(false)
 
 useEffect(() => {
-  window.addEventListener('beforeinstallprompt', (e) => {
+  const handler = (e) => {
     e.preventDefault()
     setInstallPrompt(e)
-  })
+    console.log('Install prompt captured!')
+  }
+  
+  window.addEventListener('beforeinstallprompt', handler)
+  
+  // Check if already installed
   window.addEventListener('appinstalled', () => {
     setIsInstalled(true)
     setInstallPrompt(null)
   })
+
+  return () => window.removeEventListener('beforeinstallprompt', handler)
 }, [])
 
 async function handleInstall() {
-  if (!installPrompt) return
-  installPrompt.prompt()
-  const { outcome } = await installPrompt.userChoice
-  if (outcome === 'accepted') {
-    setIsInstalled(true)
-    setInstallPrompt(null)
+  const prompt = installPrompt || window.__installPrompt
+  if (prompt) {
+    prompt.prompt()
+    const { outcome } = await prompt.userChoice
+    if (outcome === 'accepted') {
+      setIsInstalled(true)
+      window.__installPrompt = null
+    }
+  } else {
+    alert('To install:\n\nAndroid: Tap the 3 dots menu in Chrome → "Add to Home screen"\n\niPhone: Tap the Share button in Safari → "Add to Home Screen"')
   }
 }
 

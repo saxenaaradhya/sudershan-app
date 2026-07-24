@@ -22,6 +22,14 @@ export default function App() {
       initWallet(user.id)
     }
   }, [isAuthenticated, user?.id, initWallet])
+  useEffect(() => {
+  const handler = (e) => {
+    e.preventDefault()
+    window.__installPrompt = e
+  }
+  window.addEventListener('beforeinstallprompt', handler)
+  return () => window.removeEventListener('beforeinstallprompt', handler)
+}, [])
 
   return (
     <BrowserRouter>
