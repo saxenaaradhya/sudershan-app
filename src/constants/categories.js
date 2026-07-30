@@ -165,7 +165,7 @@ export const CATEGORIES = [
     comingSoon: false,
     itemCount: 11,
     items: [
-      { id: 'sh1', title: 'वजन कम करने के लिए', description: 'वजन कम करने के लिए मन और आदतों में सकारात्मक बदलाव लाने वाली निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428873/weight_loss_meipdk.mp3', image: '/images/content/weight loss/weight.jpg' },
+      { id: 'sh1', title: 'वजन कम करने के लिए', description: 'वजन कम करने के लिए मन और आदतों में सकारात्मक बदलाव लाने वाली निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428873/weight_loss_meipdk.mp3', image: '/images/content/weight loss/weight.png' },
     ],
   },
   
