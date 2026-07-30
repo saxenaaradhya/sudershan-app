@@ -86,6 +86,20 @@ export const CATEGORIES = [
     ],
   },
   {
+    id: 'Weight Loss Mind Programming / वज़न घटाने के लिए माइंड प्रोग्रामिंग',
+    name: 'Weight Loss Mind Programming / वज़न घटाने के लिए माइंड प्रोग्रामिंग',
+    description: ' ',
+    icon: Weight,
+    color: 'from-amber-500 to-yellow-400',
+    image: '/images/categories/weight-loss-mind-programming.png',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: false,
+    itemCount: 11,
+    items: [
+      { id: 'sh1', title: 'वजन कम करने के लिए', description: 'वजन कम करने के लिए मन और आदतों में सकारात्मक बदलाव लाने वाली निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428873/weight_loss_meipdk.mp3', image: '/images/content/weight loss/weight.png' },
+    ],
+  },
+  {
     id: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
     name: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
     description: ' ',
@@ -152,20 +166,6 @@ export const CATEGORIES = [
       { id: 'h2', title: 'Nutrition Basics', description: 'Understand macros, micros and meal timing.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
       { id: 'h3', title: 'Mental Health Workbook', description: 'Exercises for anxiety, stress and focus.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
       { id: 'h4', title: 'Home Workout Program', description: 'Full-body training with no equipment.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-    ],
-  },
-  {
-    id: 'Weight Loss Mind Programming / वज़न घटाने के लिए माइंड प्रोग्रामिंग',
-    name: 'Weight Loss Mind Programming / वज़न घटाने के लिए माइंड प्रोग्रामिंग',
-    description: ' ',
-    icon: Weight,
-    color: 'from-amber-500 to-yellow-400',
-    image: '/images/categories/weight-loss-mind-programming.png',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    comingSoon: false,
-    itemCount: 11,
-    items: [
-      { id: 'sh1', title: 'वजन कम करने के लिए', description: 'वजन कम करने के लिए मन और आदतों में सकारात्मक बदलाव लाने वाली निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428873/weight_loss_meipdk.mp3', image: '/images/content/weight loss/weight.png' },
     ],
   },
   
