@@ -7,7 +7,7 @@ import {
   ShieldAlert as Fear,
   BrainCircuit as Overthinking,
   Cigarette as Smoking,
-  Activity as Stress,
+  Activity as Blood,
   Scale as Weight,
 } from 'lucide-react'
 
@@ -100,6 +100,20 @@ export const CATEGORIES = [
     ],
   },
   {
+    id: 'Blood pressure control/ रक्तचाप नियंत्रण',
+    name: 'Blood pressure control/ रक्तचाप नियंत्रण',
+    description: ' ',
+    icon: Blood,
+    color: 'from-red-500 to-rose-400',
+    image: '/images/categories/blood-pressure-control.png',
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    comingSoon: false,
+    itemCount: 33,
+    items: [
+      { id: 'h1', title: 'रक्तचाप नियंत्रण', description: 'तनाव कम करने और गहरी शांति को बढ़ावा देकर स्वस्थ रक्तचाप बनाए रखने में सहायक निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428081/bp_oiqhlr.mp3', image: '/images/content/bp/bp.png'  },
+    ],
+  },
+  {
     id: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
     name: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
     description: ' ',
@@ -151,23 +165,5 @@ export const CATEGORIES = [
       { id: 'tr4', title: 'Travel Photography Tips', description: 'Document your journey beautifully.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
     ],
   },
-  {
-    id: 'Stress Management / तनाव का प्रबंधन',
-    name: 'Stress Management / तनाव का प्रबंधन',
-    description: ' ',
-    icon: Stress,
-    color: 'from-red-500 to-rose-400',
-    image: '/images/categories/stress-management.png',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    comingSoon: true,
-    itemCount: 33,
-    items: [
-      { id: 'h1', title: '30-Day Yoga Plan', description: 'Daily yoga routines for all levels.', tokenCost: 5, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'h2', title: 'Nutrition Basics', description: 'Understand macros, micros and meal timing.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'h3', title: 'Mental Health Workbook', description: 'Exercises for anxiety, stress and focus.', tokenCost: 4, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'h4', title: 'Home Workout Program', description: 'Full-body training with no equipment.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-    ],
-  },
-  
   
 ]
