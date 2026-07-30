@@ -105,7 +105,7 @@ export const CATEGORIES = [
     description: ' ',
     icon: Blood,
     color: 'from-red-500 to-rose-400',
-    image: '/images/categories/blood-pressure-control.png',
+    image: '/images/categories/stress-management.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     comingSoon: false,
     itemCount: 33,
