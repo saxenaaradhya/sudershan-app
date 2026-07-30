@@ -165,9 +165,7 @@ export const CATEGORIES = [
     comingSoon: true,
     itemCount: 11,
     items: [
-      { id: 'sh1', title: 'Best Budget Laptops 2025', description: 'Top picks under ₹50,000.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'sh2', title: 'Smartphone Buying Guide', description: 'Compare specs and find your match.', tokenCost: 0, free: true, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'sh3', title: 'Home Office Setup Guide', description: 'Ergonomic gear for remote work.', tokenCost: 3, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
+      { id: 'sh1', title: 'वजन कम करने के लिए', description: 'वजन कम करने के लिए मन और आदतों में सकारात्मक बदलाव लाने वाली निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428873/weight_loss_meipdk.mp3', image: '/images/content/weight loss/weight.jpg' },
     ],
   },
   
