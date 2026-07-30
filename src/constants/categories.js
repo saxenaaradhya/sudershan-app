@@ -110,7 +110,7 @@ export const CATEGORIES = [
     comingSoon: false,
     itemCount: 33,
     items: [
-      { id: 'h1', title: 'रक्तचाप नियंत्रण', description: 'तनाव कम करने और गहरी शांति को बढ़ावा देकर स्वस्थ रक्तचाप बनाए रखने में सहायक निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785428081/bp_oiqhlr.mp3', image: '/images/content/bp/bp.png'  },
+      { id: 'h1', title: 'रक्तचाप नियंत्रण', description: 'तनाव कम करने और गहरी शांति को बढ़ावा देकर स्वस्थ रक्तचाप बनाए रखने में सहायक निर्देशित हिप्नोथेरेपी।', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785435567/bp_qw8omv.mp3', image: '/images/content/bp/bp.png'  },
     ],
   },
   {
