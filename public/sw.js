@@ -21,8 +21,22 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('fetch', event => {
-  // Network first, fallback to cache
+  const { request } = event
+
+  // Only handle GET requests
+  if (request.method !== 'GET') return
+
+  // For page navigations (SPA routes like /wallet, /profile, /session/...),
+  // always fall back to the cached index.html if network fails
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).catch(() => caches.match('/index.html'))
+    )
+    return
+  }
+
+  // For other assets (JS, CSS, images), network first, fallback to cache
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    fetch(request).catch(() => caches.match(request))
   )
 })
