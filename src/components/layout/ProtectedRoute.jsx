@@ -16,9 +16,7 @@ export default function ProtectedRoute({ children }) {
   }
 
   if (!isAuthenticated) {
-    // Save the page they were trying to visit
-    return <Navigate to="/" state={{ redirectTo: location.pathname }} replace />
+  // Save the page they were trying to visit
+  return <Navigate to="/auth" state={{ redirectTo: location.pathname }} replace />
   }
-
-  return children
 }

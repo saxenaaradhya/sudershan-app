@@ -22,26 +22,19 @@ export default function App() {
       initWallet(user.id)
     }
   }, [isAuthenticated, user?.id, initWallet])
-  useEffect(() => {
-  const handler = (e) => {
-    e.preventDefault()
-    window.__installPrompt = e
-  }
-  window.addEventListener('beforeinstallprompt', handler)
-  return () => window.removeEventListener('beforeinstallprompt', handler)
-}, [])
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={isAuthenticated ? <Navigate to="/home" replace /> : <AuthPage />}
-        />
-        <Route
-          path="/home"
-          element={<ProtectedRoute><HomePage /></ProtectedRoute>}
-        />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/auth" element={<AuthPage />} />
+
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/category/:id" element={<CategoryDetailPage />} />
+        <Route path="/content/:categoryId/:itemId" element={<ContentPage />} />
+        <Route path="/session/overthinking-control" element={<MeditationSessionPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+
         <Route
           path="/profile"
           element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
@@ -50,27 +43,8 @@ export default function App() {
           path="/wallet"
           element={<ProtectedRoute><WalletPage /></ProtectedRoute>}
         />
-        <Route
-          path="/category/:id"
-          element={<ProtectedRoute><CategoryDetailPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/contact"
-          element={<ProtectedRoute><ContactPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/content/:categoryId/:itemId"
-          element={
-         <ProtectedRoute>
-          <ContentPage />
-         </ProtectedRoute>
-       }
-       />
-        <Route path="*" element={<Navigate to="/" replace />} />
-        <Route
-         path="/session/overthinking-control"
-         element={<ProtectedRoute><MeditationSessionPage /></ProtectedRoute>}
-       />
+
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </BrowserRouter>
   )
