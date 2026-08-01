@@ -8,7 +8,6 @@ export default function Navbar() {
   const location = useLocation()
   const balance = useWalletStore(s => s.balance)
   const user = useAuthStore(s => s.user)
-  const isAuthenticated = useAuthStore(s => s.isAuthenticated)
 
   const isActive = (path) => location.pathname === path
 
@@ -41,36 +40,25 @@ export default function Navbar() {
             <span className="text-brand-accent font-bold text-xs sm:text-sm">🪙 {balance}</span>
           </div>
 
-          {/* Profile / Sign In Button */}
-          {isAuthenticated ? (
-            <button
-              onClick={() => navigate('/profile')}
-              className={`flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm font-semibold
-                transition-all duration-200 border
-                ${isActive('/profile')
-                  ? 'bg-brand-primary/20 border-brand-primary/50 text-brand-accent'
-                  : 'bg-dark-700 border-dark-500 text-gray-300 hover:text-white hover:bg-dark-600 hover:border-dark-400'
-                }`}
-            >
-              {user?.avatar ? (
-                <div className="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center text-xs font-bold text-white shrink-0">
-                  {user.avatar}
-                </div>
-              ) : (
-                <User className="w-4 h-4" />
-              )}
-              <span className="hidden sm:block">{user?.fullName?.split(' ')[0] || 'Profile'}</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate('/auth')}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold
-                bg-brand-primary text-white hover:bg-brand-primary/90 transition-all duration-200 shadow-lg shadow-brand-primary/30"
-            >
+          {/* Profile Button */}
+          <button
+            onClick={() => navigate('/profile')}
+            className={`flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm font-semibold
+              transition-all duration-200 border
+              ${isActive('/profile')
+                ? 'bg-brand-primary/20 border-brand-primary/50 text-brand-accent'
+                : 'bg-dark-700 border-dark-500 text-gray-300 hover:text-white hover:bg-dark-600 hover:border-dark-400'
+              }`}
+          >
+            {user?.avatar ? (
+              <div className="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center text-xs font-bold text-white shrink-0">
+                {user.avatar}
+              </div>
+            ) : (
               <User className="w-4 h-4" />
-              <span>Sign In</span>
-            </button>
-          )}
+            )}
+            <span className="hidden sm:block">{user?.fullName?.split(' ')[0] || 'Profile'}</span>
+          </button>
         </div>
       </div>
     </nav>
