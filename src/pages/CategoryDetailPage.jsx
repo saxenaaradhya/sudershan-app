@@ -72,7 +72,7 @@ useEffect(() => {
       return
     }
     if (!user) {
-  navigate('/', { state: { redirectTo: `/category/${encodeURIComponent(id)}?item=${item.id}` } })
+  setInsufficientModal({ item, notLoggedIn: true })
   return
 }
     const result = await spendTokens(item.tokenCost, `Unlocked: ${item.title}`)
@@ -285,30 +285,42 @@ useEffect(() => {
 
       {/* Insufficient Tokens Modal */}
       <Modal
-        isOpen={!!insufficientModal}
-        onClose={() => setInsufficientModal(null)}
-        title="Not Enough Tokens"
-      >
-        {insufficientModal && (
-          <div className="flex flex-col gap-4">
-            <div className="bg-dark-700 rounded-xl p-4 text-center">
-              <p className="text-4xl mb-2">🪙</p>
-              <p className="text-white font-semibold">You need {insufficientModal.item.tokenCost} tokens</p>
-              <p className="text-sm text-gray-400 mt-1">
-                to unlock <span className="text-white">{insufficientModal.item.title}</span>
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Button onClick={() => { setInsufficientModal(null); navigate('/wallet') }} fullWidth>
-  {user ? 'Go to Wallet' : 'Login to Buy Tokens'}
-</Button>
-              <Button onClick={() => setInsufficientModal(null)} variant="secondary" fullWidth>
-                Cancel
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
+  isOpen={!!insufficientModal}
+  onClose={() => setInsufficientModal(null)}
+  title={insufficientModal?.notLoggedIn ? 'Sign In Required' : 'Not Enough Tokens'}
+>
+  {insufficientModal && (
+    <div className="flex flex-col gap-4">
+      <div className="bg-dark-700 rounded-xl p-4 text-center">
+        <p className="text-4xl mb-2">{insufficientModal.notLoggedIn ? '🔐' : '🪙'}</p>
+        <p className="text-white font-semibold">
+          {insufficientModal.notLoggedIn
+            ? 'You need to sign in to unlock content'
+            : `You need ${insufficientModal.item.tokenCost} tokens`}
+        </p>
+        <p className="text-sm text-gray-400 mt-1">
+          {insufficientModal.notLoggedIn
+            ? 'Create a free account and buy tokens to unlock sessions'
+            : `to unlock ${insufficientModal.item.title}`}
+        </p>
+      </div>
+      <div className="flex gap-3">
+        <Button
+          onClick={() => {
+            setInsufficientModal(null)
+            navigate(insufficientModal.notLoggedIn ? '/login' : '/wallet')
+          }}
+          fullWidth
+        >
+          {insufficientModal.notLoggedIn ? 'Sign In / Sign Up' : 'Buy Tokens'}
+        </Button>
+        <Button onClick={() => setInsufficientModal(null)} variant="secondary" fullWidth>
+          Cancel
+        </Button>
+      </div>
+    </div>
+  )}
+</Modal>
       <Footer />
     </div>
   )
