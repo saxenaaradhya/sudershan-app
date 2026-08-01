@@ -34,30 +34,11 @@ export default function App() {
           path="/"
           element={isAuthenticated ? <Navigate to="/home" replace /> : <AuthPage />}
         />
-        <Route
-          path="/home"
-          element={<ProtectedRoute><HomePage /></ProtectedRoute>}
-        />
-        <Route
-          path="/profile"
-          element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
-        />
-        <Route
-          path="/wallet"
-          element={<ProtectedRoute><WalletPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/category/:id"
-          element={<ProtectedRoute><CategoryDetailPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/contact"
-          element={<ProtectedRoute><ContactPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/content/:categoryId/:itemId"
-          element={<ContentPage />}
-        />
+       <Route path="/home" element={<HomePage />} />
+<Route path="/profile" element={<ProfilePage />} />
+<Route path="/wallet" element={<ProtectedRoute><WalletPage /></ProtectedRoute>} />
+<Route path="/category/:id" element={<CategoryDetailPage />} />
+<Route path="/contact" element={<ContactPage />} />
         <Route
           path="/session/overthinking-control"
           element={<MeditationSessionPage />}

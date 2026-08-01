@@ -8,6 +8,7 @@ import Modal from '../components/ui/Modal.jsx'
 import Toast from '../components/ui/Toast.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import { useWalletStore } from '../store/walletStore.js'
+import { useAuthStore } from '../store/authStore.js'
 
 const STRIP_COLORS = ['#E07A7A', '#E0A47A', '#D9C46A', '#9FCB6E', '#5FCBA0']
 
@@ -15,6 +16,7 @@ export default function CategoryDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const spendTokens = useWalletStore(s => s.spendTokens)
+  const user = useAuthStore(s => s.user)
 
   const [unlocked, setUnlocked] = useState(() => {
   const saved = sessionStorage.getItem(`unlocked_${id}`)
@@ -69,6 +71,10 @@ useEffect(() => {
       setToast({ message: `Now viewing: ${item.title}`, type: 'info' })
       return
     }
+    if (!user) {
+  navigate('/', { state: { redirectTo: `/category/${encodeURIComponent(id)}?item=${item.id}` } })
+  return
+}
     const result = await spendTokens(item.tokenCost, `Unlocked: ${item.title}`)
     if (!result.success) {
       setInsufficientModal({ item })
@@ -294,8 +300,8 @@ useEffect(() => {
             </div>
             <div className="flex gap-3">
               <Button onClick={() => { setInsufficientModal(null); navigate('/wallet') }} fullWidth>
-                Go to Wallet
-              </Button>
+  {user ? 'Go to Wallet' : 'Login to Buy Tokens'}
+</Button>
               <Button onClick={() => setInsufficientModal(null)} variant="secondary" fullWidth>
                 Cancel
               </Button>

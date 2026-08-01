@@ -40,9 +40,9 @@ export default function Navbar() {
             <span className="text-brand-accent font-bold text-xs sm:text-sm">🪙 {balance}</span>
           </div>
 
-          {/* Profile Button */}
-          <button
-            onClick={() => navigate('/profile')}
+          {/* Profile or Login Button */}
+            <button
+            onClick={() => navigate(user ? '/profile' : '/')}
             className={`flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm font-semibold
               transition-all duration-200 border
               ${isActive('/profile')
@@ -57,7 +57,7 @@ export default function Navbar() {
             ) : (
               <User className="w-4 h-4" />
             )}
-            <span className="hidden sm:block">{user?.fullName?.split(' ')[0] || 'Profile'}</span>
+            <span className="hidden sm:block">{user?.fullName?.split(' ')[0] || 'Login'}</span>
           </button>
         </div>
       </div>
