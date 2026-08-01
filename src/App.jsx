@@ -18,6 +18,10 @@ export default function App() {
   const initWallet = useWalletStore(s => s.initWallet)
 
   useEffect(() => {
+    useAuthStore.getState().init()
+  }, [])
+
+  useEffect(() => {
     if (isAuthenticated && user?.id) {
       initWallet(user.id)
     }
