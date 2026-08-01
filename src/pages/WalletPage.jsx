@@ -222,8 +222,8 @@ export default function WalletPage() {
               <div
                 key={tx.id}
                 className={`flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4
-                  ${i !== arr.length - 1 ? 'border-b border-dark-600' : ''}
-              >
+  ${i !== arr.length - 1 ? 'border-b border-dark-600' : ''}`}
+>
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0
                   ${tx.type === 'credit'
                     ? 'bg-emerald-900/50 text-emerald-400'
