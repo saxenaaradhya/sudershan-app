@@ -10,6 +10,7 @@ import WalletPage from './pages/WalletPage.jsx'
 import CategoryDetailPage from './pages/CategoryDetailPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import ContentPage from './pages/ContentPage.jsx'
+import AdminPage from './pages/AdminPage.jsx'
 import MeditationSessionPage from './pages/MeditationSessionPage.jsx'
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
           path="/session/overthinking-control"
           element={<MeditationSessionPage />}
         />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
