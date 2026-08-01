@@ -199,21 +199,25 @@ async function handleInstall() {
           </div>
 
           <div className="flex gap-2">
-            {editMode ? (
-              <>
-                <Button onClick={saveProfile} size="sm">
-                  <Save className="w-4 h-4 mr-1.5" /> Save
-                </Button>
-                <Button onClick={() => { setEditMode(false); setEditName(user?.fullName || ''); setEditPhone(user?.phone || ''); setEditPhoneErr('') }} variant="secondary" size="sm">
-                  <X className="w-4 h-4 mr-1.5" /> Cancel
-                </Button>
-              </>
-            ) : (
-              <Button onClick={() => setEditMode(true)} variant="secondary" size="sm">
-                <Edit2 className="w-4 h-4 mr-1.5" /> Edit Profile
-              </Button>
-            )}
-          </div>
+  {editMode ? (
+    <>
+      <Button onClick={saveProfile} size="sm">
+        <Save className="w-4 h-4 mr-1.5" /> Save
+      </Button>
+      <Button onClick={() => { setEditMode(false); setEditName(user?.fullName || ''); setEditPhone(user?.phone || ''); setEditPhoneErr('') }} variant="secondary" size="sm">
+        <X className="w-4 h-4 mr-1.5" /> Cancel
+      </Button>
+    </>
+  ) : user ? (
+    <Button onClick={() => setEditMode(true)} variant="secondary" size="sm">
+      <Edit2 className="w-4 h-4 mr-1.5" /> Edit Profile
+    </Button>
+  ) : (
+    <Button onClick={() => navigate('/')} size="sm">
+      Sign In / Sign Up
+    </Button>
+  )}
+</div>
         </div>
 
         {/* Refer & Earn */}
