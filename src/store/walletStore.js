@@ -3,7 +3,7 @@ import { doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase.js'
 
 export const useWalletStore = create((set, get) => ({
-  balance: 0,
+  balance: 4,
   transactions: [],
 
   initWallet: async (userId) => {
@@ -65,5 +65,5 @@ export const useWalletStore = create((set, get) => ({
     return { success: true }
   },
 
-  resetWallet: () => set({ balance: 0, transactions: [] }),
+  resetWallet: () => set({ balance: 4, transactions: [] }),
 }))

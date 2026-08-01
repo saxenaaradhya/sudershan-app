@@ -47,6 +47,7 @@ export default function ContentPage() {
   const { categoryId, itemId } = useParams()
   const navigate = useNavigate()
   const [playing, setPlaying] = useState(false)
+  const user = useAuthStore(s => s.user)
   const [language, setLanguage] = useState(() => localStorage.getItem('audioLang') || 'hi')
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [audioDuration, setAudioDuration] = useState(300)
@@ -73,6 +74,11 @@ export default function ContentPage() {
     audioRef.current.pause()
   } else {
     audioRef.current.play()
+    trackEvent('listen', {
+      sessionId: itemId,
+      sessionTitle: item.title,
+      categoryId: categoryId,
+    }, user?.id)
   }
   setPlaying(p => !p)
 }
