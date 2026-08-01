@@ -30,10 +30,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={isAuthenticated ? <Navigate to="/home" replace /> : <AuthPage />}
-        />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+<Route path="/login" element={isAuthenticated ? <Navigate to="/home" replace /> : <AuthPage />} />
        <Route path="/home" element={<HomePage />} />
 <Route path="/profile" element={<ProfilePage />} />
 <Route path="/wallet" element={<ProtectedRoute><WalletPage /></ProtectedRoute>} />
