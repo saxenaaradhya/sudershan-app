@@ -245,11 +245,6 @@ async function handleInstall() {
         {/* Actions */}
         <div className="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden mb-4">
           {/* Add to Home Screen */}
-          <ActionRow
-  icon={<span>📊</span>}
-  label="Admin Dashboard"
-  onClick={() => navigate('/admin')}
-/>
 <ActionRow
   icon={<span>📲</span>}
   label="Add App to Home Screen"
