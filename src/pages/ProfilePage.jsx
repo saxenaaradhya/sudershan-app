@@ -213,9 +213,9 @@ async function handleInstall() {
       <Edit2 className="w-4 h-4 mr-1.5" /> Edit Profile
     </Button>
   ) : (
-    <Button onClick={() => navigate('/')} size="sm">
-      Sign In / Sign Up
-    </Button>
+   <Button onClick={() => navigate('/login')} size="sm">
+  Sign In / Sign Up
+</Button>
   )}
 </div>
         </div>
