@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Play, Pause, X, Settings, Check, Share2  } from 'lucide-react'
 import { CATEGORIES } from '../constants/categories.js'
+import { useAuthStore } from '../store/authStore.js'
+import { trackEvent } from '../utils/analytics.js'
 import Footer from '../components/layout/Footer.jsx'
 
 function CountdownTimer({ onEnd, duration, playing }) {

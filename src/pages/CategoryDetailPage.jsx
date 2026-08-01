@@ -9,6 +9,7 @@ import Toast from '../components/ui/Toast.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useAuthStore } from '../store/authStore.js'
+import { trackEvent } from '../utils/analytics.js'
 
 const STRIP_COLORS = ['#E07A7A', '#E0A47A', '#D9C46A', '#9FCB6E', '#5FCBA0']
 
@@ -86,6 +87,12 @@ useEffect(() => {
   return updated
 })
     setToast({ message: `🪙 ${item.tokenCost} tokens spent. ${item.title} unlocked!`, type: 'success' })
+    trackEvent('unlock', {
+  sessionId: item.id,
+  sessionTitle: item.title,
+  categoryId: id,
+  tokenCost: item.tokenCost,
+}, user?.id)
   }
 
   return (
