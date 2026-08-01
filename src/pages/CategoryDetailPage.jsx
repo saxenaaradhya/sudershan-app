@@ -72,10 +72,7 @@ useEffect(() => {
       setToast({ message: `Now viewing: ${item.title}`, type: 'info' })
       return
     }
-    if (!user) {
-  setInsufficientModal({ item, notLoggedIn: true })
-  return
-}
+    
     const result = await spendTokens(item.tokenCost, `Unlocked: ${item.title}`)
     if (!result.success) {
       setInsufficientModal({ item })
