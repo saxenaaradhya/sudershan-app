@@ -4,7 +4,7 @@ import {
   HeartPulse as Pain,
   Moon as Sleep,
   Heart as Emotional,
-  ShieldAlert as Fear,
+  ShieldAlert as wisdom,
   BrainCircuit as Overthinking,
   Cigarette as Smoking,
   Activity as Blood,
@@ -114,10 +114,10 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
-    name: 'Fear & Phobia Release / डर और फोबिया से मुक्ति',
+    id: 'Inner Wisdom / डर और फोबिया से मुक्ति',
+    name: 'Inner Wisdom / डर और फोबिया से मुक्ति',
     description: ' ',
-    icon: Fear,
+    icon: wisdom,
     color: 'from-red-500 to-pink-400',
     image: '/images/categories/fear-phobia-release.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -125,9 +125,6 @@ export const CATEGORIES = [
     itemCount: 15,
     items: [
       { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'p2', title: 'Lightroom Preset Pack', description: '30 professional presets for every style.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'p3', title: 'Phone Photography Tips', description: 'Shoot stunning photos on any smartphone.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
-      { id: 'p4', title: 'Street Photography 101', description: 'Capture authentic urban moments.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
     ],
   },
   {
