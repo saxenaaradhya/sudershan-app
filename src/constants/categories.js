@@ -114,17 +114,17 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 'Inner Wisdom / डर और फोबिया से मुक्ति',
-    name: 'Inner Wisdom / डर और फोबिया से मुक्ति',
+    id: 'Inner Wisdom / आंतरिक ज्ञान',
+    name: 'Inner Wisdom / आंतरिक ज्ञान',
     description: ' ',
     icon: wisdom,
     color: 'from-red-500 to-pink-400',
-    image: '/images/categories/fear-phobia-release.png',
+    image: '/images/categories/inner-wisdom.jpg',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     comingSoon: true,
     itemCount: 15,
     items: [
-      { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800' },
+      { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785829454/inner_wisdom_f2x7ub.mp3', image: '/images/content/wisdom/wisdom.png' },
     ],
   },
   {
