@@ -121,7 +121,7 @@ export const CATEGORIES = [
     color: 'from-red-500 to-pink-400',
     image: '/images/categories/inner-wisdom.jpg',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    comingSoon: true,
+    comingSoon: false,
     itemCount: 15,
     items: [
       { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785829454/inner_wisdom_f2x7ub.mp3', image: '/images/content/wisdom/wisdom.png' },
