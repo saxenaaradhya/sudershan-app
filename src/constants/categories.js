@@ -1,6 +1,6 @@
 import {
   Brain as Anxiety,
-  Sparkles as Self,
+  Sparkles as abundance,
   HeartPulse as Pain,
   Moon as Sleep,
   Heart as Emotional,
@@ -128,22 +128,18 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 'Self-Confidence Boost / आत्म-विश्वास बढ़ाना',
-    name: 'Self-Confidence Boost / आत्म-विश्वास बढ़ाना',
+    id: 'abundance / समृद्धि प्रचुरता',
+    name: 'abundance / समृद्धि प्रचुरता',
     description: ' ',
-    icon: Self,
+    icon: abundance,
     color: 'from-pink-500 to-rose-400',
-    image: '/images/categories/self-confidence-boost.png',
+    image: '/images/categories/abundance.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    comingSoon: true,
+    comingSoon: false,
     itemCount: 18,
     items: [
-      { id: 'm1', title: 'Chill Lo-Fi Pack Vol.1', description: '20 royalty-free lo-fi beats for focus.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800' },
-      { id: 'm2', title: 'Guitar Chord Handbook', description: 'Complete guide to 100+ chord shapes.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800' },
-      { id: 'm3', title: 'Music Theory Crash Course', description: 'Scales, intervals and harmony explained.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800' },
-      { id: 'm4', title: 'EDM Production Kit', description: 'Sample packs and FL Studio templates.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800' },
-      { id: 'm5', title: 'Vocal Training 101', description: 'Breathing, pitch and performance tips.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800' },
-    ],
+      { id: 'm1', title: 'आर्थिक समृद्धि पाएं', description: 'आर्थिक समृद्धि पाएं', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785854693/abundance_lvxuxc.mp3', image: '/images/content/abundance/abundance.png' },
+    ]
   },  
   {
     id: 'Smoking  Tobacco De-addiction  धूम्रपान  तंबाकू की लत से छुटकारा',
