@@ -34,7 +34,7 @@ export default function ImageCarousel({ intervalMs = 3000 }) {
       >
         {items.map((cert) => (
           <div key={cert.id} className="w-full flex-shrink-0">
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-dark-700 border border-dark-500">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-dark-700 border border-dark-500">
               <img
                 src={cert.image}
                 alt={cert.title}
