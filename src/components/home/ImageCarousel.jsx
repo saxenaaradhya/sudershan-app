@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 
 const CERTIFICATES = [
-  { id: '1', image: '/images/certificates/certificates-1.jpg', title: 'Certificate 1' },
-  { id: '2', image: '/images/certificates/certificates-2.jpg', title: 'Certificate 2' },
-  { id: '3', image: '/images/certificates/certificates-3.jpg', title: 'Certificate 3' },
-  { id: '4', image: '/images/certificates/certificates-4.jpg', title: 'Certificate 4' },
-  { id: '5', image: '/images/certificates/certificates-5.jpg', title: 'Certificate 5' },
-  { id: '6', image: '/images/certificates/certificates-6.jpg', title: 'Certificate 6' },
-  { id: '7', image: '/images/certificates/certificates-7.jpg', title: 'Certificate 7' },
+  { id: '1', image: '/images/certificates/certificates-1.png', title: 'Certificate 1' },
+  { id: '2', image: '/images/certificates/certificates-2.png', title: 'Certificate 2' },
+  { id: '3', image: '/images/certificates/certificates-3.png', title: 'Certificate 3' },
+  { id: '4', image: '/images/certificates/certificates-4.png', title: 'Certificate 4' },
+  { id: '5', image: '/images/certificates/certificates-5.png', title: 'Certificate 5' },
+  { id: '6', image: '/images/certificates/certificates-6.png', title: 'Certificate 6' },
+  { id: '7', image: '/images/certificates/certificates-7.png', title: 'Certificate 7' },
 ]
 
 export default function ImageCarousel({ intervalMs = 3000 }) {
