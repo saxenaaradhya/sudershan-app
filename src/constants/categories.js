@@ -83,6 +83,7 @@ export const CATEGORIES = [
     items: [
       { id: 'g1', title: 'Session-1', description: 'शिव और शक्ति हमारे जीवन में', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
       { id: 'g2', title: 'Session-2', description: 'दिव्य हीलिंग एवं कृतज्ञता हिप्नोथेरेपी / गाइडेड मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783861167/emotional_2_qpbn6b.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
+      { id: 'g3', title: 'Session-3', description: 'बेहतर ज़िंदगी के लिए सकारात्मक सुझाव', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1786043677/emotional_3_qqtxpt.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
     ],
   },
   {
