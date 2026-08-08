@@ -15,18 +15,6 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-40 glass border-b border-dark-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
-        {/* Logo */}
-        <button
-  onClick={() => navigate('/home')}
-  className="flex items-center gap-2 group"
->
-  <span 
-    className="text-lg font-bold transition-colors"
-    style={{ color: '#FFFFFF' }}
-  >
-    SUDERSHAN
-  </span>
-</button>
 
         <div className="flex items-center gap-2">
 
