@@ -21,23 +21,23 @@ export default function Navbar() {
 
           {/* Profile (now on the left) */}
           <button
-            onClick={() => navigate('/profile')}
-            className={`flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm font-semibold
-              transition-all duration-200 border
-              ${isActive('/profile')
-                ? 'bg-brand-primary/20 border-brand-primary/50 text-brand-accent'
-                : 'bg-dark-700 border-dark-500 text-gray-300 hover:text-white hover:bg-dark-600 hover:border-dark-400'
-              }`}
-          >
-            {user?.avatar ? (
-              <div className="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center text-xs font-bold text-white shrink-0">
-                {user.avatar}
-              </div>
-            ) : (
-              <User className="w-4 h-4" />
-            )}
-            <span className="hidden sm:block">{user?.fullName?.split(' ')[0] || 'Profile'}</span>
-          </button>
+  onClick={() => navigate('/profile')}
+  className={`flex items-center gap-1.5 px-2.5 py-2 sm:px-3 rounded-xl text-sm font-semibold
+    transition-all duration-200 border
+    ${isActive('/profile')
+      ? 'bg-brand-primary/20 border-brand-primary/50 text-brand-accent'
+      : 'bg-dark-700 border-dark-500 text-gray-300 hover:text-white hover:bg-dark-600 hover:border-dark-400'
+    }`}
+>
+  {user?.avatar ? (
+    <div className="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center text-xs font-bold text-white shrink-0">
+      {user.avatar}
+    </div>
+  ) : (
+    <User className="w-4 h-4" />
+  )}
+  <span>Hi, {user?.fullName?.split(' ')[0] || 'User'}</span>
+</button>
 
           {/* Right side: Wallet + Hamburger */}
           <div className="flex items-center gap-2">
