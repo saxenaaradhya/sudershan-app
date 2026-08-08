@@ -125,7 +125,7 @@ export const CATEGORIES = [
     comingSoon: false,
     itemCount: 15,
     items: [
-      { id: 'p1', title: 'Portrait Photography Guide', description: 'Lighting, posing and lens selection.', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785829454/inner_wisdom_f2x7ub.mp3', image: '/images/content/wisdom/wisdom.png' },
+      { id: 'p1', title: 'अनंत ज्ञान की लाइब्रेरी', description: 'अनंत ज्ञान की लाइब्रेरी', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1785829454/inner_wisdom_f2x7ub.mp3', image: '/images/content/wisdom/wisdom.png' },
     ],
   },
   {
