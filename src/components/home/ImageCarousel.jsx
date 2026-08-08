@@ -38,7 +38,7 @@ export default function ImageCarousel({ intervalMs = 3000 }) {
               <img
                 src={cert.image}
                 alt={cert.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
