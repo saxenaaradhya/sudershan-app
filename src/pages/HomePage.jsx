@@ -77,12 +77,12 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
         {/* Banner */}
-        <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] rounded-none sm:rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
+        <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] rounded-none sm:rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#ffffff] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
           <div className="flex flex-row items-stretch justify-between">
 
             {/* Left — text content */}
             <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
-              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-3 w-fit" style={{ color: '#FFFFFF' }}>
+              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-3 w-fit" style={{ color: '#070707' }}>
                 Free Consultation
               </span>
 
