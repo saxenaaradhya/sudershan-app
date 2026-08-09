@@ -91,6 +91,10 @@ export default function HomePage() {
                 <span style={{ color: '#FF8C42' }}>Mr. Sandeep</span>
               </h2>
 
+              <h1 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#FF8C42' }}>
+                SANDEEP
+              </h1>
+
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07' }}>
                 Hypnothrapist and reiki Grandmaster
               </p>
