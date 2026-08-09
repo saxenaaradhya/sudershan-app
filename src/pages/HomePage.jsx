@@ -91,8 +91,8 @@ export default function HomePage() {
                 <span style={{ color: '#FF8C42', fontSize: '1.5rem', fontWeight: '700' }}>SANDEEP</span>
               </h2>
 
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07' }}>
-                Hypnothrapist and reiki Grandmaster
+              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07', fontSize: '1.15rem', fontWeight: '500' }}>
+                Hypnothrapist and REIKI Grandmaster
               </p>
 
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
@@ -109,7 +109,7 @@ export default function HomePage() {
               </a>
 
               <p className="text-xs" style={{ color: '#FFFFFF' }}>
-             Live from{' '}
+             WEB:-{' '}
              <a
              href="https://www.sudershanhypnotherapy.site"
               target="_blank"
