@@ -91,9 +91,9 @@ export default function HomePage() {
                 <span style={{ color: '#FF8C42', fontSize: '1.5rem', fontWeight: '700' }}>SANDEEP</span>
               </h2>
 
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#fafa07', fontSize: '1.15rem', fontWeight: '500' }}>
+              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#fafa07', fontSize: '1.05rem', fontWeight: '500'  }}>
                 Hypnothrapist and REIKI Grandmaster
-              </p>
+              </h2>
 
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
                 Simple, personal and reassuring. Move forward with clarity.
@@ -105,7 +105,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-block px-4 py-2 rounded-xl bg-white text-purple-700 font-bold text-xs sm:text-sm hover:bg-gray-100 transition-all shadow-lg w-fit mb-3"
               >
-                Book a Session Now
+                Book Your Session Now
               </a>
 
               <p className="text-xs" style={{ color: '#FFFFFF' }}>
@@ -118,7 +118,8 @@ export default function HomePage() {
               >
               www.sudershanhypnotherapy.site
               </a>
-             {' '}· <span className="text-brand-accent font-medium">Call 9792390777</span>
+             <span className="text-brand-accent font-medium">Contact Now :- </span>
+             <span className="text-brand-accent font-medium">9792390777</span>
             </p>
               <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
             </div>
