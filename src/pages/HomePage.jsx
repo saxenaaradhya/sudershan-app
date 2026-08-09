@@ -118,9 +118,10 @@ export default function HomePage() {
               >
               www.sudershanhypnotherapy.site
               </a>
-             <span className="text-brand-accent font-medium">Contact Now :- </span>
-             <span className="text-brand-accent font-medium">9792390777</span>
-            </p>
+             </p>
+            <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>
+               Contact Now :- <span className="text-brand-accent font-medium">9792390777</span>
+               </p>
               <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
             </div>
 
