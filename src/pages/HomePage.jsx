@@ -91,12 +91,15 @@ export default function HomePage() {
                 <span style={{ color: '#FF8C42', fontSize: '1.5rem', fontWeight: '700' }}>SANDEEP</span>
               </h2>
 
-              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#fafa07', fontSize: '1.05rem', fontWeight: '500'  }}>
+              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#fafa07', fontSize: '1.05rem', fontWeight: '900'  }}>
                 Hypnothrapist and REIKI Grandmaster
               </h2>
 
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
                 Simple, personal and reassuring. Move forward with clarity.
+              </p>
+              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
+                 Move forward with clarity.
               </p>
 
               <a
@@ -109,7 +112,7 @@ export default function HomePage() {
               </a>
 
               <p className="text-xs" style={{ color: '#FFFFFF' }}>
-             WEB:-{' '}
+             WEBSITE:-{' '}
              <a
              href="https://www.sudershanhypnotherapy.site"
               target="_blank"
@@ -120,7 +123,7 @@ export default function HomePage() {
               </a>
              </p>
             <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>
-               Contact Now :- <span className="text-brand-accent font-medium">9792390777</span>
+               Contact Now :- <a href="tel:+919792390777" className="text-brand-accent font-bold text-lg">9792390777</a>
                </p>
               <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
             </div>
