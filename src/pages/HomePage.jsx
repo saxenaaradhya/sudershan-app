@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Search } from 'lucide-react'
+import { Search, UserRound, Calendar, Globe, Phone, ShieldCheck } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import ImageCarousel from '../components/home/ImageCarousel.jsx'
 import WelcomePopup from '../components/ui/WelcomePopup.jsx'
@@ -77,62 +77,97 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
 
         {/* Banner */}
-        <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] rounded-none sm:rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
-          <div className="flex flex-row items-stretch justify-between">
+<div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] rounded-none sm:rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
+  <div className="flex flex-row items-stretch justify-between">
 
-            {/* Left — text content */}
-            <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
-              <span className="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-white border border-white mb-3 w-fit" style={{ color: '#000000' }}>
-                Free Consultation
-              </span>
+    {/* Left — text content */}
+    <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
+      <span
+        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full mb-4 w-fit"
+        style={{ backgroundColor: '#F0D080', color: '#1a0a2e' }}
+      >
+        <UserRound className="w-3.5 h-3.5" />
+        Free Consultation
+      </span>
 
-              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#FFFFFF' }}>
-                Seedhi Baat with{' '}
-                <span style={{ color: '#FF8C42', fontSize: '1.5rem', fontWeight: '700' }}>SANDEEP</span>
-              </h2>
+      <h2 className="font-serif text-lg sm:text-3xl font-bold leading-snug" style={{ color: '#FFFFFF' }}>
+        Seedhi Baat with
+      </h2>
+      <h2 className="font-serif text-2xl sm:text-4xl font-extrabold mb-2 leading-snug" style={{ color: '#D4AF37' }}>
+        SANDEEP
+      </h2>
 
-              <h2 className="text-lg sm:text-3xl font-bold mb-2 leading-snug" style={{ color: '#fafa07', fontSize: '1.05rem', fontWeight: '900'  }}>
-                Hypnothrapist and REIKI Grandmaster
-              </h2>
+      <div className="h-px w-2/3 mb-3" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
 
-             <p className="text-xs sm:text-sm mb-4 leading-snug" style={{ color: '#ffffff' }}>
-               Simple, personal and reassuring.<br />
-                Move forward with clarity.
-              </p>
+      <h2 className="text-sm sm:text-lg font-extrabold mb-3 leading-snug" style={{ color: '#F5D020' }}>
+        Hypnotherapist and REIKI Grandmaster
+      </h2>
 
-              <a
-                href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-2 rounded-xl bg-white text-purple-700 font-bold text-xs sm:text-sm hover:bg-gray-100 transition-all shadow-lg w-fit mb-3"
-              >
-                Book Your Session Now
-              </a>
+      <p className="text-xs sm:text-sm leading-snug" style={{ color: '#ffffff' }}>
+        Simple, personal and reassuring.
+      </p>
+      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
+      <p className="text-xs sm:text-sm mb-4 leading-snug" style={{ color: '#ffffff' }}>
+        Move forward with clarity.
+      </p>
 
-              <p className="text-xs" style={{ color: '#FFFFFF' }}>
-             WEBSITE:-{' '}
-             <a
-             href="https://www.sudershanhypnotherapy.site"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-accent font-medium underline hover:text-white transition-colors"
-              >
-              www.sudershanhypnotherapy.site
-              </a>
-             </p>
-            <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>
-               Contact Now :- <a href="tel:+919792390777" className="text-brand-accent font-bold text-lg">9792390777</a>
-               </p>
-              <p className="text-xs mt-0.5" style={{ color: '#FFFFFF' }}>T&C apply, as available on the platform</p>
-            </div>
+      <a
+        
+        href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm hover:brightness-110 transition-all shadow-lg w-fit mb-4"
+        style={{ backgroundColor: '#F0D080', color: '#1a0a2e' }}
+      >
+        <Calendar className="w-4 h-4" />
+        Book Your Session Now
+      </a>
 
-            {/* Right — image placeholder */}
-            <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center">
-              <img src="/images/banner/me.png" alt="Mr. Sandeep" className="w-full h-full object-cover rounded-r-2xl" />
-            </div>
+      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
+        <Globe className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
+        <span>
+          WEBSITE:-{' '}
+          <a
+            href="https://www.sudershanhypnotherapy.site"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline hover:text-white transition-colors"
+            style={{ color: '#D4AF37' }}
+          >
+            www.sudershanhypnotherapy.site
+          </a>
+        </span>
+      </div>
+      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
 
-          </div>
-        </div>
+      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
+        <Phone className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
+        <span>
+          Contact Now :-{' '}
+          <a href="tel:+919792390777" className="font-extrabold text-base sm:text-xl" style={{ color: '#D4AF37' }}>
+            9792390777
+          </a>
+        </span>
+      </div>
+      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
+
+      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
+        <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
+        <span>T&C apply, as available on the platform</span>
+      </div>
+    </div>
+
+    {/* Right — image */}
+    <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center relative">
+      <div
+        className="absolute inset-y-0 left-0 w-1.5"
+        style={{ background: 'linear-gradient(to bottom, #D4AF37, #F5D020, #D4AF37)' }}
+      />
+      <img src="/images/banner/me.png" alt="Mr. Sandeep" className="w-full h-full object-cover rounded-r-2xl" />
+    </div>
+   </div>
+  </div>
+
 
         {/* Clickable Full Width Image */}
         <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/session/overthinking-control')}>
