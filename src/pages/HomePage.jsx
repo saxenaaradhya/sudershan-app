@@ -94,7 +94,7 @@ export default function HomePage() {
         Seedhi Baat with
       </h2>
       <h2 className="font-serif text-2xl sm:text-4xl font-extrabold mb-2 leading-snug" style={{ color: '#D4AF37' }}>
-        SANDEEP
+        Mr. SANDEEP
       </h2>
 
       <div className="h-px w-2/3 mb-3" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
