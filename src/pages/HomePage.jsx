@@ -157,13 +157,37 @@ export default function HomePage() {
       </div>
     </div>
 
-    {/* Right — image */}
-    <div className="w-32 sm:w-72 flex-shrink-0 bg-dark-700 rounded-r-2xl flex items-center justify-center relative">
+     {/* Right — image */}
+    <div className="w-36 sm:w-80 flex-shrink-0 relative overflow-hidden">
+      {/* Gold wave divider */}
+      <svg
+        className="absolute -left-6 sm:-left-10 top-0 h-full w-10 sm:w-16 z-10"
+        viewBox="0 0 60 400"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="waveGold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#D4AF37" />
+            <stop offset="50%" stopColor="#F5D020" />
+            <stop offset="100%" stopColor="#D4AF37" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M60,0 C20,100 20,300 60,400 L0,400 L0,0 Z"
+          fill="url(#waveGold)"
+        />
+      </svg>
+
       <div
-        className="absolute inset-y-0 left-0 w-1.5"
-        style={{ background: 'linear-gradient(to bottom, #D4AF37, #F5D020, #D4AF37)' }}
+        className="absolute -left-3 sm:-left-6 top-0 h-full w-8 sm:w-12 z-20 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e]"
+        style={{ clipPath: 'polygon(0 0, 30% 0, 55% 50%, 30% 100%, 0 100%)' }}
       />
-      <img src="/images/banner/me.png" alt="Mr. Sandeep" className="w-full h-full object-cover rounded-r-2xl" />
+
+      <img
+        src="/images/banner/me.png"
+        alt="Mr. Sandeep"
+        className="w-full h-full object-cover object-top"
+      />
     </div>
    </div>
   </div>
