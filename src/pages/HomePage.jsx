@@ -95,11 +95,9 @@ export default function HomePage() {
                 Hypnothrapist and REIKI Grandmaster
               </h2>
 
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
-                Simple, personal and reassuring.
-              </p>
-              <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
-                 Move forward with clarity.
+             <p className="text-xs sm:text-sm mb-4 leading-snug" style={{ color: '#ffffff' }}>
+               Simple, personal and reassuring.<br />
+                Move forward with clarity.
               </p>
 
               <a
