@@ -158,11 +158,24 @@ export default function HomePage() {
     </div>
 
      {/* Right — image */}
-    <div className="w-36 sm:w-80 flex-shrink-0 relative overflow-hidden">
-      {/* Gold wave divider */}
+    <div className="w-36 sm:w-80 flex-shrink-0 relative">
+      <div
+        className="w-full h-full"
+        style={{
+          clipPath: 'polygon(12% 0%, 100% 0%, 100% 100%, 12% 100%, 12% 65%, 0% 50%, 12% 35%)'
+        }}
+      >
+        <img
+          src="/images/banner/me.png"
+          alt="Mr. Sandeep"
+          className="w-full h-full object-cover object-top"
+        />
+      </div>
+
+      {/* Gold wave outline */}
       <svg
-        className="absolute -left-6 sm:-left-10 top-0 h-full w-10 sm:w-16 z-10"
-        viewBox="0 0 60 400"
+        className="absolute top-0 left-0 h-full w-full pointer-events-none"
+        viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
         <defs>
@@ -172,22 +185,14 @@ export default function HomePage() {
             <stop offset="100%" stopColor="#D4AF37" />
           </linearGradient>
         </defs>
-        <path
-          d="M60,0 C20,100 20,300 60,400 L0,400 L0,0 Z"
-          fill="url(#waveGold)"
+        <polyline
+          points="12,0 12,35 0,50 12,65 12,100"
+          fill="none"
+          stroke="url(#waveGold)"
+          strokeWidth="1.2"
+          vectorEffect="non-scaling-stroke"
         />
       </svg>
-
-      <div
-        className="absolute -left-3 sm:-left-6 top-0 h-full w-8 sm:w-12 z-20 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e]"
-        style={{ clipPath: 'polygon(0 0, 30% 0, 55% 50%, 30% 100%, 0 100%)' }}
-      />
-
-      <img
-        src="/images/banner/me.png"
-        alt="Mr. Sandeep"
-        className="w-full h-full object-cover object-top"
-      />
     </div>
    </div>
   </div>
