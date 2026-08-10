@@ -96,7 +96,7 @@ export default function HomePage() {
               </h2>
 
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
-                Simple, personal and reassuring. Move forward with clarity.
+                Simple, personal and reassuring.
               </p>
               <p className="text-xs sm:text-sm mb-4 leading-relaxed" style={{ color: '#ffffff' }}>
                  Move forward with clarity.
