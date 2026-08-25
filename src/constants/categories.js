@@ -55,6 +55,7 @@ export const CATEGORIES = [
       { id: 'f2', title: 'Session-2', description: 'लंबे समय से चले आ रहे दर्द के लिए मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782919256/pain_s2_wfd9ey.mp3', image: '/images/content/pain/pain 2.jpg' },
       { id: 'f3', title: 'Session-3', description: 'लंबे समय से चले आ रहे दर्द से राहत और गाइडेड सोमैटिक हीलिंग', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783362809/pain_s3_ggecj4.mp3', image: '/images/content/pain/pain 3.jpg' },
       { id: 'f4', title: 'Session-4', description: 'सूर्य की गर्माहट और पिघलते मक्खन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783861145/pain_s4_sewfdl.mp3', image: '/images/content/pain/pain 4.jpg' },
+      { id: 'f5', title: 'To relieve stiffness and tightness in the nerves of the lower back and spine.', description: 'कमर और रीढ़ की नसों में जकड़न, अकड़न को खोलने के लिए', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1787665180/lower_back_side_pain_ujpcw0.mp3', image: '/images/content/pain/pain 5.jpg' },
     ],
   },
   {
@@ -83,7 +84,7 @@ export const CATEGORIES = [
     items: [
       { id: 'g1', title: 'Session-1', description: 'शिव और शक्ति हमारे जीवन में', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783189926/emotional_1_penwpv.mp3', image: '/images/content/emotional/Emotional 1.jpg' },
       { id: 'g2', title: 'Session-2', description: 'दिव्य हीलिंग एवं कृतज्ञता हिप्नोथेरेपी / गाइडेड मेडिटेशन', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783861167/emotional_2_qpbn6b.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
-      { id: 'g3', title: 'Session-3', description: 'बेहतर ज़िंदगी के लिए सकारात्मक सुझाव', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1786043677/emotional_3_qqtxpt.mp3', image: '/images/content/emotional/Emotional 2.jpg' },
+      { id: 'g3', title: 'Session-3', description: 'बेहतर ज़िंदगी के लिए सकारात्मक सुझाव', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1786043677/emotional_3_qqtxpt.mp3', image: '/images/content/emotional/Emotional 3.jpg' },
     ],
   },
   {
