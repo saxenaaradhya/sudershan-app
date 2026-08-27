@@ -1,16 +1,19 @@
 import React, { useState, useMemo } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { Search, UserRound, Calendar, Globe, Phone, ShieldCheck } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Search, Sparkles, Gift, Play } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import ImageCarousel from '../components/home/ImageCarousel.jsx'
+import CategoryCard from '../components/home/CategoryCard.jsx'
+import ConsultationCard from '../components/home/ConsultationCard.jsx'
 import WelcomePopup from '../components/ui/WelcomePopup.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 import { useWalletStore } from '../store/walletStore.js'
+import { useAuthStore } from '../store/authStore.js'
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const location = useLocation()
+  const user = useAuthStore(s => s.user)
   const addTokens = useWalletStore(s => s.addTokens)
   const [query, setQuery] = useState('')
 
@@ -31,7 +34,7 @@ export default function HomePage() {
     return CATEGORIES.filter(
       c =>
         c.name.toLowerCase().includes(q) ||
-        c.description.toLowerCase().includes(q)
+        (c.description && c.description.toLowerCase().includes(q))
     )
   }, [query])
 
@@ -42,245 +45,160 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1]">
       <Navbar />
 
-      <WelcomePopup isOpen={showPopup} onClose={() => {
-        sessionStorage.setItem('popupSeen', 'true')
-        setShowPopup(false)
-      }} />
+      <WelcomePopup 
+        isOpen={showPopup} 
+        onClose={() => {
+          sessionStorage.setItem('popupSeen', 'true')
+          setShowPopup(false)
+        }} 
+      />
 
-      {showDailyReward && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowDailyReward(false)} />
-          <div className="relative z-10 w-full max-w-sm bg-dark-800 border border-emerald-700/50 rounded-2xl p-6 text-center shadow-2xl">
-            <button
-              onClick={() => setShowDailyReward(false)}
-              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20"
-            >
-              ✕
-            </button>
-            <div className="text-6xl mb-4">🎁</div>
-            <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Daily Reward</p>
-            <p className="text-2xl font-bold text-white mb-1">+2 Tokens</p>
-            <p className="text-sm text-gray-400 mb-6">Your daily bonus is ready to claim!</p>
-            <button
-              onClick={claimDailyReward}
-              className="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition-all"
-            >
-              Claim Reward
-            </button>
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+
+        {/* Hero Section */}
+        <section className="mb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151A17] border border-[#232B26] mb-3">
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF6A]" />
+                <span className="text-xs font-semibold text-[#D4AF6A] uppercase tracking-wider">
+                  Mind & Spiritual Sanctuary
+                </span>
+              </div>
+              <h1 className="font-serif text-3xl sm:text-4xl text-[#F2F4F1] font-normal tracking-tight">
+                Restore Inner <span className="text-gradient font-medium">Clarity</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-[#9BA5A0] mt-1.5 max-w-lg leading-relaxed">
+                Guided hypnotherapy and meditative frequencies to release stress, manage pain, and unlock deep tranquility.
+              </p>
+            </div>
+
+            {/* Quick Search */}
+            <div className="w-full md:w-72 relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7570]" />
+              <input
+                type="text"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="Search healing paths..."
+                className="w-full pl-10 pr-4 py-2.5 bg-[#151A17] border border-[#232B26] rounded-2xl text-xs sm:text-sm
+                  text-[#F2F4F1] placeholder-[#6B7570] focus:outline-none focus:border-[#D4AF6A]/60 focus:ring-1 focus:ring-[#D4AF6A]/30
+                  transition-all duration-200"
+              />
+            </div>
           </div>
-        </div>
-      )}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-12">
+          {/* Daily Reward Inline Banner (Muted Emerald #2E7D5B) */}
+          {showDailyReward && (
+            <div className="mb-6 rounded-2xl bg-[#151A17] border border-[#2E7D5B]/40 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+              <div className="flex items-center gap-3.5 text-center sm:text-left">
+                <div className="w-11 h-11 rounded-xl bg-[#2E7D5B]/20 border border-[#2E7D5B]/40 flex items-center justify-center text-xl shrink-0">
+                  🎁
+                </div>
+                <div>
+                  <div className="flex items-center justify-center sm:justify-start gap-2">
+                    <span className="text-xs font-bold text-[#2E7D5B] uppercase tracking-wider">Daily Token Bonus</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[#2E7D5B]/20 text-[#F2F4F1] font-mono font-bold">+2 🪙</span>
+                  </div>
+                  <p className="text-xs text-[#9BA5A0] mt-0.5">Your daily token gift is ready to be collected.</p>
+                </div>
+              </div>
+              <button
+                onClick={claimDailyReward}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#2E7D5B] hover:bg-[#25664A] text-[#F2F4F1] font-bold text-xs active:scale-95 transition-all shadow-sm"
+              >
+                Claim +2 Tokens
+              </button>
+            </div>
+          )}
 
-        {/* Banner */}
-<div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] rounded-none sm:rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e] border border-dark-700">
-  <div className="flex flex-row items-stretch justify-between">
-
-    {/* Left — text content */}
-    <div className="flex-1 min-w-0 p-4 sm:p-8 flex flex-col justify-center">
-      <span
-        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full mb-4 w-fit"
-        style={{ backgroundColor: '#F0D080', color: '#1a0a2e' }}
-      >
-        <UserRound className="w-3.5 h-3.5" />
-        Free Consultation
-      </span>
-
-      <h2 className="font-serif text-lg sm:text-3xl font-bold leading-snug" style={{ color: '#FFFFFF' }}>
-        Seedhi Baat with
-      </h2>
-      <h2 className="font-serif text-2xl sm:text-4xl font-extrabold mb-2 leading-snug" style={{ color: '#D4AF37' }}>
-        Mr. SANDEEP
-      </h2>
-
-      <div className="h-px w-2/3 mb-3" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
-
-      <h2 className="text-sm sm:text-lg font-extrabold mb-3 leading-snug" style={{ color: '#F5D020' }}>
-        Hypnotherapist and REIKI Grandmaster
-      </h2>
-
-      <p className="text-xs sm:text-sm leading-snug" style={{ color: '#ffffff' }}>
-        Simple, personal and reassuring.
-      </p>
-      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
-      <p className="text-xs sm:text-sm mb-4 leading-snug" style={{ color: '#ffffff' }}>
-        Move forward with clarity.
-      </p>
-
-      <a
-        
-        href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm hover:brightness-110 transition-all shadow-lg w-fit mb-4"
-        style={{ backgroundColor: '#F0D080', color: '#1a0a2e' }}
-      >
-        <Calendar className="w-4 h-4" />
-        Book Your Session Now
-      </a>
-
-      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
-        <Globe className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
-        <span>
-          WEBSITE:-{' '}
-          <a
-            href="https://www.sudershanhypnotherapy.site"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium underline hover:text-white transition-colors"
-            style={{ color: '#D4AF37' }}
+          {/* Featured Spotlight: Overthinking & Deep Relaxation */}
+          <div 
+            onClick={() => navigate('/session/overthinking-control')}
+            className="group relative rounded-3xl overflow-hidden border border-[#232B26] bg-[#151A17] cursor-pointer hover:border-[#D4AF6A]/40 transition-all duration-300 shadow-lg"
           >
-            www.sudershanhypnotherapy.site
-          </a>
-        </span>
-      </div>
-      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
+            <div className="h-44 sm:h-52 relative">
+              <img
+                src="/images/free/meditation.jpg"
+                alt="Meditation & Overthinking Control"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0C0F0E] via-[#0C0F0E]/60 to-transparent" />
+              
+              <div className="absolute top-4 left-4">
+                <span className="px-3 py-1 rounded-full bg-[#D4AF6A] text-[#0C0F0E] font-bold text-[11px] uppercase tracking-wider shadow">
+                  Free Spotlight Session
+                </span>
+              </div>
 
-      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
-        <Phone className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
-        <span>
-          Contact Now :-{' '}
-          <a href="tel:+919792390777" className="font-extrabold text-base sm:text-xl" style={{ color: '#D4AF37' }}>
-            9792390777
-          </a>
-        </span>
-      </div>
-      <div className="h-px w-2/3 my-1.5" style={{ background: 'linear-gradient(to right, #D4AF37, transparent)' }} />
+              <div className="absolute bottom-4 inset-x-4 flex items-end justify-between">
+                <div>
+                  <h3 className="font-serif text-lg sm:text-xl font-medium text-[#F2F4F1] leading-snug group-hover:text-[#D4AF6A] transition-colors">
+                    Meditation & Deep Relaxation
+                  </h3>
+                  <p className="text-xs text-[#9BA5A0] font-hindi mt-0.5">
+                    ध्यान और गहन विश्राम — ओवरथिंकिंग नियंत्रण
+                  </p>
+                </div>
 
-      <div className="flex items-center gap-2 text-xs" style={{ color: '#FFFFFF' }}>
-        <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D4AF37' }} />
-        <span>T&C apply, as available on the platform</span>
-      </div>
-    </div>
+                <div className="w-10 h-10 rounded-full bg-[#D4AF6A] text-[#0C0F0E] flex items-center justify-center group-hover:scale-110 active:scale-95 transition-all shadow-lg shrink-0">
+                  <Play className="w-5 h-5 fill-current ml-0.5" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-     {/* Right — image */}
-    <div className="w-36 sm:w-80 flex-shrink-0 relative overflow-hidden">
-      {/* Gold wave divider */}
-      <svg
-        className="absolute -left-6 sm:-left-10 top-0 h-full w-10 sm:w-16 z-10"
-        viewBox="0 0 60 400"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="waveGold" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#D4AF37" />
-            <stop offset="50%" stopColor="#F5D020" />
-            <stop offset="100%" stopColor="#D4AF37" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M60,0 C20,100 20,300 60,400 L0,400 L0,0 Z"
-          fill="url(#waveGold)"
-        />
-      </svg>
+        {/* Category Sessions Section */}
+        <section id="categories-section" className="mb-12">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-serif text-[#F2F4F1] font-normal">
+                Healing Journeys
+              </h2>
+              <p className="text-xs text-[#9BA5A0] mt-0.5">
+                Explore guided hypnotherapy sessions categorized by your needs
+              </p>
+            </div>
+            <span className="text-xs text-[#D4AF6A] font-mono font-medium">
+              {filtered.length} Categories
+            </span>
+          </div>
 
-      <div
-        className="absolute -left-3 sm:-left-6 top-0 h-full w-8 sm:w-12 z-20 bg-gradient-to-br from-[#0a0a1a] via-[#0d0d2b] to-[#1a0a2e]"
-        style={{ clipPath: 'polygon(0 0, 30% 0, 55% 50%, 30% 100%, 0 100%)' }}
-      />
+          {filtered.length === 0 ? (
+            <div className="text-center py-16 rounded-3xl bg-[#151A17] border border-[#232B26]">
+              <Search className="w-8 h-8 text-[#6B7570] mx-auto mb-3 stroke-[1.5]" />
+              <p className="text-sm font-semibold text-[#F2F4F1]">No healing categories found</p>
+              <p className="text-xs text-[#9BA5A0] mt-1">Try searching for anxiety, sleep, pain, or meditation</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
+              {filtered.map(cat => (
+                <CategoryCard
+                  key={cat.id}
+                  category={cat}
+                  onClick={() => navigate(`/category/${encodeURIComponent(cat.id)}`)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
 
-      <img
-        src="/images/banner/me.png"
-        alt="Mr. Sandeep"
-        className="w-full h-full object-cover object-top"
-      />
-    </div>
-   </div>
-  </div>
+        {/* Sanctuary 1-on-1 Consultation Section */}
+        <section className="mb-12">
+          <ConsultationCard />
+        </section>
 
-
-        {/* Clickable Full Width Image */}
-        <div className="w-full mb-6 cursor-pointer" onClick={() => navigate('/session/overthinking-control')}>
-         <img 
-          src="/images/free/meditation.jpg" 
-          alt="Banner" 
-          className="w-full rounded-2xl object-cover"
-          />
-        </div>
-
-        {/* Hero Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            Your <span className="text-gradient">Trust</span>
-          </h1>
-          <p className="text-gray-400 text-sm sm:text-base">
-            Discover content across all topics. Use your tokens to unlock premium items.
-          </p>
-        </div>
-
-        {/* Carousel */}
-        <div className="mb-8">
+        {/* Trust & Accreditations Slider */}
+        <section className="mb-8">
           <ImageCarousel />
-        </div>
+        </section>
 
-        {/* Hero Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            Explore <span className="text-gradient">Categories</span>
-          </h1>
-          <p className="text-gray-400 text-sm sm:text-base">
-            Discover content across all topics. Use your tokens to unlock premium items.
-          </p>
-        </div>
-
-        {/* Search Bar */}
-        <div id="categories-section" className="relative mb-8 max-w-lg">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-          <input
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="Search categories…"
-            className="w-full pl-10 pr-4 py-3 bg-dark-800 border border-dark-500 rounded-xl text-sm
-              text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-primary
-              focus:border-transparent transition-all"
-          />
-        </div>
-
-        {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-4xl mb-3">🔍</p>
-            <p className="text-white font-semibold text-lg">No categories found</p>
-            <p className="text-gray-500 text-sm mt-1">Try a different search term</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3">
-            {filtered.map(cat => (
-  <button
-    key={cat.id}
-    onClick={() => {
-      if (cat.comingSoon) return
-      navigate(`/category/${encodeURIComponent(cat.id)}`)
-    }}
-    className={`relative w-full h-64 rounded-xl overflow-hidden group ${cat.comingSoon ? 'cursor-not-allowed' : ''}`}
-    style={{
-      backgroundImage: `url(${cat.image})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-    {cat.comingSoon && (
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center">
-        <span className="text-white font-bold text-sm px-4 py-2 bg-white/10 border border-white/30 rounded-full">
-          Coming Soon
-        </span>
-      </div>
-    )}
-    <span
-      className="absolute bottom-2 left-3 text-base font-semibold"
-      style={{ color: '#FFFFFF' }}
-    >
-      {cat.name}
-    </span>
-  </button>
-))}
-          </div>
-        )}
       </main>
+
       <Footer />
     </div>
   )

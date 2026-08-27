@@ -1,66 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Play, Pause, X, Settings, Check } from 'lucide-react'
+import { Play, Pause, X, RotateCcw, RotateCw } from 'lucide-react'
+import BilingualText from '../components/ui/BilingualText.jsx'
 import Footer from '../components/layout/Footer.jsx'
 
-// Hardcoded content for this standalone session — edit these to match your session
 const SESSION = {
   title: 'Meditation & Deep Relaxation / ध्यान और गहन विश्राम',
-  description: 'FREE SESSION',
+  description: 'A free guided hypnotherapy experience to soothe overthinking, calm the nervous system, and restore inner peace.',
   image: '/images/free/meditation.jpg',
-  audioEn: '/audio/overthinking-en.mp3',
+  audioEn: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3',
   audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3',
-}
-
-function CountdownTimer({ onEnd, duration, playing }) {
-  const [seconds, setSeconds] = React.useState(duration)
-
-  useEffect(() => {
-    setSeconds(duration)
-  }, [duration])
-
-  useEffect(() => {
-    if (!playing) return
-    if (seconds <= 0) { onEnd(); return }
-    const interval = setInterval(() => setSeconds(s => s - 1), 1000)
-    return () => clearInterval(interval)
-  }, [seconds, playing])
-
-  const mins = String(Math.floor(seconds / 60)).padStart(2, '0')
-  const secs = String(seconds % 60).padStart(2, '0')
-
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="w-52 h-52 rounded-full flex items-center justify-center"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 60%, transparent 100%)',
-          border: '2px solid rgba(255,255,255,0.2)'
-        }}
-      >
-        <div className="text-center">
-          <p className="text-6xl font-black text-white tracking-tight"
-            style={{ fontVariantNumeric: 'tabular-nums' }}>
-            {mins}:{secs}
-          </p>
-          <p className="text-white/50 text-xs mt-1 uppercase tracking-widest">remaining</p>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 export default function MeditationSessionPage() {
   const navigate = useNavigate()
   const [playing, setPlaying] = useState(false)
   const [language, setLanguage] = useState(() => localStorage.getItem('audioLang') || 'hi')
-  const [showLangMenu, setShowLangMenu] = useState(false)
-  const [audioDuration, setAudioDuration] = useState(300)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(300)
   const audioRef = useRef(null)
 
   function selectLanguage(lang) {
     setLanguage(lang)
     localStorage.setItem('audioLang', lang)
-    setShowLangMenu(false)
     if (audioRef.current) {
       const wasPlaying = playing
       audioRef.current.pause()
@@ -79,125 +41,176 @@ export default function MeditationSessionPage() {
     setPlaying(p => !p)
   }
 
+  function handleSeek(e) {
+    const newTime = parseFloat(e.target.value)
+    setCurrentTime(newTime)
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime
+    }
+  }
+
+  function skipTime(seconds) {
+    if (!audioRef.current) return
+    audioRef.current.currentTime = Math.max(0, Math.min(duration, audioRef.current.currentTime + seconds))
+  }
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+  }
+
   const audioSrc = language === 'hi' ? SESSION.audioHi : SESSION.audioEn
 
   return (
-    <div className="min-h-screen bg-dark-900 flex flex-col relative overflow-hidden">
-
-      {SESSION.image && (
+    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1] flex flex-col relative overflow-hidden">
+      
+      {/* Background Ambient Aura */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
           src={SESSION.image}
           alt={SESSION.title}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover blur-3xl opacity-15 scale-125"
         />
-      )}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0C0F0E]/80 via-[#0C0F0E]/95 to-[#0C0F0E]" />
+      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/90" />
-
+      {/* Hidden Audio */}
       <audio
         ref={audioRef}
         src={audioSrc}
+        onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)}
+        onLoadedMetadata={() => setDuration(Math.floor(audioRef.current?.duration || 300))}
         onEnded={() => {
           setPlaying(false)
           setTimeout(() => navigate(-1), 1500)
         }}
-        onLoadedMetadata={() => setAudioDuration(Math.floor(audioRef.current?.duration || 300))}
       />
 
-      {/* Top bar */}
-      <div className="relative z-10 flex items-center justify-between px-5 pt-12 pb-4">
+      {/* Top Bar */}
+      <div className="relative z-20 flex items-center justify-between px-5 pt-8 pb-4 max-w-xl mx-auto w-full">
         <button
           onClick={() => navigate(-1)}
-          className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          className="w-10 h-10 rounded-full bg-[#151A17] border border-[#232B26] backdrop-blur-md flex items-center justify-center text-[#9BA5A0] hover:text-white transition-all active:scale-95"
+          aria-label="Close"
         >
-          <X className="w-4 h-4" style={{ color: '#ffffff' }} />
+          <X className="w-5 h-5" />
         </button>
-        <p className="text-xs text-white/60 uppercase tracking-widest font-medium">Now Playing</p>
 
-        <div className="relative">
-          <button
-            onClick={() => setShowLangMenu(s => !s)}
-            className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          >
-            <Settings className="w-4 h-4" style={{ color: '#FFFFFF' }} />
-          </button>
-
-          {showLangMenu && (
-            <div className="absolute right-0 mt-2 w-40 bg-dark-800 border border-dark-500 rounded-xl shadow-2xl overflow-hidden z-30">
-              <button
-                onClick={() => selectLanguage('en')}
-                className="w-full flex items-center justify-between px-4 py-3 text-sm text-white hover:bg-dark-700 transition-colors"
-              >
-                English
-                {language === 'en' && <Check className="w-4 h-4 text-brand-accent" />}
-              </button>
-              <button
-                onClick={() => selectLanguage('hi')}
-                className="w-full flex items-center justify-between px-4 py-3 text-sm text-white hover:bg-dark-700 transition-colors border-t border-dark-600"
-              >
-                हिंदी (Hindi)
-                {language === 'hi' && <Check className="w-4 h-4 text-brand-accent" />}
-              </button>
-            </div>
-          )}
+        <div className="text-center">
+          <span className="text-[10px] uppercase tracking-widest text-[#D4AF6A] font-bold">Free Spotlight</span>
+          <p className="text-xs text-[#9BA5A0]">Overthinking Control</p>
         </div>
+
+        <div className="w-10" />
       </div>
 
-      <div className="flex-1" />
-
-      <div className="relative z-10 px-6 pb-32">
-
-        <div className="mb-3">
-          <span className="text-xs font-semibold text-white/50 uppercase tracking-widest">
-            {SESSION.category}
-          </span>
-        </div>
-
-        <h1 className="text-3xl font-black leading-tight mb-3"
-        style={{ fontStyle: 'italic', color: '#ffffff' }}>
-          {SESSION.title}
-        </h1>
-
-        <p className="text-sm text-white/60 leading-relaxed mb-6">
-          {SESSION.description}
-        </p>
-
-        <div className={`fixed inset-0 flex items-center justify-center z-20 pointer-events-none transition-opacity ${playing ? 'opacity-100' : 'opacity-0'}`}>
-          <CountdownTimer
-            duration={audioDuration}
-            onEnd={() => { setPlaying(false); audioRef.current?.pause() }}
-            playing={playing}
+      {/* Main Player Viewport */}
+      <main className="relative z-10 flex-1 flex flex-col justify-center max-w-sm sm:max-w-md mx-auto w-full px-6 py-4">
+        
+        {/* Album Artwork */}
+        <div className="relative aspect-square w-full rounded-3xl overflow-hidden border border-[#232B26] shadow-2xl shadow-black/80 mb-6 group mx-auto max-w-[280px] sm:max-w-[320px]">
+          <img
+            src={SESSION.image}
+            alt={SESSION.title}
+            className={`w-full h-full object-cover transition-transform duration-1000 ${
+              playing ? 'scale-105' : 'scale-100'
+            }`}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C0F0E]/80 via-transparent to-transparent" />
+
+          {/* Meditative Breathing Aura Ring */}
+          {playing && (
+            <div className="absolute inset-0 border-2 border-[#D4AF6A]/40 rounded-3xl animate-breathe pointer-events-none" />
+          )}
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Track Info */}
+        <div className="text-center mb-5">
+          <BilingualText 
+            text={SESSION.title}
+            titleClassName="font-serif text-xl sm:text-2xl font-normal text-[#F2F4F1] leading-snug"
+            subtitleClassName="text-xs text-[#D4AF6A] font-hindi font-normal mt-1"
+          />
+          <p className="text-xs text-[#9BA5A0] mt-2 line-clamp-2 leading-relaxed">
+            {SESSION.description}
+          </p>
+        </div>
+
+        {/* Language Switcher Pill */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex p-1 rounded-full bg-[#151A17] border border-[#232B26]">
+            <button
+              onClick={() => selectLanguage('hi')}
+              className={`px-4 py-1 rounded-full text-xs font-medium transition-all ${
+                language === 'hi'
+                  ? 'bg-[#D4AF6A] text-[#0C0F0E] font-bold shadow'
+                  : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+              }`}
+            >
+              हिंदी (Hindi)
+            </button>
+            <button
+              onClick={() => selectLanguage('en')}
+              className={`px-4 py-1 rounded-full text-xs font-medium transition-all ${
+                language === 'en'
+                  ? 'bg-[#D4AF6A] text-[#0C0F0E] font-bold shadow'
+                  : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+              }`}
+            >
+              English
+            </button>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="space-y-1.5 mb-6">
+          <input
+            type="range"
+            min="0"
+            max={duration || 300}
+            value={currentTime}
+            onChange={handleSeek}
+            className="w-full h-1.5 bg-[#232B26] rounded-lg appearance-none cursor-pointer accent-[#D4AF6A]"
+          />
+          <div className="flex justify-between text-[11px] text-[#9BA5A0] font-mono">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center justify-center gap-6 mb-8">
           <button
-            onClick={() => navigate(-1)}
-            className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            onClick={() => skipTime(-15)}
+            className="p-3 rounded-full bg-[#151A17] border border-[#232B26] text-[#9BA5A0] hover:text-[#F2F4F1] active:scale-95 transition-all"
+            aria-label="Rewind 15 seconds"
           >
-            <ArrowLeft className="w-5 h-5" style={{ color: '#FFFFFF' }} />
+            <RotateCcw className="w-5 h-5" />
           </button>
 
           <button
             onClick={togglePlay}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full
-              bg-green-500 text-white font-bold text-sm hover:bg-green-600 transition-all
-              shadow-2xl"
+            className="w-16 h-16 rounded-full bg-[#D4AF6A] text-[#0C0F0E] flex items-center justify-center hover:bg-[#C49A4E] active:scale-95 transition-all shadow-xl shadow-[#D4AF6A]/20"
+            aria-label={playing ? 'Pause' : 'Play'}
           >
             {playing ? (
-              <>
-                <Pause className="w-5 h-5" /> Pause
-              </>
+              <Pause className="w-7 h-7 fill-current" />
             ) : (
-              <>
-                <Play className="w-5 h-5" /> Play Now
-              </>
+              <Play className="w-7 h-7 fill-current ml-0.5" />
             )}
           </button>
 
+          <button
+            onClick={() => skipTime(15)}
+            className="p-3 rounded-full bg-[#151A17] border border-[#232B26] text-[#9BA5A0] hover:text-[#F2F4F1] active:scale-95 transition-all"
+            aria-label="Forward 15 seconds"
+          >
+            <RotateCw className="w-5 h-5" />
+          </button>
         </div>
 
-      </div>
+      </main>
 
       <Footer />
     </div>

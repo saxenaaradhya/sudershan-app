@@ -18,17 +18,17 @@ export default function Modal({ isOpen, onClose, title, children, image }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
       />
-      <div className="relative bg-dark-800 border border-dark-500 rounded-2xl w-full max-w-md shadow-2xl z-10">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-dark-600">
-          <h2 className="text-lg font-semibold text-white">{title}</h2>
+      <div className="relative bg-[#151A17] border border-[#232B26] rounded-3xl w-full max-w-md shadow-2xl z-10 overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#232B26]">
+          <h2 className="text-base font-semibold text-[#F2F4F1]">{title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-dark-600"
+            className="text-[#9BA5A0] hover:text-white transition-colors p-1.5 rounded-full hover:bg-[#1C2420]"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
         {image && (

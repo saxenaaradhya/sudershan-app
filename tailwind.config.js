@@ -11,7 +11,7 @@ export default {
         brand: {
           primary: 'var(--brand-primary)',
           secondary: 'var(--brand-secondary)',
-          accent: 'var(--brand-accent)',
+          success: 'var(--brand-success)',
         },
         dark: {
           900: 'var(--bg-900)',
@@ -21,13 +21,22 @@ export default {
           500: 'var(--bg-500)',
           400: 'var(--bg-400)',
         },
+        surface: {
+          base: 'var(--bg-900)',
+          elevated: 'var(--bg-800)',
+          hover: 'var(--bg-700)',
+          border: 'var(--border-subtle)',
+        },
         text: {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Cinzel"', 'Georgia', 'serif'],
+        hindi: ['"Noto Sans Devanagari"', 'sans-serif'],
       },
     },
   },

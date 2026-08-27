@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { Gift } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, TrendingUp, TrendingDown, Clock } from 'lucide-react'
+import { ArrowLeft, TrendingUp, TrendingDown, Clock, Gift } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
-import TokenCard from '../components/wallet/TokenCard.jsx'
 import Modal from '../components/ui/Modal.jsx'
 import Button from '../components/ui/Button.jsx'
 import Toast from '../components/ui/Toast.jsx'
@@ -17,26 +15,28 @@ export default function WalletPage() {
   const addTokens = useWalletStore(s => s.addTokens)
   const transactions = useWalletStore(s => s.transactions)
   const initWallet = useWalletStore(s => s.initWallet)
-   const user = useAuthStore(s => s.user)
-  const [confirmModal, setConfirmModal] = useState(null) // { amount, price }
+  const user = useAuthStore(s => s.user)
+  
+  const [confirmModal, setConfirmModal] = useState(null)
   const [toast, setToast] = useState(null)
   const [dailyClaimed, setDailyClaimed] = useState(() => {
-  const last = localStorage.getItem('lastDailyClaim')
-  if (!last) return false
-  return Date.now() - new Date(last).getTime() < 24 * 60 * 60 * 1000
-})
+    const last = localStorage.getItem('lastDailyClaim')
+    if (!last) return false
+    return Date.now() - new Date(last).getTime() < 24 * 60 * 60 * 1000
+  })
 
   function handleBuy(amount, price) {
     setConfirmModal({ amount, price })
   }
-  async function claimDailyReward() {
-  await addTokens(2, '🎁 Daily reward')
-  localStorage.setItem('lastDailyClaim', new Date().toISOString())
-  setDailyClaimed(true)
-  setToast({ message: '🎁 You claimed your 2 daily tokens!', type: 'success' })
-}
 
- async function confirmPurchase() {
+  async function claimDailyReward() {
+    await addTokens(2, '🎁 Daily reward')
+    localStorage.setItem('lastDailyClaim', new Date().toISOString())
+    setDailyClaimed(true)
+    setToast({ message: '🎁 You claimed your 2 daily tokens!', type: 'success' })
+  }
+
+  async function confirmPurchase() {
     const { amount, price } = confirmModal
 
     try {
@@ -58,40 +58,39 @@ export default function WalletPage() {
         key: 'rzp_live_T6AUTvIMcvsC2D',
         amount: order.amount,
         currency: order.currency,
-        name: 'Sudershan',
-        description: `${amount} Tokens`,
+        name: 'Sudershan Mind Therapy',
+        description: `${amount} Sanctuary Tokens`,
         order_id: order.id,
         prefill: {
           name: user?.fullName || '',
           contact: user?.phone || '',
         },
         handler: async function (response) {
-  const verifyRes = await fetch('/api/verifyPayment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ...response,
-      userId: user?.id,  // pass user ID
-      amount,            // pass token amount
-    }),
-  })
-  const result = await verifyRes.json()
+          const verifyRes = await fetch('/api/verifyPayment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...response,
+              userId: user?.id,
+              amount,
+            }),
+          })
+          const result = await verifyRes.json()
 
-  if (result.success) {
-    // Reload wallet from Firebase instead of manually adding
-    await initWallet(user?.id)
-    setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
-  } else {
-    setToast({ message: 'Payment verification failed.', type: 'error' })
-  }
-  setConfirmModal(null)
-},
+          if (result.success) {
+            await initWallet(user?.id)
+            setToast({ message: `🪙 ${amount} tokens added to your wallet!`, type: 'success' })
+          } else {
+            setToast({ message: 'Payment verification failed.', type: 'error' })
+          }
+          setConfirmModal(null)
+        },
         modal: {
           ondismiss: function () {
             setConfirmModal(null)
           },
         },
-        theme: { color: '#7C3AED' },
+        theme: { color: '#D4AF6A' },
       }
 
       const rzp = new window.Razorpay(options)
@@ -114,169 +113,193 @@ export default function WalletPage() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1]">
       <Navbar />
 
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-20 right-6 z-50">
           <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
         </div>
       )}
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-12">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-28">
 
         <button
           onClick={() => navigate('/home')}
-          className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors mb-6"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9BA5A0] hover:text-[#F2F4F1] transition-colors mb-6"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Home
+          <ArrowLeft className="w-4 h-4" /> Return to Sanctuary
         </button>
 
-        <h1 className="text-2xl font-bold text-white mb-6">My Wallet</h1>
-
-        {/* Balance Card */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-brand-primary/30 to-brand-secondary/20
-          border border-brand-primary/40 rounded-2xl p-5 sm:p-6 mb-6 sm:mb-8">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <p className="text-xs sm:text-sm text-gray-400 mb-1 uppercase tracking-widest font-medium">Current Balance</p>
-          <p className="text-4xl sm:text-5xl font-bold text-white mb-1">🪙 {balance}</p>
-          <p className="text-sm text-gray-500">tokens available to spend</p>
-        </div>
-
-        {/* Daily Reward */}
-        {!dailyClaimed && (
-          <div className="bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-5 mb-6 sm:mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-dark-700 flex items-center justify-center text-2xl shrink-0">
-                <Gift />
+        {/* Balance Hero Card */}
+        <div className="relative overflow-hidden rounded-3xl bg-[#151A17] border border-[#D4AF6A]/30 p-6 sm:p-8 mb-8 shadow-xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF6A]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[#D4AF6A] font-bold mb-1">
+                Your Sanctuary Balance
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="text-4xl sm:text-5xl font-bold font-mono text-[#F2F4F1]">
+                  🪙 {balance}
+                </span>
+                <span className="text-sm text-[#9BA5A0] self-end mb-1.5">Tokens</span>
               </div>
-              <div>
-                <p className="text-lg font-bold text-white">Claim Your Daily Reward</p>
-                <p className="text-sm text-gray-500">Get 2 free tokens every day!</p>
-              </div>
+              <p className="text-xs text-[#9BA5A0] mt-2">
+                Tokens grant permanent access to guided hypnotherapy sessions.
+              </p>
             </div>
-            <button
-              onClick={claimDailyReward}
-              className="mt-4 px-4 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-all duration-200"
-            >
-              Claim Reward
-            </button>
+
+            {!dailyClaimed && (
+              <button
+                onClick={claimDailyReward}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#2E7D5B] text-[#F2F4F1] font-bold text-xs hover:bg-[#25664A] active:scale-95 transition-all shadow-md"
+              >
+                <Gift className="w-4 h-4" />
+                Claim Daily +2 🪙
+              </button>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Token Packs */}
-        <h2 className="text-lg font-semibold text-white mb-4">Add Tokens</h2>
-        <div className="flex flex-col gap-3 mb-8 sm:mb-10">
-          {[
-            { amount: 20, price: 20, label: 'STARTER', desc: 'Perfect for trying things out', badge: null },
-            { amount: 80, price: 70, label: 'POPULAR', desc: 'Best value for regular users', badge: 'Most Popular' },
-            { amount: 150, price: 125, label: 'PRO', desc: 'Unlock everything without limits', badge: 'Best Deal' },
-          ].map(({ amount, price, label, desc, badge }) => (
-            <div key={amount} className="relative bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4">
-              {badge && (
-                <span className="absolute -top-2.5 left-4 text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-primary text-white">
-                  {badge}
-                </span>
-              )}
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-dark-700 flex items-center justify-center text-2xl shrink-0">
-                  🪙
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{label}</p>
-                  <p className="text-2xl font-bold text-white">{amount} <span className="text-sm font-normal text-gray-400">tokens</span></p>
-                  <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
-                </div>
-              </div>
-              <div className="flex flex-col items-end gap-2 shrink-0">
-                <p className="text-lg font-bold text-white">₹{price}</p>
-                <button
-                  onClick={() => handleBuy(amount, price)}
-                  className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-all duration-200"
-                >
-                  Buy Now
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className="mb-10">
+          <h2 className="font-serif text-xl text-[#F2F4F1] font-normal mb-1">Acquire Tokens</h2>
+          <p className="text-xs text-[#9BA5A0] mb-5">Select a pack to instantly unlock healing sessions</p>
 
-        {/* Transaction History */}
-        <h2 className="text-lg font-semibold text-white mb-4">Transaction History</h2>
-
-        {transactions.length === 0 ? (
-          <div className="text-center py-12 bg-dark-800 border border-dark-600 rounded-2xl">
-            <p className="text-3xl mb-3">📋</p>
-            <p className="text-white font-medium">No transactions yet</p>
-            <p className="text-sm text-gray-500 mt-1">Your token activity will appear here</p>
-          </div>
-        ) : (
-          <div className="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
-            {transactions
-  .filter(tx => {
-    const oneMonthAgo = new Date()
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-    return new Date(tx.date) >= oneMonthAgo
-  })
-  .map((tx, i, arr) => (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { amount: 20, price: 20, label: 'Starter', desc: 'Ideal for trying out a few sessions', badge: null },
+              { amount: 80, price: 70, label: 'Sanctuary', desc: 'Most popular for continuous healing', badge: 'Recommended' },
+              { amount: 150, price: 125, label: 'Mastery', desc: 'Full lifetime access across tracks', badge: 'Best Value' },
+            ].map(({ amount, price, label, desc, badge }) => (
               <div
-                key={tx.id}
-                className={`flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4
-  ${i !== arr.length - 1 ? 'border-b border-dark-600' : ''}`}
->
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0
-                  ${tx.type === 'credit'
-                    ? 'bg-emerald-900/50 text-emerald-400'
-                    : 'bg-red-900/50 text-red-400'
-                  }`}>
-                  {tx.type === 'credit'
-                    ? <TrendingUp className="w-4 h-4" />
-                    : <TrendingDown className="w-4 h-4" />
-                  }
+                key={amount}
+                className={`relative rounded-2xl p-5 flex flex-col justify-between border transition-all duration-200 ${
+                  badge
+                    ? 'bg-[#1C2420] border-[#D4AF6A]/50 shadow-xl'
+                    : 'bg-[#151A17] border-[#232B26] hover:border-[#D4AF6A]/30'
+                }`}
+              >
+                {badge && (
+                  <span className="absolute -top-2.5 left-4 text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[#D4AF6A] text-[#0C0F0E] shadow">
+                    {badge}
+                  </span>
+                )}
+
+                <div>
+                  <p className="text-xs font-bold text-[#D4AF6A] uppercase tracking-wider mb-2">{label}</p>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-3xl font-bold font-mono text-[#F2F4F1]">{amount}</span>
+                    <span className="text-xs text-[#9BA5A0]">tokens</span>
+                  </div>
+                  <p className="text-xs text-[#9BA5A0] mb-6">{desc}</p>
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white truncate">{tx.label}</p>
-                  <p className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
-                    <Clock className="w-3 h-3" /> {formatDate(tx.date)}
-                  </p>
-                </div>
-
-                <div className="text-right shrink-0">
-                  <p className={`text-sm font-bold
-                    ${tx.type === 'credit' ? 'text-emerald-400' : 'text-red-400'}`}>
-                    {tx.type === 'credit' ? '+' : '-'}🪙 {tx.amount}
-                  </p>
-                  <p className="text-xs text-gray-500">bal: {tx.balanceAfter}</p>
+                <div className="pt-4 border-t border-[#232B26] flex items-center justify-between">
+                  <span className="text-lg font-bold text-[#F2F4F1]">₹{price}</span>
+                  <button
+                    onClick={() => handleBuy(amount, price)}
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-[#D4AF6A] text-[#0C0F0E] hover:bg-[#C49A4E] active:scale-95 transition-all shadow-sm"
+                  >
+                    Add Pack
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-        )}
+        </div>
+
+        {/* Transaction History */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-serif text-xl text-[#F2F4F1] font-normal">Activity Ledger</h2>
+            <span className="text-xs text-[#9BA5A0]">Last 30 Days</span>
+          </div>
+
+          {transactions.length === 0 ? (
+            <div className="text-center py-12 rounded-3xl bg-[#151A17] border border-[#232B26]">
+              <Clock className="w-7 h-7 text-[#6B7570] mx-auto mb-2" />
+              <p className="text-xs text-[#9BA5A0]">No token transactions recorded yet.</p>
+            </div>
+          ) : (
+            <div className="rounded-3xl bg-[#151A17] border border-[#232B26] overflow-hidden shadow-sm">
+              {transactions
+                .filter(tx => {
+                  const oneMonthAgo = new Date()
+                  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+                  return new Date(tx.date) >= oneMonthAgo
+                })
+                .map((tx, i, arr) => (
+                  <div
+                    key={tx.id}
+                    className={`flex items-center gap-4 px-5 py-4 ${
+                      i !== arr.length - 1 ? 'border-b border-[#232B26]' : ''
+                    }`}
+                  >
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                      tx.type === 'credit'
+                        ? 'bg-[#2E7D5B]/20 text-[#2E7D5B]'
+                        : 'bg-[#3B1E1E] text-[#F87171]'
+                    }`}>
+                      {tx.type === 'credit' ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm font-medium text-[#F2F4F1] truncate">{tx.label}</p>
+                      <p className="text-[11px] text-[#9BA5A0] mt-0.5">{formatDate(tx.date)}</p>
+                    </div>
+
+                    <div className="text-right shrink-0">
+                      <p className={`text-xs sm:text-sm font-bold font-mono ${
+                        tx.type === 'credit' ? 'text-[#2E7D5B]' : 'text-[#F87171]'
+                      }`}>
+                        {tx.type === 'credit' ? '+' : '-'}🪙 {tx.amount}
+                      </p>
+                      <p className="text-[10px] text-[#9BA5A0]">Bal: {tx.balanceAfter}</p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+
       </main>
 
-      {/* Confirm Purchase Modal */}
+      {/* Confirmation Modal */}
       <Modal
         isOpen={!!confirmModal}
         onClose={() => setConfirmModal(null)}
-        title="Confirm Purchase"
+        title="Confirm Token Top-up"
       >
         {confirmModal && (
-          <div className="flex flex-col gap-5">
-            <div className="bg-dark-700 rounded-xl p-4 text-center">
-              <p className="text-4xl font-bold text-white mb-1">🪙 {confirmModal.amount}</p>
-              <p className="text-gray-400 text-sm">tokens for ₹{confirmModal.price}</p>
+          <div className="flex flex-col gap-5 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#1C2420] border border-[#D4AF6A]/30 text-[#D4AF6A] flex items-center justify-center mx-auto text-2xl">
+              🪙
             </div>
-            <p className="text-sm text-gray-400 text-center">
-              Your new balance will be <span className="text-white font-semibold">🪙 {balance + confirmModal.amount}</span>
-            </p>
+
+            <div>
+              <h3 className="text-lg font-bold text-[#F2F4F1]">
+                Add {confirmModal.amount} Tokens for ₹{confirmModal.price}
+              </h3>
+              <p className="text-xs text-[#9BA5A0] mt-1">
+                Your new balance will become <span className="text-[#D4AF6A] font-bold">🪙 {balance + confirmModal.amount}</span>
+              </p>
+            </div>
+
             <div className="flex gap-3">
-              <Button onClick={confirmPurchase} fullWidth>Confirm Payment</Button>
-              <Button onClick={() => setConfirmModal(null)} variant="secondary" fullWidth>Cancel</Button>
+              <Button onClick={confirmPurchase} fullWidth>
+                Proceed with Razorpay
+              </Button>
+              <Button onClick={() => setConfirmModal(null)} variant="secondary" fullWidth>
+                Cancel
+              </Button>
             </div>
           </div>
         )}
       </Modal>
+
       <Footer />
     </div>
   )

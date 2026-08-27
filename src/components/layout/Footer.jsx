@@ -20,46 +20,62 @@ export default function Footer() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 glass border-t border-dark-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#151A17]/95 backdrop-blur-md border-t border-[#232B26]">
+      <div className="max-w-md mx-auto px-4 h-16 flex items-center justify-around">
 
+        {/* Home */}
         <button
           onClick={() => {
             navigate('/home')
             setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)
           }}
-          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
-            ${isActive('/home') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
+          className={`flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-xl transition-all ${
+            isActive('/home') 
+              ? 'text-[#D4AF6A]' 
+              : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+          }`}
         >
           <Home className="w-5 h-5" />
-          <span className="text-[11px] font-medium">Home</span>
+          <span className="text-[10px] font-medium tracking-tight">Sanctuary</span>
         </button>
 
+        {/* Category */}
         <button
-           onClick={handleCategory}
-            className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
-              ${location.pathname.startsWith('/category') ? 'text-brand-accent' :'!text-white hover:!text-white'}`}
+          onClick={handleCategory}
+          className={`flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-xl transition-all ${
+            location.pathname.startsWith('/category') 
+              ? 'text-[#D4AF6A]' 
+              : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+          }`}
         >
-            <LayoutGrid className="w-5 h-5" />
-           <span className="text-[11px] font-medium">Category</span>
-         </button>
+          <LayoutGrid className="w-5 h-5" />
+          <span className="text-[10px] font-medium tracking-tight">Sessions</span>
+        </button>
 
+        {/* Wallet */}
         <button
           onClick={() => navigate('/wallet')}
-          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
-            ${isActive('/wallet') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
+          className={`flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-xl transition-all ${
+            isActive('/wallet') 
+              ? 'text-[#D4AF6A]' 
+              : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+          }`}
         >
           <Wallet className="w-5 h-5" />
-          <span className="text-[11px] font-medium">Wallet</span>
+          <span className="text-[10px] font-medium tracking-tight">Wallet</span>
         </button>
 
+        {/* Contact */}
         <button
           onClick={() => navigate('/contact')}
-          className={`footer-icon flex flex-1 flex-col items-center justify-center gap-1 py-2 transition-colors
-            ${isActive('/contact') ? 'text-brand-accent' : '!text-white hover:!text-white'}`}
+          className={`flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-xl transition-all ${
+            isActive('/contact') 
+              ? 'text-[#D4AF6A]' 
+              : 'text-[#9BA5A0] hover:text-[#F2F4F1]'
+          }`}
         >
           <Mail className="w-5 h-5" />
-          <span className="text-[11px] font-medium">Contact</span>
+          <span className="text-[10px] font-medium tracking-tight">Connect</span>
         </button>
 
       </div>
