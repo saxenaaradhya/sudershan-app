@@ -1,15 +1,164 @@
 import React, { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, Sparkles, Gift, Play } from 'lucide-react'
+import { Search, Sparkles, Gift, Play, Lock, MessageCircle, Phone, Globe, ShieldCheck } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import ImageCarousel from '../components/home/ImageCarousel.jsx'
-import CategoryCard from '../components/home/CategoryCard.jsx'
-import ConsultationCard from '../components/home/ConsultationCard.jsx'
 import WelcomePopup from '../components/ui/WelcomePopup.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import Footer from '../components/layout/Footer.jsx'
 import { useWalletStore } from '../store/walletStore.js'
 import { useAuthStore } from '../store/authStore.js'
+
+function BilingualText({ text, en, hi, className = '', titleClassName = 'text-sm sm:text-base font-semibold text-[#F2F4F1] leading-tight', subtitleClassName = 'text-[11px] sm:text-xs text-[#9BA5A0] font-hindi font-normal mt-0.5 line-clamp-1' }) {
+  let primary = en
+  let secondary = hi
+
+  if (text && (!primary || !secondary)) {
+    if (text.includes('/')) {
+      const parts = text.split('/')
+      primary = parts[0]?.trim()
+      secondary = parts.slice(1).join('/')?.trim()
+    } else {
+      primary = text
+    }
+  }
+
+  return (
+    <div className={`flex flex-col leading-tight ${className}`}>
+      <span className={titleClassName}>{primary}</span>
+      {secondary && (
+        <span className={subtitleClassName}>{secondary}</span>
+      )}
+    </div>
+  )
+}
+
+function CategoryCard({ category, onClick }) {
+  const isComingSoon = category.comingSoon
+
+  return (
+    <div
+      onClick={!isComingSoon ? onClick : undefined}
+      className={`group relative h-48 sm:h-60 rounded-2xl overflow-hidden border border-[#232B26] bg-[#151A17] transition-all duration-300 ${
+        isComingSoon 
+          ? 'opacity-65 cursor-not-allowed' 
+          : 'cursor-pointer hover:border-[#D4AF6A]/50 hover:shadow-xl hover:shadow-black/50 hover:-translate-y-1'
+      }`}
+    >
+      {category.image && (
+        <img
+          src={category.image}
+          alt={category.name}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      )}
+
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0C0F0E] via-[#0C0F0E]/70 to-transparent" />
+
+      <div className="absolute top-3 inset-x-3 flex items-center justify-between z-10">
+        {category.items?.length > 0 && !isComingSoon && (
+          <span className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-md bg-[#0C0F0E]/85 backdrop-blur-md border border-[#232B26] text-[#D4AF6A]">
+            {category.items.length} Sessions
+          </span>
+        )}
+
+        {isComingSoon && (
+          <div className="ml-auto px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center gap-1.5 shadow-md">
+            <Lock className="w-3 h-3 text-[#D4AF6A]" />
+            <span className="text-[10px] uppercase font-bold text-[#9BA5A0] tracking-wider">Coming Soon</span>
+          </div>
+        )}
+      </div>
+
+      <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 z-10">
+        <BilingualText 
+          text={category.name} 
+          titleClassName="text-sm sm:text-base font-semibold text-[#F2F4F1] leading-tight group-hover:text-[#D4AF6A] transition-colors"
+          subtitleClassName="text-[11px] sm:text-xs text-[#9BA5A0] font-hindi font-normal mt-0.5 line-clamp-1"
+        />
+      </div>
+    </div>
+  )
+}
+
+function ConsultationCard() {
+  return (
+    <div className="relative rounded-3xl overflow-hidden border border-[#D4AF6A]/20 bg-[#151A17] p-6 sm:p-8 my-8 shadow-xl">
+      <div className="absolute top-0 right-0 w-72 h-72 bg-[#D4AF6A]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+        <div className="flex-1 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C2420] border border-[#D4AF6A]/20 mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-[#D4AF6A]" />
+            <span className="text-[11px] font-semibold text-[#D4AF6A] uppercase tracking-wider">
+              Free 1-on-1 Consultation
+            </span>
+          </div>
+
+          <h2 className="font-serif text-2xl sm:text-3xl text-[#F2F4F1] font-normal leading-snug mb-1">
+            Seedhi Baat with <span className="font-semibold text-[#D4AF6A]">Mr. SANDEEP</span>
+          </h2>
+          
+          <p className="text-xs sm:text-sm text-[#D4AF6A]/90 font-medium mb-3">
+            Grandmaster Hypnotherapist & REIKI Healer
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#9BA5A0] leading-relaxed mb-6">
+            Simple, personal, and reassuring guidance to release subconscious barriers, calm anxiety, and move forward with absolute clarity.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            <a
+              href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#D4AF6A] text-[#0C0F0E] font-bold text-xs sm:text-sm hover:bg-[#C49A4E] active:scale-95 transition-all shadow-md"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Book Free Session on WhatsApp
+            </a>
+
+            <a
+              href="tel:+919792390777"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-[#1C2420] border border-[#232B26] text-[#F2F4F1] font-semibold text-xs sm:text-sm hover:border-[#D4AF6A]/40 transition-all"
+            >
+              <Phone className="w-4 h-4 text-[#D4AF6A]" />
+              9792390777
+            </a>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[11px] text-[#9BA5A0] pt-4 border-t border-[#232B26]">
+            <a 
+              href="https://www.sudershanhypnotherapy.site" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-1.5 hover:text-[#D4AF6A] transition-colors"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#D4AF6A]" />
+              sudershanhypnotherapy.site
+            </a>
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF6A]" />
+              Confidential & 100% Private
+            </span>
+          </div>
+        </div>
+
+        <div className="shrink-0 relative">
+          <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-tr from-[#D4AF6A]/60 via-[#232B26] to-[#D4AF6A]/30 shadow-xl">
+            <div className="w-full h-full rounded-full overflow-hidden bg-[#151A17]">
+              <img
+                src="/images/banner/me.png"
+                alt="Mr. Sandeep"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function HomePage() {
   const navigate = useNavigate()
