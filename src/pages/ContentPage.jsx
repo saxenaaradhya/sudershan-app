@@ -4,8 +4,31 @@ import { Play, Pause, X, Share2, RotateCcw, RotateCw } from 'lucide-react'
 import { CATEGORIES } from '../constants/categories.js'
 import { useAuthStore } from '../store/authStore.js'
 import { trackEvent } from '../utils/analytics.js'
-import BilingualText from '../components/ui/BilingualText.jsx'
 import Footer from '../components/layout/Footer.jsx'
+
+function BilingualText({ text, en, hi, className = '', titleClassName = 'font-serif text-xl sm:text-2xl font-normal text-[#F2F4F1] leading-snug', subtitleClassName = 'text-xs text-[#D4AF6A] font-hindi font-normal mt-1' }) {
+  let primary = en
+  let secondary = hi
+
+  if (text && (!primary || !secondary)) {
+    if (text.includes('/')) {
+      const parts = text.split('/')
+      primary = parts[0]?.trim()
+      secondary = parts.slice(1).join('/')?.trim()
+    } else {
+      primary = text
+    }
+  }
+
+  return (
+    <div className={`flex flex-col leading-tight ${className}`}>
+      <span className={titleClassName}>{primary}</span>
+      {secondary && (
+        <span className={subtitleClassName}>{secondary}</span>
+      )}
+    </div>
+  )
+}
 
 export default function ContentPage() {
   const { categoryId, itemId } = useParams()

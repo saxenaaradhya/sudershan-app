@@ -5,12 +5,35 @@ import Navbar from '../components/layout/Navbar.jsx'
 import Modal from '../components/ui/Modal.jsx'
 import Button from '../components/ui/Button.jsx'
 import Toast from '../components/ui/Toast.jsx'
-import BilingualText from '../components/ui/BilingualText.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useAuthStore } from '../store/authStore.js'
 import { trackEvent } from '../utils/analytics.js'
+
+function BilingualText({ text, en, hi, className = '', titleClassName = 'font-serif text-xl sm:text-2xl font-normal text-[#F2F4F1] leading-snug', subtitleClassName = 'text-xs text-[#9BA5A0] font-hindi font-normal mt-0.5' }) {
+  let primary = en
+  let secondary = hi
+
+  if (text && (!primary || !secondary)) {
+    if (text.includes('/')) {
+      const parts = text.split('/')
+      primary = parts[0]?.trim()
+      secondary = parts.slice(1).join('/')?.trim()
+    } else {
+      primary = text
+    }
+  }
+
+  return (
+    <div className={`flex flex-col leading-tight ${className}`}>
+      <span className={titleClassName}>{primary}</span>
+      {secondary && (
+        <span className={subtitleClassName}>{secondary}</span>
+      )}
+    </div>
+  )
+}
 
 export default function CategoryDetailPage() {
   const { id } = useParams()
