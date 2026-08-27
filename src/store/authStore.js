@@ -136,8 +136,6 @@ export const useAuthStore = create((set, get) => ({
 
   loginByPhone: async (phone) => {
     try {
-      const users = []
-      const { getDocs, collection, query, where } = await import('firebase/firestore')
       const q = query(collection(db, 'users'), where('phone', '==', phone))
       const snap = await getDocs(q)
       if (snap.empty) return { success: false, error: 'No account found with this phone number.' }

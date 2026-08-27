@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase.js'
+import { useAuthStore } from './authStore.js'
 
 export const useWalletStore = create((set, get) => ({
   balance: 4,
@@ -31,7 +32,7 @@ export const useWalletStore = create((set, get) => ({
     const newTransactions = [newTx, ...transactions]
     set({ balance: newBalance, transactions: newTransactions })
 
-    const uid = (await import('../store/authStore.js')).useAuthStore.getState().user?.id
+    const uid = useAuthStore.getState().user?.id
     if (uid) {
       await updateDoc(doc(db, 'users', uid), {
         balance: newBalance,
@@ -55,7 +56,7 @@ export const useWalletStore = create((set, get) => ({
     const newTransactions = [newTx, ...transactions]
     set({ balance: newBalance, transactions: newTransactions })
 
-    const uid = (await import('../store/authStore.js')).useAuthStore.getState().user?.id
+    const uid = useAuthStore.getState().user?.id
     if (uid) {
       await updateDoc(doc(db, 'users', uid), {
         balance: newBalance,
