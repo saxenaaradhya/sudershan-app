@@ -6,19 +6,19 @@ const PACK_META = {
   20: {
     icon: Coins,
     label: 'Starter',
-    description: 'Perfect for trying things out',
+    description: 'Perfect for exploring sessions',
     badge: null,
   },
   80: {
     icon: Star,
     label: 'Sanctuary',
-    description: 'Best value for continuous healing',
+    description: 'Most popular for continuous healing',
     badge: 'Recommended',
   },
   150: {
     icon: Zap,
     label: 'Mastery',
-    description: 'Full lifetime access across tracks',
+    description: 'Full lifetime access across all journeys',
     badge: 'Best Value',
   },
 }
@@ -32,35 +32,35 @@ export default function TokenCard({ amount, onBuy }) {
 
   return (
     <div
-      className={`relative bg-[#151A17] border ${
-        meta.badge ? 'border-[#D4AF6A]/50 shadow-xl' : 'border-[#232B26]'
-      } rounded-3xl p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl`}
+      className={`relative bg-bg-surface border ${
+        meta.badge ? 'border-border-sage shadow-soft-lg ring-1 ring-sage/20' : 'border-border-subtle hover:border-border-sage'
+      } rounded-3xl p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-soft-lg`}
     >
       {meta.badge && (
-        <span className="absolute -top-2.5 left-6 bg-[#D4AF6A] text-[#0C0F0E] text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-md">
+        <span className="absolute -top-3 left-6 bg-sage text-white text-[10px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full shadow-soft-sm">
           {meta.badge}
         </span>
       )}
 
       <div>
         <div className="flex items-center gap-3 mb-3">
-          <div className="p-2.5 rounded-2xl bg-[#1C2420] border border-[#232B26] text-[#D4AF6A]">
+          <div className="p-2.5 rounded-2xl bg-sage-light text-sage shadow-soft-sm">
             <Icon className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] font-bold text-[#D4AF6A] uppercase tracking-wider">{meta.label}</p>
-            <p className="text-2xl font-bold font-mono text-[#F2F4F1]">
-              {amount} <span className="text-xs font-normal text-[#9BA5A0]">tokens</span>
+            <p className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">{meta.label}</p>
+            <p className="text-2xl font-bold font-mono text-text-primary">
+              {amount} <span className="text-xs font-normal text-text-secondary">tokens</span>
             </p>
           </div>
         </div>
 
-        <p className="text-xs text-[#9BA5A0] mb-6">{meta.description}</p>
+        <p className="text-xs text-text-secondary mb-6 leading-relaxed">{meta.description}</p>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-[#232B26]">
-        <p className="text-xl font-bold font-mono text-[#F2F4F1]">₹{price}</p>
-        <Button onClick={() => onBuy(amount, price)} size="sm" variant="primary">
+      <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
+        <p className="text-xl font-bold font-mono text-text-primary">₹{price}</p>
+        <Button onClick={() => onBuy(amount, price)} size="sm" variant={meta.badge ? "primary" : "secondary"}>
           Add Pack
         </Button>
       </div>

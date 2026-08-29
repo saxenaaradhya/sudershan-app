@@ -2,8 +2,8 @@ import { create } from 'zustand'
 
 const getInitialTheme = () => {
   const saved = localStorage.getItem('theme')
-  if (saved) return saved
-  return 'dark'
+  if (saved && (saved === 'light' || saved === 'dark')) return saved
+  return 'light'
 }
 
 export const useThemeStore = create((set) => ({
@@ -19,4 +19,9 @@ export const useThemeStore = create((set) => ({
     const theme = getInitialTheme()
     document.documentElement.setAttribute('data-theme', theme)
   },
+  setTheme: (theme) => {
+    localStorage.setItem('theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
+    set({ theme })
+  }
 }))

@@ -8,58 +8,58 @@ export default function ContactPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1]">
+    <div className="min-h-screen bg-bg-base text-text-primary transition-colors duration-300">
       <Navbar />
       
       <main className="max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-28">
         <button
           onClick={() => navigate('/home')}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9BA5A0] hover:text-[#F2F4F1] transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" /> Return to Sanctuary
         </button>
 
-        <div className="rounded-3xl bg-[#151A17] border border-[#232B26] p-6 sm:p-8 shadow-xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C2420] border border-[#D4AF6A]/20 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4AF6A]" />
-            <span className="text-xs font-semibold text-[#D4AF6A] uppercase tracking-wider">
-              Seeker Support
+        <div className="rounded-3xl bg-bg-surface border border-border-subtle p-6 sm:p-8 shadow-soft-lg">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-light border border-border-sage mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-sage" />
+            <span className="text-xs font-semibold text-sage uppercase tracking-wider">
+              Seeker Support & Guidance
             </span>
           </div>
 
-          <h1 className="font-serif text-2xl sm:text-3xl font-normal text-[#F2F4F1] mb-2">
+          <h1 className="font-serif text-2xl sm:text-3xl font-normal text-text-primary mb-2">
             Get in Touch
           </h1>
-          <p className="text-xs sm:text-sm text-[#9BA5A0] mb-8 leading-relaxed">
+          <p className="text-xs sm:text-sm text-text-secondary mb-8 leading-relaxed">
             Have questions about hypnotherapy sessions, customized sound healing, or technical assistance with your tokens? We are here to guide you.
           </p>
 
-          <div className="space-y-3 mb-8">
+          <div className="space-y-3.5 mb-8">
             <a
               href="https://wa.me/919792390777?text=Hi%2C%20I%20need%20support%20with%20Sudershan%20App."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#0C0F0E] border border-[#232B26] hover:border-[#D4AF6A]/40 transition-all group"
+              className="flex items-center gap-4 p-4 rounded-2xl bg-bg-base border border-border-subtle hover:border-border-sage transition-all group shadow-soft-sm"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#1C2420] text-[#D4AF6A] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-2xl bg-sage-light text-sage flex items-center justify-center shrink-0 shadow-soft-sm">
                 <MessageCircle className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-[#F2F4F1] group-hover:text-[#D4AF6A] transition-colors">Direct WhatsApp Support</p>
-                <p className="text-xs text-[#9BA5A0]">+91 9792390777</p>
+                <p className="text-xs font-bold text-text-primary group-hover:text-sage transition-colors">Direct WhatsApp Support</p>
+                <p className="text-xs text-text-secondary">+91 9792390777</p>
               </div>
             </a>
 
             <a
               href="tel:+919792390777"
-              className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#0C0F0E] border border-[#232B26] hover:border-[#D4AF6A]/40 transition-all group"
+              className="flex items-center gap-4 p-4 rounded-2xl bg-bg-base border border-border-subtle hover:border-border-sage transition-all group shadow-soft-sm"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#1C2420] text-[#D4AF6A] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-2xl bg-sage-light text-sage flex items-center justify-center shrink-0 shadow-soft-sm">
                 <Phone className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-[#F2F4F1] group-hover:text-[#D4AF6A] transition-colors">Phone Inquiries</p>
-                <p className="text-xs text-[#9BA5A0]">+91 9792390777 (Mon-Sat)</p>
+                <p className="text-xs font-bold text-text-primary group-hover:text-sage transition-colors">Phone Inquiries</p>
+                <p className="text-xs text-text-secondary">+91 9792390777 (Mon-Sat)</p>
               </div>
             </a>
 
@@ -67,20 +67,20 @@ export default function ContactPage() {
               href="https://www.sudershanhypnotherapy.site"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#0C0F0E] border border-[#232B26] hover:border-[#D4AF6A]/40 transition-all group"
+              className="flex items-center gap-4 p-4 rounded-2xl bg-bg-base border border-border-subtle hover:border-border-sage transition-all group shadow-soft-sm"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#1C2420] text-[#D4AF6A] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-2xl bg-sage-light text-sage flex items-center justify-center shrink-0 shadow-soft-sm">
                 <Globe className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-[#F2F4F1] group-hover:text-[#D4AF6A] transition-colors">Official Website</p>
-                <p className="text-xs text-[#9BA5A0]">sudershanhypnotherapy.site</p>
+                <p className="text-xs font-bold text-text-primary group-hover:text-sage transition-colors">Official Website</p>
+                <p className="text-xs text-text-secondary">sudershanhypnotherapy.site</p>
               </div>
             </a>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-[#9BA5A0] pt-4 border-t border-[#232B26]">
-            <ShieldCheck className="w-4 h-4 text-[#D4AF6A] shrink-0" />
+          <div className="flex items-center gap-2 text-xs text-text-secondary pt-4 border-t border-border-subtle">
+            <ShieldCheck className="w-4 h-4 text-sage shrink-0" />
             <span>All inquiries and consultations are strictly confidential.</span>
           </div>
         </div>

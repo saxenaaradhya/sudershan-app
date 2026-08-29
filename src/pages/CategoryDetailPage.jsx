@@ -1,39 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Lock, Unlock, Play, Sparkles, Video } from 'lucide-react'
+import { ArrowLeft, Share2, Sparkles, Video, Brain, Moon, HeartPulse, Lock, Unlock, Play } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Modal from '../components/ui/Modal.jsx'
-import Button from '../components/ui/Button.jsx'
 import Toast from '../components/ui/Toast.jsx'
+import BilingualText from '../components/ui/BilingualText.jsx'
+import SessionCard from '../components/ui/SessionCard.jsx'
+import SectionHeader from '../components/ui/SectionHeader.jsx'
+import FilterPill from '../components/ui/FilterPill.jsx'
+import EmptyState from '../components/ui/EmptyState.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import { CATEGORIES } from '../constants/categories.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useAuthStore } from '../store/authStore.js'
 import { trackEvent } from '../utils/analytics.js'
 
-function BilingualText({ text, en, hi, className = '', titleClassName = 'font-serif text-xl sm:text-2xl font-normal text-[#F2F4F1] leading-snug', subtitleClassName = 'text-xs text-[#9BA5A0] font-hindi font-normal mt-0.5' }) {
-  let primary = en
-  let secondary = hi
-
-  if (text && (!primary || !secondary)) {
-    if (text.includes('/')) {
-      const parts = text.split('/')
-      primary = parts[0]?.trim()
-      secondary = parts.slice(1).join('/')?.trim()
-    } else {
-      primary = text
-    }
-  }
-
-  return (
-    <div className={`flex flex-col leading-tight ${className}`}>
-      <span className={titleClassName}>{primary}</span>
-      {secondary && (
-        <span className={subtitleClassName}>{secondary}</span>
-      )}
-    </div>
-  )
-}
+const FILTER_TAGS = [
+  { id: 'all', label: 'All Tracks' },
+  { id: 'free', label: 'Free' },
+  { id: 'unlocked', label: 'Unlocked' },
+  { id: 'locked', label: 'Locked' },
+]
 
 export default function CategoryDetailPage() {
   const { id } = useParams()
@@ -41,6 +28,7 @@ export default function CategoryDetailPage() {
   const spendTokens = useWalletStore(s => s.spendTokens)
   const user = useAuthStore(s => s.user)
 
+  const [activeFilter, setActiveFilter] = useState('all')
   const [unlocked, setUnlocked] = useState(() => {
     const saved = sessionStorage.getItem(`unlocked_${id}`)
     return saved ? JSON.parse(saved) : {}
@@ -55,20 +43,32 @@ export default function CategoryDetailPage() {
 
   if (!category) {
     return (
-      <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-bg-base text-text-primary flex items-center justify-center p-4">
         <Navbar />
         <div className="text-center">
           <p className="text-4xl mb-3">🔍</p>
-          <h2 className="text-lg font-bold text-[#F2F4F1] mb-2">Category Not Found</h2>
-          <Button onClick={() => navigate('/home')} variant="secondary">
+          <h2 className="text-lg font-bold text-text-primary mb-2">Category Not Found</h2>
+          <button
+            onClick={() => navigate('/home')}
+            className="px-6 py-2.5 rounded-full bg-bg-surface border border-border-subtle text-xs font-semibold text-text-primary shadow-soft-sm"
+          >
             Return to Sanctuary
-          </Button>
+          </button>
         </div>
       </div>
     )
   }
 
-  const Icon = category.icon
+  const Icon = category.icon || Sparkles
+
+  // Filter sessions by tag
+  const filteredItems = useMemo(() => {
+    if (!category.items) return []
+    if (activeFilter === 'free') return category.items.filter(i => i.free)
+    if (activeFilter === 'unlocked') return category.items.filter(i => i.free || unlocked[i.id])
+    if (activeFilter === 'locked') return category.items.filter(i => !i.free && !unlocked[i.id])
+    return category.items
+  }, [category.items, activeFilter, unlocked])
 
   async function handleItemAccess(item) {
     const isUnlocked = item.free || unlocked[item.id]
@@ -107,7 +107,7 @@ export default function CategoryDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1]">
+    <div className="min-h-screen bg-bg-base text-text-primary transition-colors duration-200">
       <Navbar />
 
       {toast && (
@@ -116,150 +116,136 @@ export default function CategoryDetailPage() {
         </div>
       )}
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+      {/* Main Container */}
+      <main className="max-w-md md:max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-28">
         
-        {/* Back Link */}
-        <button
-          onClick={() => navigate('/home')}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9BA5A0] hover:text-[#F2F4F1] transition-colors mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" /> All Categories
-        </button>
+        {/* Top Breadcrumb & Share Actions */}
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={() => navigate('/home')}
+            className="inline-flex items-center gap-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> All Journeys
+          </button>
 
-        {/* Category Header Hero */}
-        <div className="relative rounded-3xl overflow-hidden border border-[#232B26] bg-[#151A17] p-6 sm:p-8 mb-8 shadow-lg">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <div className="w-14 h-14 rounded-2xl bg-[#1C2420] border border-[#D4AF6A]/30 flex items-center justify-center text-[#D4AF6A] shadow-md shrink-0">
-              {Icon ? <Icon className="w-7 h-7" /> : <Sparkles className="w-7 h-7" />}
+          <button
+            onClick={async () => {
+              const url = window.location.href
+              if (navigator.share) {
+                try {
+                  await navigator.share({ title: category.name, url })
+                } catch {}
+              } else {
+                navigator.clipboard.writeText(url)
+                setToast({ message: 'Category link copied to clipboard!', type: 'success' })
+              }
+            }}
+            className="p-2 rounded-full bg-bg-surface border border-border-subtle text-text-secondary hover:text-text-primary transition-all shadow-soft-sm"
+            aria-label="Share Category"
+          >
+            <Share2 className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* 1. CATEGORY HERO CARD */}
+        <div className="relative rounded-3xl overflow-hidden border border-border-subtle bg-bg-surface p-5 sm:p-7 mb-6 shadow-soft">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mb-4">
+            <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-sage-light border border-border-sage flex items-center justify-center text-sage shadow-soft-sm shrink-0">
+              <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
             
-            <div className="flex-1">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#D4AF6A]">
-                Guided Hypnotherapy
+            <div className="flex-1 min-w-0">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-sage">
+                Guided Clinical Hypnotherapy
               </span>
               <BilingualText
                 text={category.name}
-                titleClassName="font-serif text-2xl sm:text-3xl font-medium text-[#F2F4F1] leading-tight"
-                subtitleClassName="text-sm text-[#9BA5A0] font-hindi font-normal mt-0.5"
+                titleClassName="font-serif text-xl sm:text-2xl font-medium text-text-primary leading-tight mt-0.5"
+                subtitleClassName="text-xs sm:text-sm text-text-secondary font-hindi font-normal mt-0.5"
               />
-              <p className="text-xs text-[#9BA5A0] mt-2 leading-relaxed">
-                {category.description || 'Scientifically structured audio sessions to guide the subconscious mind into deep states of calm and alignment.'}
-              </p>
             </div>
+          </div>
+
+          <p className="text-xs text-text-secondary leading-relaxed mb-4">
+            {category.description?.trim() || 'Scientifically structured audio sessions utilizing theta-frequency relaxation and somatic suggestion for deep mind-body recalibration.'}
+          </p>
+
+          {/* Metadata Badges */}
+          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-border-subtle">
+            <span className="text-[10px] px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary font-medium">
+              🎧 {category.items?.length || 0} Sessions
+            </span>
+            <span className="text-[10px] px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary font-medium">
+              ⚡ 432Hz Sound Healing
+            </span>
+            <span className="text-[10px] px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary font-medium">
+              🌐 Hindi + English
+            </span>
           </div>
         </div>
 
-        {/* Video Preview if available */}
+        {/* Video Overview (If Present) */}
         {category.video && (
-          <div className="rounded-3xl overflow-hidden mb-8 bg-[#151A17] border border-[#232B26] shadow-lg">
-            <div className="px-5 py-3 border-b border-[#232B26] flex items-center gap-2">
-              <Video className="w-4 h-4 text-[#D4AF6A]" />
-              <span className="text-xs font-semibold text-[#F2F4F1]">Introductory Overview</span>
+          <div className="rounded-3xl overflow-hidden mb-6 bg-bg-surface border border-border-subtle shadow-soft">
+            <div className="px-5 py-3 border-b border-border-subtle flex items-center gap-2">
+              <Video className="w-4 h-4 text-sage" />
+              <span className="text-xs font-semibold text-text-primary">Clinical Video Overview</span>
             </div>
             <video
               src={category.video}
               controls
-              className="w-full max-h-64 object-cover"
+              className="w-full max-h-60 object-cover bg-black"
               poster={category.image}
             />
           </div>
         )}
 
-        {/* Sessions List */}
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="font-serif text-xl text-[#F2F4F1] font-normal">Available Sessions</h2>
-          <span className="text-xs font-mono text-[#D4AF6A]">{category.items?.length || 0} Tracks</span>
-        </div>
-
-        {(!category.items || category.items.length === 0) ? (
-          <div className="text-center py-16 rounded-3xl bg-[#151A17] border border-[#232B26]">
-            <p className="text-4xl mb-3">🌿</p>
-            <h3 className="text-sm font-semibold text-[#F2F4F1]">New Sessions Coming Soon</h3>
-            <p className="text-xs text-[#9BA5A0] mt-1">Mr. Sandeep is preparing new frequencies for this journey.</p>
+        {/* 2. FILTER PILLS */}
+        {category.items?.length > 0 && (
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 mb-6 scrollbar-none">
+            {FILTER_TAGS.map(f => (
+              <FilterPill
+                key={f.id}
+                label={f.label}
+                active={activeFilter === f.id}
+                onClick={() => setActiveFilter(f.id)}
+              />
+            ))}
           </div>
+        )}
+
+        {/* 3. SESSIONS LIST */}
+        <SectionHeader
+          title="Available Sessions"
+          subtitle="Select a track to commence guided meditation"
+          count={`${filteredItems.length} Tracks`}
+        />
+
+        {filteredItems.length === 0 ? (
+          <EmptyState
+            title="No sessions match this filter"
+            message="Try switching back to 'All Tracks' to view all available hypnotherapy sessions."
+          />
         ) : (
-          <div className="space-y-4">
-            {category.items.map((item, index) => {
+          <div className="space-y-3.5 sm:space-y-4">
+            {filteredItems.map((item, index) => {
               const isUnlocked = item.free || unlocked[item.id]
               const isHighlighted = item.id === highlightItemId
 
               return (
-                <div
+                <SessionCard
                   key={item.id}
-                  onClick={() => handleItemAccess(item)}
-                  className={`group relative rounded-2xl overflow-hidden border p-4 sm:p-5 bg-[#151A17] cursor-pointer transition-all duration-200 shadow-sm ${
-                    isHighlighted
-                      ? 'border-[#D4AF6A] bg-[#1C2420]'
-                      : 'border-[#232B26] hover:border-[#D4AF6A]/40 hover:bg-[#1C2420]'
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    {/* Session Thumbnail */}
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 border border-[#232B26] bg-[#0C0F0E]">
-                      <img
-                        src={item.image || category.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {!isUnlocked && (
-                        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
-                          <Lock className="w-5 h-5 text-[#D4AF6A]" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Session Details */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-bold text-[#D4AF6A] uppercase tracking-wider">
-                          Track {index + 1}
-                        </span>
-                        {isUnlocked ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#2E7D5B]/20 border border-[#2E7D5B]/40 text-[#2E7D5B] font-semibold">
-                            Unlocked
-                          </span>
-                        ) : item.free ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D4AF6A]/15 border border-[#D4AF6A]/30 text-[#D4AF6A] font-semibold">
-                            Free
-                          </span>
-                        ) : (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#1C2420] border border-[#232B26] text-[#9BA5A0] font-mono">
-                            🪙 {item.tokenCost} Tokens
-                          </span>
-                        )}
-                      </div>
-
-                      <BilingualText
-                        text={item.title}
-                        titleClassName="text-sm sm:text-base font-semibold text-[#F2F4F1] truncate group-hover:text-[#D4AF6A] transition-colors"
-                        subtitleClassName="text-xs text-[#9BA5A0] font-hindi truncate mt-0.5"
-                      />
-
-                      <p className="text-xs text-[#9BA5A0] line-clamp-1 mt-1">
-                        {item.description}
-                      </p>
-                    </div>
-
-                    {/* Action Trigger */}
-                    <div className="shrink-0">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                        isUnlocked
-                          ? 'bg-[#2E7D5B] text-[#F2F4F1] group-hover:scale-110 shadow-md'
-                          : 'bg-[#D4AF6A] text-[#0C0F0E] group-hover:scale-110 shadow-md'
-                      }`}>
-                        {isUnlocked ? (
-                          <Play className="w-4 h-4 fill-current ml-0.5" />
-                        ) : (
-                          <Unlock className="w-4 h-4" />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  track={item}
+                  trackNumber={index + 1}
+                  isUnlocked={isUnlocked}
+                  isHighlighted={isHighlighted}
+                  onAccess={() => handleItemAccess(item)}
+                />
               )
             })}
           </div>
         )}
+
       </main>
 
       {/* Insufficient Tokens / Login Modal */}
@@ -270,17 +256,17 @@ export default function CategoryDetailPage() {
       >
         {insufficientModal && (
           <div className="flex flex-col gap-5 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#1C2420] border border-[#D4AF6A]/30 text-[#D4AF6A] flex items-center justify-center mx-auto text-2xl">
+            <div className="w-14 h-14 rounded-2xl bg-sage-light border border-border-sage text-sage flex items-center justify-center mx-auto text-2xl shadow-soft-sm">
               {insufficientModal.notLoggedIn ? '🔐' : '🪙'}
             </div>
             
             <div>
-              <h3 className="text-base font-semibold text-[#F2F4F1] mb-1">
+              <h3 className="text-base font-semibold text-text-primary mb-1">
                 {insufficientModal.notLoggedIn
                   ? 'Sign in to unlock this sanctuary track'
                   : `Unlock "${insufficientModal.item.title}"`}
               </h3>
-              <p className="text-xs text-[#9BA5A0]">
+              <p className="text-xs text-text-secondary leading-relaxed">
                 {insufficientModal.notLoggedIn
                   ? 'Create an account to manage your tokens and unlock lifetime access to all guided hypnotherapy sessions.'
                   : `This session requires ${insufficientModal.item.tokenCost} tokens. Top up your wallet to continue.`}
@@ -288,23 +274,27 @@ export default function CategoryDetailPage() {
             </div>
 
             <div className="flex gap-3">
-              <Button
+              <button
                 onClick={() => {
                   setInsufficientModal(null)
                   navigate(insufficientModal.notLoggedIn ? '/login' : '/wallet')
                 }}
-                fullWidth
+                className="w-full py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-[0.98] transition-all shadow-soft"
               >
                 {insufficientModal.notLoggedIn ? 'Sign In / Register' : 'Add Tokens'}
-              </Button>
-              <Button onClick={() => setInsufficientModal(null)} variant="secondary" fullWidth>
+              </button>
+              <button
+                onClick={() => setInsufficientModal(null)}
+                className="w-full py-3 rounded-full bg-bg-elevated border border-border-subtle text-text-primary font-medium text-xs hover:bg-bg-subtle transition-all"
+              >
                 Cancel
-              </Button>
+              </button>
             </div>
           </div>
         )}
       </Modal>
 
+      {/* Solid Bottom Navigation Dock */}
       <Footer />
     </div>
   )

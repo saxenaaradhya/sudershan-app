@@ -3,65 +3,89 @@
 @tailwind utilities;
 
 :root,
-[data-theme="dark"] {
-  --bg-900: #0C0F0E;
-  --bg-800: #151A17;
-  --bg-700: #1C2420;
-  --bg-600: #232B26;
-  --bg-500: #2D3831;
-  --bg-400: #6B7570;
-  --text-primary: #F2F4F1;
-  --text-secondary: #9BA5A0;
-  --text-muted: #6B7570;
-  --brand-primary: #D4AF6A;
-  --brand-secondary: #C49A4E;
-  --brand-success: #2E7D5B;
-  --border-subtle: #232B26;
+[data-theme="light"] {
+  --bg-base: #F4F7F4;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #EBF1EC;
+  --bg-subtle: #DFE8E1;
+  
+  --text-primary: #15201A;
+  --text-secondary: #4A5D52;
+  --text-muted: #7D9085;
+  
+  --sage-primary: #2E5643;
+  --sage-hover: #234434;
+  --sage-light: #E2EBE5;
+  --sage-surface: rgba(46, 86, 67, 0.06);
+  
+  --champagne-primary: #B89F7C;
+  --champagne-light: #D8C7AF;
+  --champagne-surface: rgba(184, 159, 124, 0.08);
+  
+  --accent-sapphire: #335C67;
+  --healing-success: #2E5643;
+  
+  --border-subtle: rgba(21, 32, 26, 0.07);
+  --border-sage: rgba(46, 86, 67, 0.16);
+  --border-champagne: rgba(184, 159, 124, 0.22);
 }
 
-[data-theme="light"] {
-  --bg-900: #F5F7F5;
-  --bg-800: #FFFFFF;
-  --bg-700: #EDF2EE;
-  --bg-600: #E2E8E4;
-  --bg-500: #D0D8D3;
-  --bg-400: #6B7570;
-  --text-primary: #141A17;
-  --text-secondary: #5A6B63;
-  --text-muted: #6B7570;
-  --brand-primary: #B8913F;
-  --brand-secondary: #A37E33;
-  --brand-success: #2E7D5B;
-  --border-subtle: #E2E8E4;
+[data-theme="dark"] {
+  --bg-base: #0D1411;
+  --bg-surface: #141F1A;
+  --bg-elevated: #1B2923;
+  --bg-subtle: #22332B;
+  
+  --text-primary: #F1F5F2;
+  --text-secondary: #99ACA0;
+  --text-muted: #63776B;
+  
+  --sage-primary: #4A7C64;
+  --sage-hover: #5B9378;
+  --sage-light: #273D32;
+  --sage-surface: rgba(74, 124, 100, 0.12);
+  
+  --champagne-primary: #C9B497;
+  --champagne-light: #E0D0BB;
+  --champagne-surface: rgba(201, 180, 151, 0.10);
+  
+  --accent-sapphire: #588B97;
+  --healing-success: #4A7C64;
+  
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-sage: rgba(74, 124, 100, 0.22);
+  --border-champagne: rgba(201, 180, 151, 0.18);
 }
 
 @layer base {
   * { box-sizing: border-box; }
 
   html, body, #root {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
   }
 
   body {
-    background-color: var(--bg-900);
+    background-color: var(--bg-base);
     color: var(--text-primary);
-    font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
   }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--bg-900); }
-  ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--brand-primary); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--sage-primary); }
 }
 
 @keyframes breathe {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.8;
+    opacity: 0.9;
   }
   50% {
     transform: scale(1.03);
@@ -70,28 +94,42 @@
 }
 
 .animate-breathe {
-  animation: breathe 6s ease-in-out infinite;
+  animation: breathe 7s ease-in-out infinite;
 }
 
 @layer utilities {
-  .glass {
-    background: rgba(21, 26, 23, 0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .glass-card {
-    background: rgba(21, 26, 23, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  .sanctuary-card {
+    background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 16px -2px rgba(21, 32, 26, 0.04);
   }
-  .gradient-border { 
-    border: 1px solid rgba(212, 175, 106, 0.25); 
+
+  [data-theme="dark"] .sanctuary-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
   }
-  .text-gradient {
-    background: linear-gradient(135deg, #F2F4F1, #D4AF6A);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+
+  .sage-button {
+    background-color: var(--sage-primary);
+    color: #FFFFFF;
+    transition: all 0.2s ease;
+  }
+
+  .sage-button:hover {
+    background-color: var(--sage-hover);
+    box-shadow: 0 4px 14px -2px rgba(46, 86, 67, 0.22);
+  }
+
+  .champagne-pill {
+    background-color: var(--champagne-surface);
+    border: 1px solid var(--border-champagne);
+    color: var(--champagne-primary);
+  }
+
+  .sage-pill {
+    background-color: var(--sage-surface);
+    border: 1px solid var(--border-sage);
+    color: var(--sage-primary);
   }
 }

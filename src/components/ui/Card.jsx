@@ -1,12 +1,16 @@
 import React from 'react'
 
-export default function Card({ children, className = '', onClick }) {
+export default function Card({ children, className = '', onClick, highlight = false }) {
   const clickable = typeof onClick === 'function'
   return (
     <div
       onClick={onClick}
-      className={`bg-dark-800 border border-dark-600 rounded-2xl
-        ${clickable ? 'cursor-pointer hover:border-brand-primary/50 hover:bg-dark-700 transition-all duration-200' : ''}
+      className={`sanctuary-card rounded-3xl p-5 sm:p-6 transition-all duration-300
+        ${highlight 
+          ? 'border-border-champagne bg-champagne-surface/30' 
+          : 'hover:border-border-sage hover:shadow-soft'
+        }
+        ${clickable ? 'cursor-pointer active:scale-[0.99]' : ''}
         ${className}`}
     >
       {children}

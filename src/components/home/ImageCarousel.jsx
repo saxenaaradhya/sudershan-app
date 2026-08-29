@@ -28,26 +28,26 @@ export default function ImageCarousel({ intervalMs = 4000 }) {
   if (items.length === 0) return null
 
   return (
-    <div className="rounded-3xl bg-[#151A17] border border-[#232B26] p-5 sm:p-6 shadow-sm">
+    <div className="rounded-3xl bg-bg-surface border border-border-subtle p-5 sm:p-6 shadow-soft">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#D4AF6A]" />
-          <h3 className="text-sm font-semibold text-[#F2F4F1]">Verified Credentials & Accreditations</h3>
+          <Award className="w-4 h-4 text-sage" />
+          <h3 className="text-sm font-semibold text-text-primary">Verified Credentials & Accreditations</h3>
         </div>
-        <span className="text-[11px] text-[#9BA5A0] font-mono">
+        <span className="text-[11px] text-text-secondary font-mono">
           {index + 1} / {items.length}
         </span>
       </div>
 
       {/* Carousel viewport */}
-      <div className="overflow-hidden rounded-2xl bg-[#0C0F0E] border border-[#232B26]">
+      <div className="overflow-hidden rounded-2xl bg-bg-base border border-border-subtle">
         <div
           className="flex transition-transform duration-700 ease-out"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {items.map((cert) => (
             <div key={cert.id} className="w-full flex-shrink-0 p-2 sm:p-4">
-              <div className="relative w-full aspect-[16/10] sm:aspect-[2/1] rounded-xl overflow-hidden flex items-center justify-center bg-black/40">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[2/1] rounded-xl overflow-hidden flex items-center justify-center bg-black/5 dark:bg-black/40">
                 <img
                   src={cert.image}
                   alt={cert.title}
@@ -66,8 +66,8 @@ export default function ImageCarousel({ intervalMs = 4000 }) {
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                i === index ? 'w-6 bg-[#D4AF6A]' : 'w-1.5 bg-[#232B26] hover:bg-[#9BA5A0]'
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? 'w-6 bg-sage' : 'w-2 bg-border-subtle hover:bg-text-muted'
               }`}
               aria-label={`Slide ${i + 1}`}
             />

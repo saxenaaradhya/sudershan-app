@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, Sun, Moon, Phone, Gift, Share2, Sparkles } from 'lucide-react'
+import { 
+  Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, 
+  Sun, Moon, Phone, Gift, Share2, Sparkles, Copy, Check, 
+  ShieldCheck, HelpCircle, FileText, ChevronRight 
+} from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useThemeStore } from '../store/themeStore.js'
 import { validateFullName, validatePassword, validateConfirmPassword } from '../utils/validators.js'
 import Navbar from '../components/layout/Navbar.jsx'
-import Button from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
 import Modal from '../components/ui/Modal.jsx'
 import Toast from '../components/ui/Toast.jsx'
+import SectionHeader from '../components/ui/SectionHeader.jsx'
 import Footer from '../components/layout/Footer.jsx'
 
 export default function ProfilePage() {
@@ -33,6 +37,7 @@ export default function ProfilePage() {
   const [passErr, setPassErr] = useState({})
 
   const [logoutModal, setLogoutModal] = useState(false)
+  const [copied, setCopied] = useState(false)
   const [toast, setToast] = useState(null)
   const { theme, toggleTheme } = useThemeStore()
   const [installPrompt, setInstallPrompt] = useState(null)
@@ -53,14 +58,23 @@ export default function ProfilePage() {
       const { outcome } = await prompt.userChoice
       if (outcome === 'accepted') {
         window.__installPrompt = null
+        showToast('Sanctuary App added to your device.')
       }
     } else {
-      alert('To install:\n\nAndroid: Tap the 3 dots menu in Chrome → "Add to Home screen"\n\niPhone: Tap the Share button in Safari → "Add to Home Screen"')
+      alert('To install Sanctuary on your mobile device:\n\n• Android: Tap Chrome menu (⋮) → "Add to Home screen"\n• iPhone: Tap Safari Share (↑) → "Add to Home Screen"')
     }
   }
 
+  function copyReferralCode() {
+    const code = user?.referralCode || 'SANCTUARY'
+    navigator.clipboard.writeText(code)
+    setCopied(true)
+    showToast(`Referral code "${code}" copied to clipboard!`)
+    setTimeout(() => setCopied(false), 3000)
+  }
+
   function shareReferralCode() {
-    const message = `Join me on Sudershan App! Use my referral code *${user?.referralCode}* to get bonus tokens. Sign up here: https://sudershan-app-5czh.vercel.app`
+    const message = `Join me on Sudershan Sanctuary! Use my referral code *${user?.referralCode}* to get 20 bonus tokens for clinical hypnotherapy & meditation. Sign up here: https://sudershan-app-5czh.vercel.app`
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
@@ -82,7 +96,7 @@ export default function ProfilePage() {
     if (nameErr) { setEditNameErr(nameErr); return }
     const trimmedPhone = editPhone.trim()
     if (!trimmedPhone || trimmedPhone.length < 10) {
-      setEditPhoneErr('Enter a valid phone number.')
+      setEditPhoneErr('Enter a valid 10-digit phone number.')
       return
     }
     updateProfile({
@@ -103,7 +117,7 @@ export default function ProfilePage() {
     if (Object.keys(errs).length > 0) { setPassErr(errs); return }
 
     resetPasswordModalState()
-    showToast('Password changed successfully.')
+    showToast('Security password changed successfully.')
   }
 
   function resetPasswordModalState() {
@@ -120,11 +134,11 @@ export default function ProfilePage() {
   }
 
   const joinedDate = user?.joinedAt
-    ? new Date(user.joinedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+    ? new Date(user.joinedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
     : 'Recently Joined'
 
   return (
-    <div className="min-h-screen bg-[#0C0F0E] text-[#F2F4F1]">
+    <div className="min-h-screen bg-bg-base text-text-primary transition-colors duration-200">
       <Navbar />
 
       {toast && (
@@ -133,24 +147,27 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+      <main className="max-w-md md:max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-28">
 
+        {/* Back Navigation */}
         <button
           onClick={() => navigate('/home')}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9BA5A0] hover:text-[#F2F4F1] transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" /> Return to Sanctuary
         </button>
 
-        <h1 className="font-serif text-2xl font-normal text-[#F2F4F1] mb-6">Seeker Profile</h1>
+        <h1 className="font-serif text-2xl sm:text-3xl font-normal text-text-primary mb-6">
+          My Sanctuary Journey
+        </h1>
 
-        {/* Avatar + Name Card */}
-        <div className="rounded-3xl bg-[#151A17] border border-[#232B26] p-6 sm:p-7 mb-6 shadow-xl">
-          <div className="flex items-center gap-5 mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-[#1C2420] border border-[#D4AF6A]/40
-              flex items-center justify-center text-2xl font-bold text-[#D4AF6A] shadow-lg">
-              {user?.avatar || '?'}
+        {/* 1. USER PROFILE CARD */}
+        <div className="rounded-3xl bg-bg-surface border border-border-subtle p-5 sm:p-7 mb-6 shadow-soft">
+          <div className="flex items-center gap-4 sm:gap-5 mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-sage-light border border-border-sage flex items-center justify-center text-2xl font-bold text-sage shadow-soft-sm shrink-0">
+              {user?.avatar || (user?.fullName ? user.fullName.charAt(0).toUpperCase() : '?')}
             </div>
+            
             <div className="flex-1 min-w-0">
               {editMode ? (
                 <div className="flex flex-col gap-2">
@@ -166,114 +183,173 @@ export default function ProfilePage() {
                     value={editPhone}
                     onChange={e => { setEditPhone(e.target.value); setEditPhoneErr('') }}
                     error={editPhoneErr}
-                    placeholder="Phone number"
+                    placeholder="10-digit phone number"
                   />
                 </div>
               ) : (
                 <>
-                  <h2 className="text-lg font-bold text-[#F2F4F1] truncate">{user?.fullName || 'Seeker'}</h2>
-                  <p className="text-xs text-[#9BA5A0] truncate">{user?.phone || 'No phone added'}</p>
+                  <h2 className="text-base sm:text-lg font-bold text-text-primary truncate">
+                    {user?.fullName || 'Seeker'}
+                  </h2>
+                  <p className="text-xs text-text-secondary truncate mt-0.5">
+                    {user?.phone || 'No phone registered'}
+                  </p>
+                  <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold text-sage uppercase tracking-wider">
+                    <Sparkles className="w-3 h-3" /> Active Member
+                  </span>
                 </>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
-            <InfoItem icon={<Phone className="w-4 h-4" />} label="Phone" value={user?.phone || 'Not added'} />
-            <InfoItem icon={<Calendar className="w-4 h-4" />} label="Sanctuary Journey Since" value={joinedDate} />
-            <InfoItem icon={<Coins className="w-4 h-4 text-[#D4AF6A]" />} label="Active Balance" value={`🪙 ${balance} Tokens`} />
-            <InfoItem icon={<Sparkles className="w-4 h-4 text-[#D4AF6A]" />} label="Tokens Invested" value={`🪙 ${totalSpent} Spent`} />
+          {/* User Stats Grid */}
+          <div className="grid grid-cols-2 gap-2.5 mb-5">
+            <InfoItem icon={<Calendar className="w-4 h-4 text-text-muted" />} label="Joined Sanctuary" value={joinedDate} />
+            <InfoItem icon={<Phone className="w-4 h-4 text-text-muted" />} label="Phone" value={user?.phone || 'Not added'} />
+            <InfoItem icon={<Coins className="w-4 h-4 text-champagne" />} label="Wallet Balance" value={`🪙 ${balance} Tokens`} />
+            <InfoItem icon={<Sparkles className="w-4 h-4 text-sage" />} label="Tokens Invested" value={`🪙 ${totalSpent} Spent`} />
           </div>
 
+          {/* Action Row */}
           <div className="flex gap-2.5">
             {editMode ? (
               <>
-                <Button onClick={saveProfile} size="sm">
-                  <Save className="w-4 h-4 mr-1.5" /> Save Changes
-                </Button>
-                <Button onClick={() => { setEditMode(false); setEditName(user?.fullName || ''); setEditPhone(user?.phone || ''); setEditPhoneErr('') }} variant="secondary" size="sm">
-                  <X className="w-4 h-4 mr-1.5" /> Cancel
-                </Button>
+                <button 
+                  onClick={saveProfile} 
+                  className="px-5 py-2.5 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs flex items-center gap-1.5 active:scale-[0.98] transition-all shadow-soft"
+                >
+                  <Save className="w-4 h-4" /> Save Changes
+                </button>
+                <button 
+                  onClick={() => { setEditMode(false); setEditName(user?.fullName || ''); setEditPhone(user?.phone || ''); setEditPhoneErr('') }} 
+                  className="px-5 py-2.5 rounded-full bg-bg-elevated border border-border-subtle text-text-primary font-medium text-xs flex items-center gap-1.5 hover:bg-bg-subtle transition-all"
+                >
+                  <X className="w-4 h-4" /> Cancel
+                </button>
               </>
             ) : user ? (
-              <Button onClick={() => setEditMode(true)} variant="secondary" size="sm">
-                <Edit2 className="w-4 h-4 mr-1.5" /> Edit Profile
-              </Button>
+              <button 
+                onClick={() => setEditMode(true)} 
+                className="px-5 py-2.5 rounded-full bg-bg-elevated border border-border-subtle text-text-primary font-medium text-xs flex items-center gap-1.5 hover:border-border-sage transition-all shadow-soft-sm active:scale-95"
+              >
+                <Edit2 className="w-4 h-4" /> Edit Information
+              </button>
             ) : (
-              <Button onClick={() => navigate('/login')} size="sm">
+              <button 
+                onClick={() => navigate('/login')} 
+                className="px-6 py-2.5 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-[0.98] transition-all shadow-soft"
+              >
                 Sign In / Register
-              </Button>
+              </button>
             )}
           </div>
         </div>
 
-        {/* Refer & Earn */}
-        <div id="refer-section" className="rounded-3xl bg-[#151A17] border border-[#D4AF6A]/30 p-6 mb-6 shadow-xl">
-          <div className="flex items-center gap-2 mb-1.5">
-            <Gift className="w-4 h-4 text-[#D4AF6A]" />
-            <h3 className="text-sm font-bold text-[#F2F4F1]">Gift Tokens & Invite Friends</h3>
-          </div>
-          <p className="text-xs text-[#9BA5A0] mb-4">
-            Share your unique code. When a friend joins, you both receive <span className="text-[#D4AF6A] font-bold">🪙 20 tokens</span> instantly.
-          </p>
-          <div className="flex items-center gap-2.5">
-            <div className="flex-1 px-4 py-3 bg-[#0C0F0E] border border-[#232B26] rounded-xl text-[#F2F4F1] font-mono font-bold text-sm tracking-wider">
-              {user?.referralCode || 'SIGN-IN-TO-GET-CODE'}
+        {/* 2. REFERRAL & REWARD SECTION */}
+        <section className="mb-6">
+          <div id="refer-section" className="rounded-3xl bg-bg-surface border border-border-champagne p-5 sm:p-6 shadow-soft">
+            <div className="flex items-center gap-2 mb-1.5">
+              <Gift className="w-4 h-4 text-champagne" />
+              <h3 className="text-sm font-semibold text-text-primary">Gift Tokens & Invite Seekers</h3>
             </div>
-            <button
-              onClick={shareReferralCode}
-              className="px-4 py-3 rounded-xl bg-[#D4AF6A] text-[#0C0F0E] font-bold text-xs flex items-center gap-1.5 hover:bg-[#C49A4E] active:scale-95 transition-all shadow-md"
-            >
-              <Share2 className="w-4 h-4" />
-              <span>Share Code</span>
-            </button>
-          </div>
-        </div>
+            <p className="text-xs text-text-secondary leading-relaxed mb-4">
+              Share your sacred referral code. When a friend signs up, you both receive <span className="text-sage font-bold">🪙 20 tokens</span> instantly.
+            </p>
+            
+            {/* Code Capsule & Action Triggers */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+              <div className="flex-1 px-4 py-3 bg-bg-base border border-border-subtle rounded-2xl text-text-primary font-mono font-bold text-sm tracking-wider flex items-center justify-between">
+                <span>{user?.referralCode || 'SANCTUARY'}</span>
+                <button
+                  onClick={copyReferralCode}
+                  className="p-1 text-text-secondary hover:text-text-primary transition-colors"
+                  aria-label="Copy Code"
+                >
+                  {copied ? <Check className="w-4 h-4 text-sage" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
 
-        {/* Action Menu */}
-        <div className="rounded-3xl bg-[#151A17] border border-[#232B26] overflow-hidden mb-6 shadow-sm">
-          <ActionRow
-            icon={<span>📲</span>}
-            label="Add App to Home Screen"
-            onClick={handleInstall}
-          />
-          <ActionRow
-            icon={<Lock className="w-4 h-4 text-[#9BA5A0]" />}
-            label="Change Security Password"
-            onClick={() => setPasswordModal(true)}
-          />
-          <ActionRow
-            icon={<Coins className="w-4 h-4 text-[#D4AF6A]" />}
-            label="View Token Ledger"
-            onClick={() => navigate('/wallet')}
-          />
-          <ActionRow
-            icon={theme === 'dark' ? <Sun className="w-4 h-4 text-[#D4AF6A]" /> : <Moon className="w-4 h-4 text-[#9BA5A0]" />}
-            label={theme === 'dark' ? 'Switch to Gentle Light Mode' : 'Switch to Deep Sanctuary Dark'}
-            onClick={toggleTheme}
-          />
-          <ActionRow
-            icon={<LogOut className="w-4 h-4 text-[#F87171]" />}
-            label="Log Out of Sanctuary"
-            labelClass="text-[#F87171]"
-            onClick={() => setLogoutModal(true)}
-            noBorder
-          />
-        </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={copyReferralCode}
+                  className="flex-1 sm:flex-initial px-4 py-3 rounded-full bg-bg-elevated border border-border-subtle text-text-primary hover:border-border-sage font-semibold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-soft-sm"
+                >
+                  {copied ? <Check className="w-4 h-4 text-sage" /> : <Copy className="w-4 h-4" />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
 
-        {/* Stats */}
-        <div className="rounded-3xl bg-[#151A17] border border-[#232B26] p-5 shadow-sm">
-          <h3 className="text-xs font-semibold text-[#9BA5A0] uppercase tracking-wider mb-3">Sanctuary Activity Summary</h3>
-          <div className="grid grid-cols-3 gap-2.5 text-center">
-            <StatBox value={`🪙 ${balance}`} label="Current Balance" />
-            <StatBox value={`🪙 ${totalBought}`} label="Acquired" />
-            <StatBox value={`🪙 ${totalSpent}`} label="Invested" />
+                <button
+                  onClick={shareReferralCode}
+                  className="flex-1 sm:flex-initial px-5 py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-soft shrink-0"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>WhatsApp</span>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* 3. SETTINGS & ACCOUNT OPTIONS */}
+        <section className="mb-6">
+          <SectionHeader title="Preferences & Account Settings" />
+
+          <div className="rounded-3xl bg-bg-surface border border-border-subtle overflow-hidden shadow-soft">
+            <ActionRow
+              icon={<span className="text-base">📲</span>}
+              label="Add Sanctuary to Home Screen"
+              subtitle="Install standalone mobile web app"
+              onClick={handleInstall}
+            />
+            <ActionRow
+              icon={<Lock className="w-4 h-4 text-text-secondary" />}
+              label="Change Security Password"
+              subtitle="Update account login credentials"
+              onClick={() => setPasswordModal(true)}
+            />
+            <ActionRow
+              icon={<Coins className="w-4 h-4 text-champagne" />}
+              label="View Token Ledger"
+              subtitle="Manage tokens & transaction history"
+              onClick={() => navigate('/wallet')}
+            />
+            <ActionRow
+              icon={theme === 'dark' ? <Sun className="w-4 h-4 text-champagne" /> : <Moon className="w-4 h-4 text-text-secondary" />}
+              label={theme === 'dark' ? 'Switch to Gentle Daylight Mode' : 'Switch to Deep Sanctuary Dark'}
+              subtitle={theme === 'dark' ? 'Airy sage canvas' : 'Deep nocturnal forest'}
+              onClick={toggleTheme}
+            />
+            <ActionRow
+              icon={<HelpCircle className="w-4 h-4 text-sage" />}
+              label="Seeker Support & Guidance"
+              subtitle="Direct WhatsApp helpline with Mr. Sandeep"
+              onClick={() => navigate('/contact')}
+            />
+            <ActionRow
+              icon={<LogOut className="w-4 h-4 text-red-500" />}
+              label="Log Out of Sanctuary"
+              labelClass="text-red-500"
+              onClick={() => setLogoutModal(true)}
+              noBorder
+            />
+          </div>
+        </section>
+
+        {/* 4. CLINICAL CONFIDENTIALITY & APP VERSION */}
+        <footer className="text-center pt-2">
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-text-muted mb-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-sage" />
+            <span>100% Confidential Clinical Hypnotherapy Platform</span>
+          </div>
+          <p className="text-[10px] text-text-muted font-mono">
+            Sudershan Sanctuary v1.2.0 • Built with Calm Precision
+          </p>
+        </footer>
+
       </main>
 
       {/* Change Password Modal */}
-      <Modal isOpen={passwordModal} onClose={resetPasswordModalState} title="Change Password">
+      <Modal isOpen={passwordModal} onClose={resetPasswordModalState} title="Change Security Password">
         <div className="flex flex-col gap-4">
           <Input
             id="newPass"
@@ -293,17 +369,34 @@ export default function ProfilePage() {
             error={passErr.confirmPass}
             placeholder="••••••••"
           />
-          <Button onClick={savePassword} fullWidth>Update Password</Button>
+          <button
+            onClick={savePassword}
+            className="w-full py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-[0.98] transition-all shadow-soft"
+          >
+            Update Password
+          </button>
         </div>
       </Modal>
 
       {/* Logout Confirm Modal */}
       <Modal isOpen={logoutModal} onClose={() => setLogoutModal(false)} title="Confirm Logout">
         <div className="flex flex-col gap-4 text-center">
-          <p className="text-[#9BA5A0] text-xs">Are you sure you want to log out of your session?</p>
+          <p className="text-text-secondary text-xs leading-relaxed">
+            Are you sure you want to end your current sanctuary session?
+          </p>
           <div className="flex gap-3">
-            <Button onClick={handleLogout} variant="danger" fullWidth>Yes, Logout</Button>
-            <Button onClick={() => setLogoutModal(false)} variant="secondary" fullWidth>Cancel</Button>
+            <button 
+              onClick={handleLogout} 
+              className="w-full py-3 rounded-full bg-red-600 text-white font-semibold text-xs hover:bg-red-700 transition-all shadow-soft"
+            >
+              Yes, Logout
+            </button>
+            <button 
+              onClick={() => setLogoutModal(false)} 
+              className="w-full py-3 rounded-full bg-bg-elevated border border-border-subtle text-text-primary font-medium text-xs hover:bg-bg-subtle transition-all"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </Modal>
@@ -315,35 +408,32 @@ export default function ProfilePage() {
 
 function InfoItem({ icon, label, value }) {
   return (
-    <div className="flex items-start gap-3 p-3 bg-[#0C0F0E] border border-[#232B26] rounded-2xl">
-      <span className="text-[#9BA5A0] mt-0.5">{icon}</span>
+    <div className="flex items-start gap-2.5 p-3 bg-bg-base border border-border-subtle rounded-2xl">
+      <span className="mt-0.5 shrink-0">{icon}</span>
       <div className="min-w-0">
-        <p className="text-[10px] text-[#9BA5A0] uppercase tracking-wider mb-0.5">{label}</p>
-        <p className="text-xs sm:text-sm font-medium text-[#F2F4F1] truncate">{value}</p>
+        <p className="text-[10px] text-text-secondary uppercase tracking-wider">{label}</p>
+        <p className="text-xs font-semibold text-text-primary truncate mt-0.5">{value}</p>
       </div>
     </div>
   )
 }
 
-function ActionRow({ icon, label, labelClass = 'text-[#F2F4F1]', onClick, noBorder }) {
+function ActionRow({ icon, label, subtitle, labelClass = 'text-text-primary', onClick, noBorder }) {
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center gap-3.5 px-5 py-4 text-xs sm:text-sm font-medium
-        hover:bg-[#1C2420] transition-colors text-left
-        ${!noBorder ? 'border-b border-[#232B26]' : ''}`}
+      className={`w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-bg-elevated transition-colors ${
+        !noBorder ? 'border-b border-border-subtle' : ''
+      }`}
     >
-      <span className="shrink-0">{icon}</span>
-      <span className={labelClass}>{label}</span>
+      <div className="flex items-center gap-3.5 min-w-0">
+        <span className="shrink-0">{icon}</span>
+        <div className="min-w-0">
+          <p className={`text-xs sm:text-sm font-medium truncate ${labelClass}`}>{label}</p>
+          {subtitle && <p className="text-[11px] text-text-secondary truncate">{subtitle}</p>}
+        </div>
+      </div>
+      <ChevronRight className="w-4 h-4 text-text-muted shrink-0 ml-2" />
     </button>
-  )
-}
-
-function StatBox({ value, label }) {
-  return (
-    <div className="bg-[#0C0F0E] border border-[#232B26] rounded-2xl p-3">
-      <p className="text-sm sm:text-base font-bold font-mono text-[#F2F4F1] mb-0.5">{value}</p>
-      <p className="text-[10px] text-[#9BA5A0]">{label}</p>
-    </div>
   )
 }
