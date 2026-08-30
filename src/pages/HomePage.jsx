@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
   Search, Sparkles, Gift, Play, Brain, Moon, 
-  HeartPulse, Activity, Heart, Coins, User, Sun 
+  HeartPulse, Activity, Heart, Coins, User, Sun, 
+  RotateCcw, Sparkle
 } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Footer from '../components/layout/Footer.jsx'
@@ -40,15 +41,17 @@ export default function HomePage() {
     return Date.now() - new Date(last).getTime() >= 24 * 60 * 60 * 1000
   })
 
+  // Check if there is an in-progress session history (other than default)
   const [lastPlayed] = useState(() => {
     const saved = localStorage.getItem('lastPlayedSession')
-    return saved ? JSON.parse(saved) : {
-      title: 'Overthinking Control & Deep Relaxation',
-      subtitle: 'ध्यान और गहन विश्राम — अशांत विचारों को शांत करने की थेरेपी',
-      path: '/session/overthinking-control',
-      image: '/images/free/meditation.jpg',
-      progress: 65,
-    }
+    if (!saved) return null
+    try {
+      const parsed = JSON.parse(saved)
+      if (parsed.path && parsed.path !== '/session/overthinking-control') {
+        return parsed
+      }
+    } catch {}
+    return null
   })
 
   // Filter categories by search query and mood chip
@@ -84,7 +87,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-bg-base text-text-primary transition-colors duration-200">
       
-      {/* 1. SOLID APP HEADER */}
+      {/* 1. NAVBAR */}
       <Navbar />
 
       <WelcomePopup 
@@ -98,7 +101,12 @@ export default function HomePage() {
       {/* MAIN CONTAINER (390px mobile-first width) */}
       <main className="max-w-md md:max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-28">
 
-        {/* 2. GREETING & HERO HEADLINE */}
+        {/* 2. SEEDHI BAAT SECTION (Moved to top) */}
+        <section className="mb-8">
+          <ConsultationCard />
+        </section>
+
+        {/* 3. MIND AND CLINICAL SANCTUARY SECTION */}
         <section className="mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-light border border-border-sage mb-3 shadow-soft-sm">
             <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />
@@ -115,7 +123,7 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* 3. SEARCH BAR */}
+        {/* 4. SEARCH BAR */}
         <section className="mb-5">
           <div className="relative w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
@@ -129,7 +137,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 4. MOOD FILTER PILLS */}
+        {/* 5. MOOD FILTER PILLS */}
         <section className="mb-8">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
             {MOOD_FILTERS.map(m => (
@@ -144,58 +152,99 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 5. CONTINUE HEALING SESSION CARD */}
+        {/* 6. PERMANENT FREE MEDITATION SPOTLIGHT CARD */}
         <section className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-sage" />
+              <h2 className="text-sm sm:text-base font-semibold text-text-primary">
+                Free Meditation Sanctuary
+              </h2>
+            </div>
+            <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-champagne-surface border border-border-champagne text-text-primary font-mono">
+              0 Tokens • Free Forever
+            </span>
+          </div>
+
           <div 
-            onClick={() => navigate(lastPlayed.path)}
-            className="group relative rounded-3xl overflow-hidden border border-border-subtle bg-bg-surface cursor-pointer hover:border-border-sage transition-all duration-300 shadow-soft-lg"
+            onClick={() => navigate('/session/overthinking-control')}
+            className="group relative rounded-3xl overflow-hidden border border-border-sage bg-bg-surface cursor-pointer hover:border-sage transition-all duration-300 shadow-soft-lg ring-1 ring-sage/15"
           >
-            <div className="h-56 sm:h-64 relative">
+            <div className="h-60 sm:h-72 relative">
               <img
-                src={lastPlayed.image}
-                alt={lastPlayed.title}
+                src="/images/free/meditation.jpg"
+                alt="Meditation & Overthinking Control"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
               
-              <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 rounded-full bg-white/95 dark:bg-black/80 backdrop-blur-md text-text-primary font-semibold text-[10px] uppercase tracking-wider shadow-soft-sm">
-                  Continue Session
+              {/* Top Badges */}
+              <div className="absolute top-4 left-4 flex items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-white/95 dark:bg-black/80 backdrop-blur-md text-text-primary font-bold text-[10px] uppercase tracking-wider shadow-soft-sm">
+                  ✨ 100% Free Session
+                </span>
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-sage/90 backdrop-blur-md text-white font-medium text-[10px] uppercase tracking-wider">
+                  Overthinking Control
                 </span>
               </div>
 
               <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[11px] text-white">
                 <span className="text-champagne font-bold font-mono">240+</span>
-                <span className="text-white/80">Healed</span>
+                <span className="text-white/80">Seekers Healed</span>
               </div>
 
-              <div className="absolute bottom-5 inset-x-5 flex items-end justify-between">
-                <div className="max-w-[75%]">
-                  <h3 className="font-serif text-lg sm:text-xl font-medium text-white leading-snug group-hover:text-champagne transition-colors">
-                    {lastPlayed.title}
+              {/* Bottom Details & Play FAB */}
+              <div className="absolute bottom-5 inset-x-5 flex items-end justify-between gap-4">
+                <div className="max-w-[78%]">
+                  <span className="text-[10px] uppercase tracking-widest text-champagne font-bold font-mono block mb-1">
+                    Guided Clinical Hypnotherapy
+                  </span>
+                  <h3 className="font-serif text-lg sm:text-2xl font-medium text-white leading-snug group-hover:text-champagne transition-colors">
+                    Meditation & Deep Relaxation
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-white/80 font-hindi mt-1 line-clamp-1">
-                    {lastPlayed.subtitle}
+                  <p className="text-xs sm:text-sm text-white/90 font-hindi mt-1 line-clamp-1">
+                    ध्यान और गहन विश्राम — अशांत विचारों को शांत करने की गाइडेड थेरेपी
                   </p>
-                  
-                  {/* Progress Line */}
-                  <div className="mt-3 flex items-center gap-2.5">
-                    <div className="w-28 sm:w-40 h-1.5 bg-white/30 rounded-full overflow-hidden">
-                      <div className="h-full bg-sage rounded-full" style={{ width: `${lastPlayed.progress}%` }} />
-                    </div>
-                    <span className="text-[10px] text-white/80 font-mono">{lastPlayed.progress}%</span>
-                  </div>
+                  <p className="text-[11px] text-white/70 mt-1 hidden sm:block">
+                    Full audio session • 432Hz Sound Healing • Available in Hindi & English
+                  </p>
                 </div>
 
-                <div className="w-11 h-11 rounded-full bg-sage hover:bg-sage-hover text-white flex items-center justify-center group-hover:scale-105 active:scale-95 transition-all shadow-soft shrink-0">
-                  <Play className="w-4 h-4 fill-current ml-0.5" />
+                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-sage hover:bg-sage-hover text-white flex items-center justify-center group-hover:scale-105 active:scale-95 transition-all shadow-soft shrink-0">
+                  <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current ml-0.5" />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 6. DAILY TOKEN BONUS CARD */}
+        {/* 7. OPTIONAL RESUME RECENT TRACK */}
+        {lastPlayed && (
+          <section className="mb-8">
+            <div
+              onClick={() => navigate(lastPlayed.path)}
+              className="p-4 rounded-2xl bg-bg-surface border border-border-subtle hover:border-border-sage transition-all duration-200 cursor-pointer shadow-soft-sm flex items-center justify-between gap-3"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 border border-border-subtle bg-bg-base">
+                  <img src={lastPlayed.image} alt={lastPlayed.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] uppercase tracking-wider text-sage font-bold">Resume Last Track</p>
+                  <p className="text-xs font-semibold text-text-primary truncate">{lastPlayed.title}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10px] font-mono text-text-muted">{lastPlayed.progress}%</span>
+                <div className="w-8 h-8 rounded-full bg-bg-elevated border border-border-subtle text-sage flex items-center justify-center">
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 8. DAILY TOKEN BONUS CARD */}
         {showDailyReward && (
           <section className="mb-8">
             <div className="rounded-3xl bg-bg-surface border border-border-sage p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-soft">
@@ -221,7 +270,7 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* 7. EXPLORE CATEGORIES */}
+        {/* 9. EXPLORE CATEGORIES */}
         <section id="categories-section" className="mb-10">
           <SectionHeader
             title="Healing Journeys"
@@ -247,19 +296,14 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* 8. 1-ON-1 GUIDANCE CONSULTATION CARD */}
-        <section className="mb-10">
-          <ConsultationCard />
-        </section>
-
-        {/* 9. TRUST & CERTIFICATES CAROUSEL */}
+        {/* 10. TRUST & CERTIFICATES CAROUSEL */}
         <section className="mb-6">
           <ImageCarousel />
         </section>
 
       </main>
 
-      {/* 10. SOLID BOTTOM NAVIGATION DOCK */}
+      {/* 11. SOLID BOTTOM NAVIGATION DOCK */}
       <Footer />
 
     </div>

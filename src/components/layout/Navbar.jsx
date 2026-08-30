@@ -22,19 +22,19 @@ export default function Navbar() {
       <header className="fixed top-0 left-0 right-0 z-40 bg-bg-surface border-b border-border-subtle shadow-soft-sm transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
-          {/* Left: Brand Identity */}
+          {/* Left: Brand Identity (Prominent SUDERSHAN Title) */}
           <div 
             onClick={() => navigate('/home')}
-            className="flex items-center gap-2.5 cursor-pointer select-none group"
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none group"
           >
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-bg-elevated border border-border-sage flex items-center justify-center text-sage shadow-soft-sm group-hover:scale-105 transition-all">
-              <Sparkles className="w-4 h-4" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-bg-elevated border border-border-sage flex items-center justify-center text-sage shadow-soft-sm group-hover:scale-105 transition-all">
+              <Sparkles className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-base sm:text-lg text-text-primary font-semibold tracking-wide leading-none">
-                SANCTUARY
+              <span className="font-serif text-lg sm:text-2xl text-text-primary font-bold tracking-wider leading-none">
+                SUDERSHAN
               </span>
-              <span className="text-[9px] uppercase tracking-widest text-text-secondary font-medium mt-0.5">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-text-secondary font-medium mt-0.5">
                 Clinical Hypnotherapy
               </span>
             </div>

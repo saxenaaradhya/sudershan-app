@@ -35,8 +35,9 @@ export const CATEGORIES = [
     color: 'from-indigo-500 to-purple-400',
     image: '/images/categories/overthinking-control.png',
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    itemCount: 19,
+    itemCount: 20,
     items: [
+      { id: 'free-meditation-1', title: 'Meditation & Deep Relaxation / ध्यान और गहन विश्राम', description: 'अशांत विचारों को शांत करने और मन को स्थिर करने का 100% निःशुल्क हिप्नोथेरेपी सेशन', tokenCost: 0, free: true, audioEn: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782998298/meditation_1_oevnh7.mp3', image: '/images/free/meditation.jpg' },
       { id: 'd1', title: 'Session-1', description: 'आंतरिक शांति और चिंता रहित रहने के लिए', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1782918954/overthinking_1_qw6nhl.mp3', image: '/images/content/overthinking/overthinking 1.jpg' },
       { id: 'd2', title: 'Session-2', description: 'शून्य से शून्य की ओर', tokenCost: 2, free: false, audioEn: 'https://www.soundjay.com/buttons/sounds/button-1.mp3', audioHi: 'https://res.cloudinary.com/dtlitc3nv/video/upload/v1783328382/overthinking_2_gzqt2c.mp3', image: '/images/content/overthinking/overthinking 2.jpg' },
     ],
