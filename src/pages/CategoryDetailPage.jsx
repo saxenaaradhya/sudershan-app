@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Share2, Sparkles, Video, Brain, Moon, HeartPulse, Lock, Unlock, Play } from 'lucide-react'
+import { ArrowLeft, Share2, Sparkles, Video, Brain, Moon, HeartPulse, Lock, Unlock, Play, Coins } from 'lucide-react'
 import Navbar from '../components/layout/Navbar.jsx'
 import Modal from '../components/ui/Modal.jsx'
 import Toast from '../components/ui/Toast.jsx'
@@ -25,6 +25,7 @@ const FILTER_TAGS = [
 export default function CategoryDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const balance = useWalletStore(s => s.balance)
   const spendTokens = useWalletStore(s => s.spendTokens)
   const user = useAuthStore(s => s.user)
 
@@ -73,22 +74,22 @@ export default function CategoryDetailPage() {
   async function handleItemAccess(item) {
     const isUnlocked = item.free || unlocked[item.id]
 
+    // 1. If session is already unlocked or free, open directly
     if (isUnlocked) {
       navigate(`/content/${encodeURIComponent(category.id)}/${item.id}`)
       return
     }
 
-    if (!user) {
-      setInsufficientModal({ notLoggedIn: true, item })
-      return
-    }
-
+    // 2. Pure credit/token check: Try spending tokens directly (No login forced)
     const result = await spendTokens(item.tokenCost, `Unlocked: ${item.title}`)
+    
+    // 3. If not enough credits, show "Not enough credits. Please recharge now." modal
     if (!result.success) {
       setInsufficientModal({ item })
       return
     }
 
+    // 4. Token deduction succeeded: Mark as unlocked and navigate to audio player
     setUnlocked(prev => {
       const updated = { ...prev, [item.id]: true }
       sessionStorage.setItem(`unlocked_${id}`, JSON.stringify(updated))
@@ -248,28 +249,24 @@ export default function CategoryDetailPage() {
 
       </main>
 
-      {/* Insufficient Tokens / Login Modal */}
+      {/* Insufficient Tokens / Recharge Modal */}
       <Modal
         isOpen={!!insufficientModal}
         onClose={() => setInsufficientModal(null)}
-        title={insufficientModal?.notLoggedIn ? 'Sign In Required' : 'Unlock Session'}
+        title="Not Enough Credits"
       >
         {insufficientModal && (
           <div className="flex flex-col gap-5 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-sage-light border border-border-sage text-sage flex items-center justify-center mx-auto text-2xl shadow-soft-sm">
-              {insufficientModal.notLoggedIn ? '🔐' : '🪙'}
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto text-2xl shadow-soft-sm">
+              🪙
             </div>
             
             <div>
               <h3 className="text-base font-semibold text-text-primary mb-1">
-                {insufficientModal.notLoggedIn
-                  ? 'Sign in to unlock this sanctuary track'
-                  : `Unlock "${insufficientModal.item.title}"`}
+                Not enough credits. Please recharge now.
               </h3>
               <p className="text-xs text-text-secondary leading-relaxed">
-                {insufficientModal.notLoggedIn
-                  ? 'Create an account to manage your tokens and unlock lifetime access to all guided hypnotherapy sessions.'
-                  : `This session requires ${insufficientModal.item.tokenCost} tokens. Top up your wallet to continue.`}
+                This session requires <span className="font-semibold text-text-primary">{insufficientModal.item?.tokenCost} tokens</span>. Your current balance is <span className="font-semibold font-mono text-sage">{balance} tokens</span>.
               </p>
             </div>
 
@@ -277,11 +274,11 @@ export default function CategoryDetailPage() {
               <button
                 onClick={() => {
                   setInsufficientModal(null)
-                  navigate(insufficientModal.notLoggedIn ? '/login' : '/wallet')
+                  navigate('/wallet')
                 }}
                 className="w-full py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-[0.98] transition-all shadow-soft"
               >
-                {insufficientModal.notLoggedIn ? 'Sign In / Register' : 'Add Tokens'}
+                Go to Wallet / Recharge
               </button>
               <button
                 onClick={() => setInsufficientModal(null)}
