@@ -21,7 +21,7 @@ export default function AuthPage() {
   const loginByPhone = useAuthStore(s => s.loginByPhone)
   const initWallet = useWalletStore(s => s.initWallet)
 
-  const [mode, setMode] = useState('signin')
+  const [mode, setMode] = useState(location.state?.mode || 'signin')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [forgotOpen, setForgotOpen] = useState(false)

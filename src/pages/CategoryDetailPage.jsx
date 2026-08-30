@@ -274,11 +274,15 @@ export default function CategoryDetailPage() {
               <button
                 onClick={() => {
                   setInsufficientModal(null)
-                  navigate('/wallet')
+                  if (!user) {
+                    navigate('/login', { state: { redirectTo: '/wallet', mode: 'signup' } })
+                  } else {
+                    navigate('/wallet')
+                  }
                 }}
                 className="w-full py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-[0.98] transition-all shadow-soft"
               >
-                Go to Wallet / Recharge
+                {user ? 'Go to Wallet / Recharge' : 'Sign Up & Recharge'}
               </button>
               <button
                 onClick={() => setInsufficientModal(null)}

@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/login" element={isAuthenticated ? <Navigate to="/home" replace /> : <AuthPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/wallet" element={<WalletPage />} />
+        <Route path="/wallet" element={<ProtectedRoute><WalletPage /></ProtectedRoute>} />
         <Route path="/category/:id" element={<CategoryDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/content/:categoryId/:itemId" element={<ContentPage />} />

@@ -9,15 +9,24 @@ export default function ProtectedRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
-        <p className="text-white">Loading...</p>
+      <div className="min-h-screen bg-bg-base flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-sage border-t-transparent animate-spin" />
+          <p className="text-xs text-text-secondary">Loading your sanctuary...</p>
+        </div>
       </div>
     )
   }
 
   if (!isAuthenticated) {
-    // Save the page they were trying to visit
-   return <Navigate to="/login" state={{ redirectTo: location.pathname }} replace />
+    // Store the page they tried to visit AND pre-select the Sign Up tab
+    return (
+      <Navigate
+        to="/login"
+        state={{ redirectTo: location.pathname, mode: 'signup' }}
+        replace
+      />
+    )
   }
 
   return children
