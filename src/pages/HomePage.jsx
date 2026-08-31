@@ -206,7 +206,7 @@ export default function HomePage() {
                     ध्यान और गहन विश्राम — अशांत विचारों को शांत करने की गाइडेड थेरेपी
                   </p>
                   <p className="text-[11px] text-white/70 mt-1 hidden sm:block">
-                    Full audio session • 432Hz Sound Healing • Available in Hindi & English
+                    Full audio session • 432Hz Sound Healing • Available in Hindi
                   </p>
                 </div>
 

@@ -179,9 +179,7 @@ export default function CategoryDetailPage() {
             <span className="text-[10px] px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary font-medium">
               ⚡ 432Hz Sound Healing
             </span>
-            <span className="text-[10px] px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary font-medium">
-              🌐 Hindi + English
-            </span>
+
           </div>
         </div>
 
