@@ -32,6 +32,28 @@ export default {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
           muted: 'var(--text-muted)',
+        },
+        bg: {
+          base: 'var(--bg-base)',
+          surface: 'var(--bg-surface)',
+          elevated: 'var(--bg-elevated)',
+          subtle: 'var(--bg-subtle)',
+        },
+        border: {
+          subtle: 'var(--border-subtle)',
+          sage: 'var(--border-sage)',
+          champagne: 'var(--border-champagne)',
+        },
+        sage: {
+          DEFAULT: 'var(--sage-primary)',
+          hover: 'var(--sage-hover)',
+          light: 'var(--sage-light)',
+          surface: 'var(--sage-surface)',
+        },
+        champagne: {
+          DEFAULT: 'var(--champagne-primary)',
+          light: 'var(--champagne-light)',
+          surface: 'var(--champagne-surface)',
         }
       },
       fontFamily: {

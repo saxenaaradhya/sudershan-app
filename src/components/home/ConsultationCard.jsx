@@ -1,43 +1,70 @@
 import React from 'react'
-import { Calendar, Phone, Globe, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
+import { Phone, Globe, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
 
 export default function ConsultationCard() {
   return (
-    <div className="relative rounded-3xl overflow-hidden border border-[#D8B168]/20 bg-gradient-to-br from-[#131916] via-[#101512] to-[#0B0E0D] p-6 sm:p-8 my-8 shadow-2xl shadow-black/40">
+    <div className="relative rounded-3xl overflow-hidden bg-bg-surface border border-border-sage p-5 sm:p-7 shadow-soft-lg transition-all">
       
-      {/* Background Decorative Ambient Glow */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-[#D8B168]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      {/* Ambient sage glow — top-right */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-sage/8 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      
+      {/* Ambient champagne glow — bottom-left */}
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-champagne/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
-        
-        {/* Left text column */}
-        <div className="flex-1 max-w-xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D8B168]/10 border border-[#D8B168]/20 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#D8B168]" />
-            <span className="text-[11px] font-semibold text-[#D8B168] uppercase tracking-wider">
-              Free 1-on-1 Consultation
+      <div className="relative z-10 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-5 sm:gap-7">
+
+        {/* Left / Top column — badge → photo → text (vertical on mobile, side column on sm+) */}
+        <div className="flex flex-col items-center shrink-0">
+
+          {/* 1. Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-light border border-border-sage mb-4 shadow-soft-sm self-center">
+            <Sparkles className="w-3.5 h-3.5 text-sage" />
+            <span className="text-[10px] sm:text-[11px] font-semibold text-sage uppercase tracking-wider">
+              Personalized Guidance
             </span>
           </div>
 
-          <h2 className="font-serif text-2xl sm:text-3xl text-[#F5F5F0] font-normal leading-snug mb-1">
-            Seedhi Baat with <span className="font-semibold text-[#D8B168]">Mr. SANDEEP</span>
+          {/* 2. Profile Photo (above title on mobile, left column on desktop) */}
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-border-sage via-bg-elevated to-border-champagne shadow-soft-lg">
+            <div className="w-full h-full rounded-full overflow-hidden bg-bg-surface flex items-center justify-center">
+              <img
+                src="/images/banner/my.png"
+                alt="Mr. Sandeep - Grandmaster Hypnotherapist"
+                className="w-full h-full object-cover object-top"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = '/images/free/meditation.jpg'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right / Bottom column — title + text + buttons */}
+        <div className="flex-1 min-w-0">
+
+          {/* 3. Title */}
+          <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-text-primary font-normal leading-snug mb-1">
+            Seedhi Baat with <span className="font-semibold text-sage">Mr. SANDEEP</span>
           </h2>
           
-          <p className="text-xs sm:text-sm text-[#D8B168]/90 font-medium mb-3">
+          {/* 4. Designation subtitle */}
+          <p className="text-xs sm:text-sm text-text-secondary font-medium mb-2.5">
             Grandmaster Hypnotherapist & REIKI Healer
           </p>
 
-          <p className="text-xs sm:text-sm text-[#A2ACA6] leading-relaxed mb-6">
-            Simple, personal, and reassuring guidance to release subconscious barriers, calm anxiety, and move forward with absolute clarity.
+          {/* 5. Description */}
+          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5">
+            Private, compassionate 1-on-1 guidance designed to help you dissolve subconscious blocks, soothe chronic anxiety, and restore inner equilibrium.
           </p>
 
-          {/* Action buttons & Trust badges */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+          {/* 6. Action buttons */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-5">
             <a
               href="https://wa.me/919792390777?text=Hi%2C%20I%20want%20to%20book%20a%20free%20consultation%20session."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#D8B168] text-[#0B0E0D] font-bold text-xs sm:text-sm hover:bg-[#E5C27E] active:scale-95 transition-all shadow-lg shadow-[#D8B168]/15"
+              className="inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs sm:text-sm active:scale-[0.98] transition-all shadow-soft"
             >
               <MessageCircle className="w-4 h-4" />
               Book Free Session on WhatsApp
@@ -45,40 +72,28 @@ export default function ConsultationCard() {
 
             <a
               href="tel:+919792390777"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-[#1C2621] border border-[#26332C] text-[#F5F5F0] font-semibold text-xs sm:text-sm hover:border-[#D8B168]/40 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2.5 sm:py-3 rounded-full bg-bg-elevated border border-border-subtle text-text-primary font-medium text-xs sm:text-sm hover:border-border-sage transition-all shadow-soft-sm"
             >
-              <Phone className="w-4 h-4 text-[#D8B168]" />
+              <Phone className="w-4 h-4 text-sage" />
               9792390777
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[11px] text-[#A2ACA6] pt-4 border-t border-[#1E2722]">
+          {/* 7. Trust footer */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-y-2 gap-x-6 text-[11px] text-text-secondary pt-3.5 border-t border-border-subtle">
             <a 
               href="https://www.sudershanhypnotherapy.site" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="inline-flex items-center gap-1.5 hover:text-[#D8B168] transition-colors"
+              className="inline-flex items-center gap-1.5 hover:text-sage transition-colors"
             >
-              <Globe className="w-3.5 h-3.5 text-[#D8B168]" />
+              <Globe className="w-3.5 h-3.5 text-sage" />
               sudershanhypnotherapy.site
             </a>
             <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#D8B168]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-sage" />
               Confidential & 100% Private
             </span>
-          </div>
-        </div>
-
-        {/* Right photo column */}
-        <div className="shrink-0 relative">
-          <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full p-1 bg-gradient-to-tr from-[#D8B168] via-transparent to-[#D8B168]/40 shadow-xl shadow-black/50">
-            <div className="w-full h-full rounded-full overflow-hidden bg-[#131916]">
-              <img
-                src="/images/banner/my.png"
-                alt="Mr. Sandeep"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
           </div>
         </div>
 
@@ -86,4 +101,3 @@ export default function ConsultationCard() {
     </div>
   )
 }
-

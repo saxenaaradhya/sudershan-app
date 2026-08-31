@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <>
       {/* Solid, non-transparent luxury header */}
-      <header className="fixed top-0 left-0 right-0 z-40 bg-bg-surface border-b border-border-subtle shadow-soft-sm transition-colors duration-200">
+      <header className="fixed top-0 left-0 right-0 z-40 bg-bg-surface border-b border-border-sage/40 shadow-soft transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
           {/* Left: Brand Identity (Prominent SUDERSHAN Title) */}

@@ -31,7 +31,7 @@ export default function Footer() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-bg-surface border-t border-border-subtle shadow-soft-lg transition-colors duration-200 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-bg-surface border-t border-border-sage/40 shadow-soft-lg transition-colors duration-200 md:hidden">
       <div className="max-w-md mx-auto px-4 h-16 flex items-center justify-around">
         {navItems.map((item) => {
           const active = isActive(item.path)
