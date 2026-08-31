@@ -297,7 +297,7 @@ export default function ProfilePage() {
           <div className="rounded-3xl bg-bg-surface border border-border-subtle overflow-hidden shadow-soft">
             <ActionRow
               icon={<span className="text-base">📲</span>}
-              label="Add Sanctuary to Home Screen"
+              label="Add Sudershan to Home Screen"
               subtitle="Install standalone mobile web app"
               onClick={handleInstall}
             />

@@ -236,32 +236,6 @@ export default function MeditationSessionPage() {
           </p>
         </div>
 
-        {/* Language Switcher */}
-        <div className="flex justify-center mb-5">
-          <div className="inline-flex p-1 rounded-full bg-bg-surface border border-border-subtle shadow-soft-sm">
-            <button
-              onClick={() => selectLanguage('hi')}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                language === 'hi'
-                  ? 'bg-sage text-white font-semibold shadow-soft-sm'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              हिंदी (Hindi)
-            </button>
-            <button
-              onClick={() => selectLanguage('en')}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                language === 'en'
-                  ? 'bg-sage text-white font-semibold shadow-soft-sm'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              English
-            </button>
-          </div>
-        </div>
-
         {/* Progress Bar */}
         <div className="space-y-1.5 mb-5">
           <input

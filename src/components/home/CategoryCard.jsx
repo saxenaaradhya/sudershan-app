@@ -23,8 +23,8 @@ export default function CategoryCard({ category, onClick }) {
         />
       )}
 
-      {/* Multi-layered dark gradient scrim for crystal clear readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E0D] via-[#0B0E0D]/65 to-transparent" />
+      {/* Bottom dark gradient scrim for text readability (leaves top half of image completely clear) */}
+      <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-[#0B0E0D] via-[#0B0E0D]/80 to-transparent" />
 
       {/* Top badges */}
       <div className="absolute top-3 inset-x-3 flex items-center justify-between z-10">
