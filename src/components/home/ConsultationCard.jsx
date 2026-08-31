@@ -45,7 +45,7 @@ export default function ConsultationCard() {
 
           {/* 3. Title */}
           <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-text-primary font-normal leading-snug mb-1">
-            Seedhi Baat with <span className="font-semibold text-sage">Mr. SANDEEP</span>
+            Seedhi Baat with   <span className="font-semibold text-sage">Mr. SANDEEP</span>
           </h2>
           
           {/* 4. Designation subtitle */}

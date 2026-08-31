@@ -147,7 +147,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <main className="max-w-md md:max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+      <main className="max-w-full md:max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-28">
 
         {/* Back Navigation */}
         <button

@@ -11,7 +11,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-bg-base text-text-primary transition-colors duration-300">
       <Navbar />
       
-      <main className="max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+      <main className="max-w-full md:max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-28">
         <button
           onClick={() => navigate('/home')}
           className="inline-flex items-center gap-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors mb-6"

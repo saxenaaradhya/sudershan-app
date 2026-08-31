@@ -99,7 +99,7 @@ export default function HomePage() {
       />
 
       {/* MAIN CONTAINER (390px mobile-first width) */}
-      <main className="max-w-md md:max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-28">
+      <main className="max-w-full md:max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-28">
 
         {/* 2. SEEDHI BAAT SECTION (Moved to top) */}
         <section className="mb-8">
