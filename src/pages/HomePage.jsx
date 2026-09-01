@@ -5,6 +5,7 @@ import {
   HeartPulse, Activity, Heart, Coins, User, Sun, 
   RotateCcw, Sparkle
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import Navbar from '../components/layout/Navbar.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import CategoryCard from '../components/home/CategoryCard.jsx'
@@ -31,6 +32,7 @@ export default function HomePage() {
   const navigate = useNavigate()
   const user = useAuthStore(s => s.user)
   const addTokens = useWalletStore(s => s.addTokens)
+  const { t } = useTranslation()
 
   const [query, setQuery] = useState('')
   const [activeMood, setActiveMood] = useState('all')
@@ -111,15 +113,15 @@ export default function HomePage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-light border border-border-sage mb-3 shadow-soft-sm">
             <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />
             <span className="text-xs font-semibold text-sage uppercase tracking-wider">
-              Mind & Clinical Sanctuary
+              {t('home.badge')}
             </span>
           </div>
 
           <h1 className="font-serif text-3xl sm:text-4xl text-text-primary font-normal tracking-tight">
-            Embrace Your <span className="text-sage font-medium">Inner Peace</span>
+            {t('home.heading')} <span className="text-sage font-medium">{t('home.heading_accent')}</span>
           </h1>
           <p className="text-xs sm:text-sm text-text-secondary mt-2 leading-relaxed">
-            Guided clinical hypnotherapy and meditative soundscapes to dissolve anxiety, restore sleep, and realign subconscious healing.
+            {t('home.subtitle')}
           </p>
         </section>
 
@@ -131,7 +133,7 @@ export default function HomePage() {
               type="text"
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Search healing journeys, sleep, anxiety..."
+              placeholder={t('home.search_placeholder')}
               className="w-full pl-11 pr-4 py-3 bg-bg-surface border border-border-subtle rounded-full text-xs sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-sage focus:ring-2 focus:ring-sage/15 transition-all duration-200 shadow-soft-sm"
             />
           </div>
@@ -158,11 +160,11 @@ export default function HomePage() {
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-sage" />
               <h2 className="text-sm sm:text-base font-semibold text-text-primary">
-                Free Meditation Sanctuary
+                {t('home.free_section_title')}
               </h2>
             </div>
             <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-champagne-surface border border-border-champagne text-text-primary font-mono">
-              0 Tokens • Free Forever
+              {t('home.free_badge')}
             </span>
           </div>
 
@@ -181,32 +183,32 @@ export default function HomePage() {
               {/* Top Badges */}
               <div className="absolute top-4 left-4 flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-white/95 dark:bg-black/80 backdrop-blur-md text-text-primary font-bold text-[10px] uppercase tracking-wider shadow-soft-sm">
-                  ✨ 100% Free Session
-                </span>
-                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-sage/90 backdrop-blur-md text-white font-medium text-[10px] uppercase tracking-wider">
-                  Overthinking Control
-                </span>
+                    {t('home.free_spotlight_badge')}
+                  </span>
+                  <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-sage/90 backdrop-blur-md text-white font-medium text-[10px] uppercase tracking-wider">
+                    {t('home.free_spotlight_tag')}
+                  </span>
               </div>
 
               <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[11px] text-white">
                 <span className="text-champagne font-bold font-mono">240+</span>
-                <span className="text-white/80">Seekers Healed</span>
+                <span className="text-white/80">{t('home.seekers_healed')}</span>
               </div>
 
               {/* Bottom Details & Play FAB */}
               <div className="absolute bottom-5 inset-x-5 flex items-end justify-between gap-4">
                 <div className="max-w-[78%]">
                   <span className="text-[10px] uppercase tracking-widest text-champagne font-bold font-mono block mb-1">
-                    Guided Clinical Hypnotherapy
+                    {t('home.guided_tag')}
                   </span>
                   <h3 className="font-serif text-lg sm:text-2xl font-medium text-white leading-snug group-hover:text-champagne transition-colors">
-                    Meditation & Deep Relaxation
+                    {t('home.session_title')}
                   </h3>
                   <p className="text-xs sm:text-sm text-white/90 font-hindi mt-1 line-clamp-1">
-                    ध्यान और गहन विश्राम — अशांत विचारों को शांत करने की गाइडेड थेरेपी
+                    {t('home.session_subtitle')}
                   </p>
                   <p className="text-[11px] text-white/70 mt-1 hidden sm:block">
-                    Full audio session • 432Hz Sound Healing • Available in Hindi
+                    {t('home.session_meta')}
                   </p>
                 </div>
 
@@ -230,7 +232,7 @@ export default function HomePage() {
                   <img src={lastPlayed.image} alt={lastPlayed.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] uppercase tracking-wider text-sage font-bold">Resume Last Track</p>
+                  <p className="text-[10px] uppercase tracking-wider text-sage font-bold">{t('home.resume_label')}</p>
                   <p className="text-xs font-semibold text-text-primary truncate">{lastPlayed.title}</p>
                 </div>
               </div>
@@ -254,17 +256,17 @@ export default function HomePage() {
                 </div>
                 <div>
                   <div className="flex items-center justify-center sm:justify-start gap-2">
-                    <span className="text-xs font-bold text-sage uppercase tracking-wider">Daily Token Bonus</span>
+                    <span className="text-xs font-bold text-sage uppercase tracking-wider">{t('home.daily_bonus_label')}</span>
                     <span className="text-xs px-2.5 py-0.5 rounded-full bg-sage-light text-sage font-mono font-bold">+2 🪙</span>
                   </div>
-                  <p className="text-xs text-text-secondary mt-0.5">Collect your daily sanctuary energy bonus to unlock sessions.</p>
+                  <p className="text-xs text-text-secondary mt-0.5">{t('home.daily_bonus_desc')}</p>
                 </div>
               </div>
               <button
                 onClick={claimDailyReward}
                 className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs active:scale-95 transition-all shadow-soft"
               >
-                Claim +2 Tokens
+                {t('home.claim_tokens')}
               </button>
             </div>
           </section>
@@ -273,15 +275,15 @@ export default function HomePage() {
         {/* 9. EXPLORE CATEGORIES */}
         <section id="categories-section" className="mb-10">
           <SectionHeader
-            title="Healing Journeys"
-            subtitle="Explore guided sessions categorized by therapeutic need"
+            title={t('home.categories_title')}
+            subtitle={t('home.categories_subtitle')}
             count={`${filtered.length} Categories`}
           />
 
           {filtered.length === 0 ? (
             <EmptyState
-              title="No therapy categories found"
-              message="Try selecting another filter or searching for anxiety, sleep, pain, or meditation."
+              title={t('home.no_categories_title')}
+              message={t('home.no_categories_msg')}
             />
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">

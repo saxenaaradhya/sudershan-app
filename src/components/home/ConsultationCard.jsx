@@ -1,7 +1,9 @@
 import React from 'react'
 import { Phone, Globe, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function ConsultationCard() {
+  const { t } = useTranslation()
   return (
     <div className="relative rounded-3xl overflow-hidden bg-bg-surface border border-border-sage p-5 sm:p-7 shadow-soft-lg transition-all">
       
@@ -20,7 +22,7 @@ export default function ConsultationCard() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-light border border-border-sage mb-4 shadow-soft-sm self-center">
             <Sparkles className="w-3.5 h-3.5 text-sage" />
             <span className="text-[10px] sm:text-[11px] font-semibold text-sage uppercase tracking-wider">
-              Personalized Guidance
+              {t('seedhi.badge')}
             </span>
           </div>
 
@@ -45,17 +47,17 @@ export default function ConsultationCard() {
 
           {/* 3. Title */}
           <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-text-primary font-normal leading-snug mb-1">
-            Seedhi Baat with   <span className="font-semibold text-sage">Mr. SANDEEP</span>
+            {t('seedhi.title')} <span className="font-semibold text-sage">{t('seedhi.name')}</span>
           </h2>
           
           {/* 4. Designation subtitle */}
           <p className="text-xs sm:text-sm text-text-secondary font-medium mb-2.5">
-            Grandmaster Hypnotherapist & REIKI Healer
+            {t('seedhi.designation')}
           </p>
 
           {/* 5. Description */}
           <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5">
-            Private, compassionate 1-on-1 guidance designed to help you dissolve subconscious blocks, soothe chronic anxiety, and restore inner equilibrium.
+            {t('seedhi.description')}
           </p>
 
           {/* 6. Action buttons */}
@@ -67,7 +69,7 @@ export default function ConsultationCard() {
               className="inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-full bg-sage hover:bg-sage-hover text-white font-semibold text-xs sm:text-sm active:scale-[0.98] transition-all shadow-soft"
             >
               <MessageCircle className="w-4 h-4" />
-              Book Free Session on WhatsApp
+              {t('seedhi.book_whatsapp')}
             </a>
 
             <a
@@ -92,7 +94,7 @@ export default function ConsultationCard() {
             </a>
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-sage" />
-              Confidential & 100% Private
+              {t('seedhi.confidential')}
             </span>
           </div>
         </div>

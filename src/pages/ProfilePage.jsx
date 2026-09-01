@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { 
   Calendar, Coins, Edit2, Lock, LogOut, Save, X, ArrowLeft, 
   Sun, Moon, Phone, Gift, Share2, Sparkles, Copy, Check, 
-  ShieldCheck, HelpCircle, FileText, ChevronRight 
+  ShieldCheck, HelpCircle, FileText, ChevronRight, Languages
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js'
 import { useWalletStore } from '../store/walletStore.js'
 import { useThemeStore } from '../store/themeStore.js'
+import { useTranslation } from 'react-i18next'
+import i18n from '../i18n/index.js'
 import { validateFullName, validatePassword, validateConfirmPassword } from '../utils/validators.js'
 import Navbar from '../components/layout/Navbar.jsx'
 import Input from '../components/ui/Input.jsx'
@@ -41,6 +43,15 @@ export default function ProfilePage() {
   const [toast, setToast] = useState(null)
   const { theme, toggleTheme } = useThemeStore()
   const [installPrompt, setInstallPrompt] = useState(null)
+  const { t } = useTranslation()
+  // Track current language reactively so the UI updates instantly on switch
+  const [currentLang, setCurrentLang] = useState(i18n.language)
+
+  function switchLanguage(lang) {
+    i18n.changeLanguage(lang)
+    localStorage.setItem('preferredLanguage', lang)
+    setCurrentLang(lang)
+  }
 
   useEffect(() => {
     const handler = (e) => {
@@ -319,6 +330,46 @@ export default function ProfilePage() {
               subtitle={theme === 'dark' ? 'Airy sage canvas' : 'Deep nocturnal forest'}
               onClick={toggleTheme}
             />
+
+            {/* Language Switcher Row — custom row matching ActionRow style */}
+            <div className="w-full flex items-center justify-between px-5 py-3.5 border-b border-border-subtle">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <span className="shrink-0">
+                  <Languages className="w-4 h-4 text-sage" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-text-primary">
+                    {currentLang === 'hi' ? 'भाषा / Language' : 'Language / भाषा'}
+                  </p>
+                  <p className="text-[11px] text-text-secondary">
+                    {currentLang === 'hi' ? 'वेबसाइट की भाषा बदलें' : 'Switch the website language'}
+                  </p>
+                </div>
+              </div>
+              {/* Pill toggle — EN / हि */}
+              <div className="flex items-center gap-1 p-0.5 rounded-full bg-bg-elevated border border-border-subtle shrink-0 ml-3">
+                <button
+                  onClick={() => switchLanguage('en')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    currentLang === 'en'
+                      ? 'bg-sage text-white shadow-soft-sm'
+                      : 'text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => switchLanguage('hi')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 font-hindi ${
+                    currentLang === 'hi'
+                      ? 'bg-sage text-white shadow-soft-sm'
+                      : 'text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  हि
+                </button>
+              </div>
+            </div>
             <ActionRow
               icon={<HelpCircle className="w-4 h-4 text-sage" />}
               label="Seeker Support & Guidance"

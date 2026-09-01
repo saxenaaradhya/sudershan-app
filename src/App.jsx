@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './store/authStore.js'
 import { useWalletStore } from './store/walletStore.js'
@@ -11,11 +11,17 @@ import CategoryDetailPage from './pages/CategoryDetailPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import ContentPage from './pages/ContentPage.jsx'
 import MeditationSessionPage from './pages/MeditationSessionPage.jsx'
+import LanguageSelectPage from './pages/LanguageSelectPage.jsx'
 
 export default function App() {
   const user = useAuthStore(s => s.user)
   const isAuthenticated = useAuthStore(s => s.isAuthenticated)
   const initWallet = useWalletStore(s => s.initWallet)
+
+  // Check if user has already chosen a language
+  const [langReady, setLangReady] = useState(
+    () => !!localStorage.getItem('preferredLanguage')
+  )
 
   useEffect(() => {
     useAuthStore.getState().init()
@@ -26,6 +32,15 @@ export default function App() {
       initWallet(user.id)
     }
   }, [isAuthenticated, user?.id, initWallet])
+
+  // Show language picker on first visit only
+  if (!langReady) {
+    return (
+      <LanguageSelectPage
+        onSelect={() => setLangReady(true)}
+      />
+    )
+  }
 
   return (
     <BrowserRouter>

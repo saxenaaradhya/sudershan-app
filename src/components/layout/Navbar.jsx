@@ -4,6 +4,7 @@ import { Coins, User, Menu, Sparkles, Sun, Moon } from 'lucide-react'
 import { useWalletStore } from '../../store/walletStore.js'
 import { useAuthStore } from '../../store/authStore.js'
 import { useThemeStore } from '../../store/themeStore.js'
+import { useTranslation } from 'react-i18next'
 import Sidebar from './Sidebar.jsx'
 
 export default function Navbar() {
@@ -13,6 +14,7 @@ export default function Navbar() {
   const user = useAuthStore(s => s.user)
   const { theme, toggleTheme } = useThemeStore()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { t } = useTranslation()
 
   const isActive = (path) => location.pathname === path
 
@@ -35,7 +37,7 @@ export default function Navbar() {
                 SUDERSHAN
               </span>
               <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-text-secondary font-medium mt-0.5">
-                Clinical Hypnotherapy
+                {t('nav.tagline')}
               </span>
             </div>
           </div>
@@ -43,10 +45,10 @@ export default function Navbar() {
           {/* Center: Desktop Navigation Pills (Calmara/Sarina Style) */}
           <nav className="hidden md:flex items-center gap-1 bg-bg-elevated border border-border-subtle p-1 rounded-full shadow-soft-sm">
             {[
-              { path: '/home', label: 'Sanctuary' },
-              { path: '/wallet', label: 'Wallet & Tokens' },
-              { path: '/profile', label: 'My Journey' },
-              { path: '/contact', label: 'Guidance' },
+              { path: '/home', label: t('nav.sanctuary') },
+              { path: '/wallet', label: t('nav.wallet') },
+              { path: '/profile', label: t('nav.journey') },
+              { path: '/contact', label: t('nav.guidance') },
             ].map(item => (
               <button
                 key={item.path}
@@ -70,7 +72,7 @@ export default function Navbar() {
               onClick={toggleTheme}
               className="p-2 rounded-full bg-bg-elevated border border-border-subtle text-text-secondary hover:text-text-primary hover:border-border-sage transition-all duration-200 shadow-soft-sm"
               aria-label="Toggle Theme"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              title={theme === 'dark' ? t('nav.theme_light') : t('nav.theme_dark')}
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-champagne" />
@@ -88,7 +90,7 @@ export default function Navbar() {
             >
               <Coins className="w-3.5 h-3.5 text-champagne" />
               <span className="font-mono">{balance}</span>
-              <span className="hidden sm:inline font-normal text-text-secondary">Tokens</span>
+              <span className="hidden sm:inline font-normal text-text-secondary">{t('nav.tokens')}</span>
             </button>
 
             {/* Profile Avatar */}
